@@ -1,11 +1,19 @@
-from fastapi import APIRouter
-from src.core.config import UNIFIED_CONFIGS, CRAWL_STATUS
+import os
+from fastapi import APIRouter, Request
+from fastapi.responses import HTMLResponse, JSONResponse
+from src.core.config import UNIFIED_CONFIGS, CRAWL_STATUS, BASE_DIR
 from src.core.database import get_db_conn
 
 router = APIRouter(tags=["Health"])
 
 @router.get("/")
-async def root_info():
+async def root_info(request: Request):
+    accept = request.headers.get("accept", "")
+    if "text/html" in accept:
+        index_file = os.path.join(BASE_DIR, "index.html")
+        if os.path.exists(index_file):
+            with open(index_file, "r", encoding="utf-8") as f:
+                return HTMLResponse(content=f.read())
     return {
         "service": "Hemchand Yadav Vishwavidyalaya Live Result API",
         "version": "2.0.0",
