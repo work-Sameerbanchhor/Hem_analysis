@@ -1,10 +1,1 @@
----
-title: HYU Source
-emoji: 🎓
-colorFrom: red
-colorTo: gray
-sdk: docker
-pinned: false
----
-
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+hemchand yadav university results system , it is a analyisis sytem very use full
