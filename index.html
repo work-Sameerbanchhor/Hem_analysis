@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +7,61 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Inline script to prevent theme flash on load
+    (function() {
+      const saved = localStorage.getItem('hyu_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
   <style>
     :root {
       --bg: #000000;
+      --header-bg: #050505;
       --card-bg: #0a0a0a;
       --card-border: #262626;
       --border-hover: #555555;
+      --header-border: #262626;
       --text: #ffffff;
       --text-muted: #888888;
+      --input-bg: #000000;
+      --input-placeholder: #555555;
+      --btn-bg: #ffffff;
+      --btn-text: #000000;
+      --btn-hover-bg: #cccccc;
+      --brand-icon-bg: #ffffff;
+      --brand-icon-text: #000000;
+      --card-header-bg: #050505;
+      --badge-border: #ffffff;
+      --badge-text: #ffffff;
+      --summary-bg: #050505;
+      --spinner-bg: #222222;
+      --spinner-top: #ffffff;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --header-bg: #f8f8f8;
+      --card-bg: #ffffff;
+      --card-border: #dcdcdc;
+      --border-hover: #888888;
+      --header-border: #dcdcdc;
+      --text: #000000;
+      --text-muted: #666666;
+      --input-bg: #ffffff;
+      --input-placeholder: #999999;
+      --btn-bg: #000000;
+      --btn-text: #ffffff;
+      --btn-hover-bg: #333333;
+      --brand-icon-bg: #000000;
+      --brand-icon-text: #ffffff;
+      --card-header-bg: #f4f4f4;
+      --badge-border: #000000;
+      --badge-text: #000000;
+      --summary-bg: #f4f4f4;
+      --spinner-bg: #e0e0e0;
+      --spinner-top: #000000;
     }
 
     * {
@@ -33,12 +79,14 @@
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
+      transition: background-color 0.15s, color 0.15s;
     }
 
     header {
-      background: #050505;
-      border-bottom: 1px solid var(--card-border);
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--header-border);
       padding: 1rem 1.5rem;
+      transition: background-color 0.15s, border-color 0.15s;
     }
 
     .header-container {
@@ -58,13 +106,14 @@
     }
 
     .brand-icon {
-      border: 1px solid #ffffff;
+      border: 1px solid var(--text);
       padding: 4px 8px;
       font-size: 0.85rem;
       font-weight: 700;
       letter-spacing: 0.05em;
-      background: #ffffff;
-      color: #000000;
+      background: var(--brand-icon-bg);
+      color: var(--brand-icon-text);
+      transition: background-color 0.15s, color 0.15s;
     }
 
     .brand-text h1 {
@@ -80,6 +129,29 @@
       letter-spacing: 0.04em;
     }
 
+    .theme-toggle-btn {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      padding: 0.45rem 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--text);
+      background: var(--btn-bg);
+      color: var(--btn-text);
+    }
+
     main {
       max-width: 1000px;
       width: 100%;
@@ -93,6 +165,7 @@
       border: 1px solid var(--card-border);
       padding: 1.75rem;
       margin-bottom: 2rem;
+      transition: background-color 0.15s, border-color 0.15s;
     }
 
     .search-title {
@@ -125,28 +198,28 @@
     .search-input {
       flex: 1;
       min-width: 260px;
-      background: #000000;
+      background: var(--input-bg);
       border: 1px solid var(--card-border);
       padding: 0.75rem 1rem;
-      color: #ffffff;
+      color: var(--text);
       font-family: var(--font-mono);
       font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, background-color 0.15s, color 0.15s;
     }
 
     .search-input:focus {
-      border-color: #ffffff;
+      border-color: var(--text);
     }
 
     .search-input::placeholder {
-      color: #555555;
+      color: var(--input-placeholder);
     }
 
     .search-btn {
-      background: #ffffff;
-      color: #000000;
-      border: 1px solid #ffffff;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: 1px solid var(--btn-bg);
       padding: 0.75rem 1.5rem;
       font-family: var(--font-mono);
       font-size: 0.85rem;
@@ -158,12 +231,12 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      transition: background 0.15s, color 0.15s;
+      transition: background-color 0.15s, color 0.15s;
     }
 
     .search-btn:hover {
-      background: #cccccc;
-      border-color: #cccccc;
+      background: var(--btn-hover-bg);
+      border-color: var(--btn-hover-bg);
     }
 
     .search-btn:active {
@@ -197,9 +270,8 @@
     }
 
     .mode-radios input[type="radio"] {
-      accent-color: #ffffff;
+      accent-color: var(--text);
     }
-
 
     /* Results section */
     .results-container {
@@ -211,12 +283,13 @@
     .results-summary {
       padding: 0.75rem 1.25rem;
       border: 1px solid var(--card-border);
-      background: #050505;
+      background: var(--summary-bg);
       font-size: 0.8rem;
-      color: #ffffff;
+      color: var(--text);
       letter-spacing: 0.05em;
       text-transform: uppercase;
       font-weight: 700;
+      transition: background-color 0.15s, border-color 0.15s;
     }
 
     .student-group {
@@ -242,18 +315,19 @@
       gap: 1.5rem;
       align-items: flex-start;
       flex-wrap: wrap;
+      transition: background-color 0.15s, border-color 0.15s;
     }
 
     .student-photo {
       width: 85px;
       height: 105px;
-      background: #000000;
+      background: var(--bg);
       border: 1px solid var(--card-border);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      color: #555555;
+      color: var(--text-muted);
       font-size: 0.7rem;
       flex-shrink: 0;
       letter-spacing: 0.05em;
@@ -289,7 +363,7 @@
     .info-val {
       font-size: 0.85rem;
       font-weight: 600;
-      color: #ffffff;
+      color: var(--text);
     }
 
     .exam-accordion {
@@ -302,7 +376,7 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       overflow: hidden;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, background-color 0.15s;
     }
 
     .exam-card:hover {
@@ -316,7 +390,8 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
-      background: #050505;
+      background: var(--card-header-bg);
+      transition: background-color 0.15s;
     }
 
     .exam-title-box {
@@ -328,7 +403,7 @@
     .exam-title {
       font-size: 0.95rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text);
       letter-spacing: 0.02em;
     }
 
@@ -343,27 +418,27 @@
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      border: 1px solid #ffffff;
-      color: #ffffff;
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
       background: transparent;
     }
 
     .badge-fail {
       border-style: dashed;
-      color: #aaaaaa;
-      border-color: #888888;
+      color: var(--text-muted);
+      border-color: var(--text-muted);
     }
 
     .badge-supp {
       border-style: dotted;
-      color: #cccccc;
-      border-color: #aaaaaa;
+      color: var(--text-muted);
+      border-color: var(--text-muted);
     }
 
     .btn-open-tab {
-      background: #ffffff;
-      color: #000000;
-      border: 1px solid #ffffff;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: 1px solid var(--btn-bg);
       padding: 0.55rem 1rem;
       font-family: var(--font-mono);
       font-size: 0.75rem;
@@ -374,12 +449,13 @@
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      transition: background 0.15s, color 0.15s;
+      transition: background-color 0.15s, color 0.15s, border-color 0.15s;
     }
 
     .btn-open-tab:hover {
-      background: #000000;
-      color: #ffffff;
+      background: var(--bg);
+      color: var(--text);
+      border-color: var(--text);
     }
 
     .loader {
@@ -391,8 +467,8 @@
     .spinner {
       width: 36px;
       height: 36px;
-      border: 2px solid #222222;
-      border-top-color: #ffffff;
+      border: 2px solid var(--spinner-bg);
+      border-top-color: var(--spinner-top);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin: 0 auto 1rem;
@@ -406,9 +482,9 @@
       padding: 1rem 1.25rem;
       margin-bottom: 1.5rem;
       font-size: 0.85rem;
-      border: 1px solid #ffffff;
-      background: #0a0a0a;
-      color: #ffffff;
+      border: 1px solid var(--text);
+      background: var(--card-bg);
+      color: var(--text);
     }
 
     footer {
@@ -433,6 +509,9 @@
           <p>Durg University Result Engine</p>
         </div>
       </div>
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+        [ LIGHT MODE ]
+      </button>
     </div>
   </header>
 
@@ -488,6 +567,27 @@
   <script>
     let timerInterval = null;
     let currentMarksheets = [];
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('hyu_theme', theme);
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        btn.innerText = theme === 'light' ? '[ DARK MODE ]' : '[ LIGHT MODE ]';
+      }
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    }
+
+    // Initialize button label on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('hyu_theme') || 'dark';
+      applyTheme(saved);
+    });
 
     async function handleSearch() {
       const query = document.getElementById('rollInput').value.trim();
@@ -552,10 +652,11 @@
 
       const student = m.student_info || {};
       const status = (m.result_status || 'N/A').toUpperCase();
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
 
       w.document.open();
       w.document.write(`<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="${currentTheme}">
 <head>
   <meta charset="UTF-8">
   <title>${m.exam_title || 'Marksheet'} - ${student.roll_no || ''} - ${student.name || ''}</title>
@@ -570,7 +671,24 @@
       --border: #262626;
       --text: #ffffff;
       --text-muted: #888888;
+      --btn-bg: #ffffff;
+      --btn-text: #000000;
+      --meta-bg: #000000;
+      --th-bg: #111111;
+      --tr-even: #050505;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --card-bg: #ffffff;
+      --border: #dcdcdc;
+      --text: #000000;
+      --text-muted: #666666;
+      --btn-bg: #000000;
+      --btn-text: #ffffff;
+      --meta-bg: #f8f8f8;
+      --th-bg: #eeeeee;
+      --tr-even: #fcfcfc;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -601,7 +719,7 @@
     .top-title h1 {
       font-size: 1.1rem;
       margin: 0 0 4px 0;
-      color: #ffffff;
+      color: var(--text);
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
@@ -622,26 +740,26 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       cursor: pointer;
-      border: 1px solid #ffffff;
-      background: #ffffff;
-      color: #000000;
+      border: 1px solid var(--text);
+      background: var(--btn-bg);
+      color: var(--btn-text);
       transition: all 0.15s;
     }
     .btn:hover {
-      background: #000000;
-      color: #ffffff;
+      background: var(--bg);
+      color: var(--text);
     }
     .meta-strip {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
-      background: #000000;
+      background: var(--meta-bg);
       border: 1px solid var(--border);
       padding: 12px 16px;
       margin-bottom: 20px;
       font-size: 0.8rem;
     }
-    .meta-item strong { color: #ffffff; }
+    .meta-item strong { color: var(--text); }
     .meta-item { color: var(--text-muted); }
     .marksheet-content {
       overflow-x: auto;
@@ -651,7 +769,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 0.8rem;
-      color: #ffffff;
+      color: var(--text);
       font-family: var(--font-mono);
     }
     th, td {
@@ -660,14 +778,14 @@
       text-align: left;
     }
     th {
-      background: #111111;
+      background: var(--th-bg);
       font-weight: 600;
-      color: #ffffff;
+      color: var(--text);
       text-transform: uppercase;
       font-size: 0.75rem;
     }
     tr:nth-child(even) {
-      background: #050505;
+      background: var(--tr-even);
     }
     @media print {
       body { background: #ffffff !important; color: #000000 !important; padding: 0; }
@@ -706,7 +824,7 @@
     </div>
 
     <div class="marksheet-content">
-      ${m.html || '<p style="text-align:center; padding: 20px; color:#888888;">No raw HTML marksheet available.</p>'}
+      ${m.html || '<p style="text-align:center; padding: 20px; color: var(--text-muted);">No raw HTML marksheet available.</p>'}
     </div>
   </div>
 </body>
