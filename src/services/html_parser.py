@@ -26,22 +26,14 @@ def is_strictly_regular_or_private(desc: str, source: str) -> bool:
 
 def is_relevant_exam(desc: str, source: str) -> bool:
     desc_lower = desc.lower()
-    if "home science" in desc_lower or "b.h.sc." in desc_lower:
-        return False
-    if source == "nep":
-        nep_keywords = [
-            "b.a.", "b.com", "b.sc", "b.c.a", "b.b.a",
-            "bachelor of arts", "bachelor of science", "bachelor of commerce",
-            "computer application", "business administration"
-        ]
-        return any(kw in desc_lower for kw in nep_keywords)
-    else:
-        legacy_keywords = [
-            "b.a.", "b.com", "b.sc", "bca",
-            "bachelor of arts", "bachelor of science", "bachelor of commerce",
-            "computer application", " b.a "
-        ]
-        return any(kw in desc_lower for kw in legacy_keywords)
+    faculty_keywords = [
+        "b.a.", "b.com", "b.sc", "bca", "b.c.a", "bba", "b.b.a",
+        "ll.b", "llb", "ll.m", "llm", "b.ed", "m.ed", "b.p.ed", "bped",
+        "m.sc", "m sc", "m.a.", "m.a ", "m a ", "m.com", "m com",
+        "pgdca", "dca", "d.c.a", "b.lib", "m.lib", "m.s.w", "msw",
+        "bachelor of", "master of", "diploma in", "b.sc.-b.ed", "b.a.-b.ed"
+    ]
+    return any(kw in desc_lower for kw in faculty_keywords)
 
 def parse_hyu_html(html_content: str):
     soup = BeautifulSoup(html_content, 'html.parser')

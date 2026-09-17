@@ -1,3 +1,4 @@
+import os
 import asyncio
 import html
 import re
@@ -272,6 +273,27 @@ async def execute_live_search(rollno: str, configs: list, seen_titles: set, mark
                 
             if any(kw in title for kw in keywords) and not any(ex in title for ex in exclusions):
                 targeted_candidates.append(entry)
+    elif roll_info["length"] == 8:
+        # Scheme B: 8-digit annual rolls do not encode course code.
+        # Prioritize major undergraduate & integrated annual exams for that specific exam year:
+        major_annual_keywords = [
+            "b.a.", "b.com", "b.sc", "bca", "b.c.a",
+            "bachelor of arts", "bachelor of science", "bachelor of commerce",
+            "computer application", "b.sc.-b.ed", "b.a.-b.ed", "b.lib"
+        ]
+        for entry in configs:
+            title = entry["description"].lower()
+            entry_year = entry["year"]
+            
+            if entry_year and entry_year != year_of_admission:
+                continue
+            if not is_regular_or_private_exam(entry["description"], entry["link"]):
+                continue
+            if "nep" in title or "durgnep" in entry["link"]:
+                continue
+                
+            if any(kw in title for kw in major_annual_keywords):
+                targeted_candidates.append(entry)
                 
     broader_candidates = []
     for entry in configs:
@@ -317,7 +339,9 @@ async def execute_live_search(rollno: str, configs: list, seen_titles: set, mark
         return (major_val, dist)
         
     broader_candidates.sort(key=fallback_priority_key)
-    candidate_exams = targeted_candidates + broader_candidates
+    
+    # Prioritize targeted candidate exams; fall back to broader candidates if no targeted matches
+    candidate_exams = targeted_candidates if targeted_candidates else broader_candidates
     
     async with httpx.AsyncClient(follow_redirects=True, limits=httpx.Limits(max_keepalive_connections=5, max_connections=8), timeout=15.0) as client:
         semaphore = asyncio.Semaphore(4)
@@ -337,44 +361,14 @@ async def execute_live_search(rollno: str, configs: list, seen_titles: set, mark
                         marksheets.append(res)
                         save_result_to_db(roll_val, res)
                         
-        # Brute Force scan (2022 to 2026) to cleanly scoop up missing semesters
-        print(f"Running brute force search (2022-2026) for {rollno} to catch any additional results...")
-        brute_candidates = []
-        for entry in configs:
-            title = entry["description"].lower()
-            entry_year = entry["year"]
-            
-            if not entry_year or not (entry_year >= 2022 and entry_year <= 2026):
-                continue
-                
-            if not is_regular_or_private_exam(entry["description"], entry["link"]):
-                continue
-                
-            if entry in candidate_exams:
-                continue
-                
-            is_nep_exam = "nep" in title or "durgnep" in entry["link"]
-            is_pg_exam = any(k in title for k in ["m.a.", "m.sc", "m.com", "mca", "m.c.a", "m.b.a", "mba", "m.ed", "master", "post graduate", "pg"])
-            is_ug_exam = not is_pg_exam
-            
-            if roll_level == "nep":
-                if is_nep_exam:
-                    brute_candidates.append(entry)
-            elif roll_level == "pg":
-                if is_pg_exam or "b.ed" in title or "education" in title:
-                    brute_candidates.append(entry)
-            else:
-                if is_ug_exam and not is_nep_exam:
-                    brute_candidates.append(entry)
-                    
-        brute_candidates.sort(key=fallback_priority_key)
-        
-        if brute_candidates:
-            tasks = [
+        # If targeted candidates found marksheets, we're done. Otherwise, run fallback scans.
+        if targeted_candidates and not marksheets:
+            print(f"Targeted candidates returned no results for {rollno}. Trying broader candidates...")
+            broader_tasks = [
                 scrape_exam_async(client, exam['description'], exam['link'], rollno, semaphore)
-                for exam in brute_candidates
+                for exam in broader_candidates
             ]
-            results = await asyncio.gather(*tasks)
+            results = await asyncio.gather(*broader_tasks)
             for res in results:
                 if res:
                     roll_val = res.get("student_info", {}).get("roll_no") or rollno
@@ -383,5 +377,73 @@ async def execute_live_search(rollno: str, configs: list, seen_titles: set, mark
                         seen_titles.add(norm)
                         marksheets.append(res)
                         save_result_to_db(roll_val, res)
+
+        # Brute Force fallback scan (2022 to 2026) only if still no marksheets were found
+        if not marksheets:
+            print(f"Running brute force search (2022-2026) for {rollno} to catch any unclassified results...")
+            brute_candidates = []
+            for entry in configs:
+                title = entry["description"].lower()
+                entry_year = entry["year"]
+                
+                if not entry_year or not (entry_year >= 2022 and entry_year <= 2026):
+                    continue
+                    
+                if not is_regular_or_private_exam(entry["description"], entry["link"]):
+                    continue
+                    
+                if entry in candidate_exams or entry in broader_candidates:
+                    continue
+                    
+                is_nep_exam = "nep" in title or "durgnep" in entry["link"]
+                is_pg_exam = any(k in title for k in ["m.a.", "m.sc", "m.com", "mca", "m.c.a", "m.b.a", "mba", "m.ed", "master", "post graduate", "pg"])
+                is_ug_exam = not is_pg_exam
+                
+                if roll_level == "nep":
+                    if is_nep_exam:
+                        brute_candidates.append(entry)
+                elif roll_level == "pg":
+                    if is_pg_exam or "b.ed" in title or "education" in title:
+                        brute_candidates.append(entry)
+                else:
+                    if is_ug_exam and not is_nep_exam:
+                        brute_candidates.append(entry)
                         
+            brute_candidates.sort(key=fallback_priority_key)
+            
+            if brute_candidates:
+                tasks = [
+                    scrape_exam_async(client, exam['description'], exam['link'], rollno, semaphore)
+                    for exam in brute_candidates
+                ]
+                results = await asyncio.gather(*tasks)
+                for res in results:
+                    if res:
+                        roll_val = res.get("student_info", {}).get("roll_no") or rollno
+                        norm = f"{roll_val}_{normalize_title(res.get('exam_title', ''))}"
+                        if norm not in seen_titles:
+                            seen_titles.add(norm)
+                            marksheets.append(res)
+                            save_result_to_db(roll_val, res)
+                            
+    # Multi-Year Transcript Stitching: Retrieve all academic years using enrollment numbers
+    if marksheets:
+        enrollment_nos = {
+            res.get("student_info", {}).get("enrollment_no")
+            for res in marksheets
+            if res.get("student_info", {}).get("enrollment_no")
+        }
+        for enroll in enrollment_nos:
+            try:
+                from src.services.results import get_local_results_from_db
+                historical_records = get_local_results_from_db(enroll)
+                for h_res in historical_records:
+                    h_roll = h_res.get("student_info", {}).get("roll_no") or ""
+                    h_norm = f"{h_roll}_{normalize_title(h_res.get('exam_title', ''))}"
+                    if h_norm not in seen_titles:
+                        seen_titles.add(h_norm)
+                        marksheets.append(h_res)
+            except Exception as e:
+                print(f"Error fetching multi-year history for enrollment {enroll}: {e}")
+
     return marksheets
