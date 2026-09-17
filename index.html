@@ -200,27 +200,6 @@
       accent-color: #ffffff;
     }
 
-    .api-config {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-    }
-
-    .api-config input {
-      background: #000000;
-      border: 1px solid var(--card-border);
-      color: #ffffff;
-      font-family: var(--font-mono);
-      padding: 0.3rem 0.6rem;
-      font-size: 0.75rem;
-      width: 180px;
-      outline: none;
-    }
-
-    .api-config input:focus {
-      border-color: #ffffff;
-    }
 
     /* Results section */
     .results-container {
@@ -458,11 +437,6 @@
             <label><input type="radio" name="searchMode" value="db"> Database Cache</label>
             <label><input type="radio" name="searchMode" value="live"> Live Scrape</label>
           </div>
-
-          <div class="api-config">
-            <span style="color: var(--text-muted);">API:</span>
-            <input type="text" id="apiUrlInput" value="http://localhost:7860" />
-          </div>
         </div>
       </form>
     </div>
@@ -500,11 +474,6 @@
     let timerInterval = null;
     let currentMarksheets = [];
 
-    function getApiBase() {
-      const inputVal = document.getElementById('apiUrlInput').value.trim();
-      return inputVal.replace(/\/+$/, '');
-    }
-
     async function handleSearch() {
       const query = document.getElementById('rollInput').value.trim();
       if (!query) return;
@@ -529,7 +498,7 @@
       }, 100);
 
       try {
-        const url = `${getApiBase()}/api/results?rollno=${encodeURIComponent(query)}&mode=${encodeURIComponent(mode)}`;
+        const url = `/api/results?rollno=${encodeURIComponent(query)}&mode=${encodeURIComponent(mode)}`;
         const res = await fetch(url);
         clearInterval(timerInterval);
 
@@ -780,13 +749,6 @@
         examsList.appendChild(card);
       });
     }
-
-    // Initialize on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      if (window.location.port === '7860') {
-        document.getElementById('apiUrlInput').value = window.location.origin;
-      }
-    });
   </script>
 </body>
 </html>
