@@ -208,6 +208,32 @@
       gap: 1.5rem;
     }
 
+    .results-summary {
+      padding: 0.75rem 1.25rem;
+      border: 1px solid var(--card-border);
+      background: #050505;
+      font-size: 0.8rem;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .student-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px dashed var(--card-border);
+    }
+
+    .student-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
     .student-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -452,18 +478,7 @@
     </div>
 
     <!-- Results Display -->
-    <div id="resultsContainer" class="results-container" style="display: none;">
-      <!-- Student Bio Card -->
-      <div class="student-card" id="studentCard">
-        <div class="student-photo" id="studentPhoto">
-          <span>NO PHOTO</span>
-        </div>
-        <div class="student-info-grid" id="studentGrid"></div>
-      </div>
-
-      <!-- Marksheets List (Cards with 'Open in New Tab' button) -->
-      <div class="exam-accordion" id="examsList"></div>
-    </div>
+    <div id="resultsContainer" class="results-container" style="display: none;"></div>
   </main>
 
   <footer>
@@ -699,54 +714,108 @@
       w.document.close();
     }
 
-    function renderResults(marksheets) {
-      const first = marksheets[0] || {};
-      const info = first.student_info || {};
+    function groupMarksheetsByStudent(marksheets) {
+      const studentMap = new Map();
 
-      // Render Photo
-      const photoBox = document.getElementById('studentPhoto');
-      if (info.photo_url) {
-        photoBox.innerHTML = `<img src="${info.photo_url}" alt="Student Photo" onerror="this.parentElement.innerHTML='NO PHOTO';" />`;
-      } else {
-        photoBox.innerHTML = `<span>NO PHOTO</span>`;
+      marksheets.forEach((m, globalIdx) => {
+        const info = m.student_info || {};
+        const enr = (info.enrollment_no || '').trim().toUpperCase();
+        const roll = (info.roll_no || '').trim();
+        const name = (info.name || '').trim().toUpperCase();
+
+        // Unique identifier: Enrollment No if available, else Roll No, else Name
+        const key = enr ? `ENR:${enr}` : (roll ? `ROLL:${roll}` : `NAME:${name}`);
+
+        if (!studentMap.has(key)) {
+          studentMap.set(key, {
+            info: { ...info },
+            items: []
+          });
+        }
+
+        const s = studentMap.get(key);
+        // Enrich profile info if this marksheet has more details
+        if (!s.info.father_name && info.father_name) s.info.father_name = info.father_name;
+        if (!s.info.college && (info.college || info.center)) s.info.college = info.college || info.center;
+        if (!s.info.photo_url && info.photo_url) s.info.photo_url = info.photo_url;
+        if (!s.info.roll_no && info.roll_no) s.info.roll_no = info.roll_no;
+        if (!s.info.enrollment_no && info.enrollment_no) s.info.enrollment_no = info.enrollment_no;
+        if (!s.info.name && info.name) s.info.name = info.name;
+
+        s.items.push({ marksheet: m, globalIdx });
+      });
+
+      return Array.from(studentMap.values());
+    }
+
+    function renderResults(marksheets) {
+      const container = document.getElementById('resultsContainer');
+      container.innerHTML = '';
+
+      const students = groupMarksheetsByStudent(marksheets);
+
+      if (students.length > 1) {
+        const summary = document.createElement('div');
+        summary.className = 'results-summary';
+        const queryVal = document.getElementById('rollInput').value.trim().toUpperCase();
+        summary.innerText = `[ MULTIPLE CANDIDATES FOUND: ${students.length} STUDENTS MATCHING "${queryVal}" ]`;
+        container.appendChild(summary);
       }
 
-      // Render Info Grid
-      const grid = document.getElementById('studentGrid');
-      grid.innerHTML = `
-        <div class="info-item"><span class="info-label">Student Name</span><span class="info-val">${info.name || 'N/A'}</span></div>
-        <div class="info-item"><span class="info-label">Roll Number</span><span class="info-val">${info.roll_no || 'N/A'}</span></div>
-        <div class="info-item"><span class="info-label">Enrollment No</span><span class="info-val">${info.enrollment_no || 'N/A'}</span></div>
-        <div class="info-item"><span class="info-label">Father's Name</span><span class="info-val">${info.father_name || 'N/A'}</span></div>
-        <div class="info-item" style="grid-column: 1 / -1;"><span class="info-label">College / Center</span><span class="info-val">${info.college || info.center || 'N/A'}</span></div>
-      `;
+      students.forEach((s) => {
+        const studentWrapper = document.createElement('div');
+        studentWrapper.className = 'student-group';
 
-      // Render Marksheets List
-      const examsList = document.getElementById('examsList');
-      examsList.innerHTML = '';
+        const info = s.info || {};
+        const photoHtml = info.photo_url 
+          ? `<img src="${info.photo_url}" alt="Student Photo" onerror="this.parentElement.innerHTML='NO PHOTO';" />`
+          : `<span>NO PHOTO</span>`;
 
-      marksheets.forEach((m, idx) => {
-        const card = document.createElement('div');
-        card.className = 'exam-card';
-
-        const status = (m.result_status || 'N/A').toUpperCase();
-        let badgeClass = 'badge';
-        if (status.includes('FAIL')) badgeClass = 'badge badge-fail';
-        else if (status.includes('SUPP') || status.includes('ATKT')) badgeClass = 'badge badge-supp';
-
-        card.innerHTML = `
-          <div class="exam-header">
-            <div class="exam-title-box">
-              <span class="exam-title">${m.exam_title || 'Examination Result'}</span>
-              <span class="exam-meta">SGPA / Result: <strong>${m.sgpa || 'N/A'}</strong> • Status: <span class="${badgeClass}">${status}</span></span>
-            </div>
-            <button class="btn-open-tab" onclick="openMarksheetInNewTab(${idx})">
-              <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-              Open Marksheet
-            </button>
+        // Student Profile Header Card
+        const studentCard = document.createElement('div');
+        studentCard.className = 'student-card';
+        studentCard.innerHTML = `
+          <div class="student-photo">${photoHtml}</div>
+          <div class="student-info-grid">
+            <div class="info-item"><span class="info-label">Candidate Name</span><span class="info-val">${info.name || 'N/A'}</span></div>
+            <div class="info-item"><span class="info-label">Roll Number</span><span class="info-val">${info.roll_no || 'N/A'}</span></div>
+            <div class="info-item"><span class="info-label">Enrollment No</span><span class="info-val">${info.enrollment_no || 'N/A'}</span></div>
+            <div class="info-item"><span class="info-label">Father's Name</span><span class="info-val">${info.father_name || 'N/A'}</span></div>
+            <div class="info-item" style="grid-column: 1 / -1;"><span class="info-label">College / Center</span><span class="info-val">${info.college || info.center || 'N/A'}</span></div>
           </div>
         `;
-        examsList.appendChild(card);
+        studentWrapper.appendChild(studentCard);
+
+        // Student Marksheets
+        const examsList = document.createElement('div');
+        examsList.className = 'exam-accordion';
+
+        s.items.forEach(({ marksheet: m, globalIdx }) => {
+          const card = document.createElement('div');
+          card.className = 'exam-card';
+
+          const status = (m.result_status || 'N/A').toUpperCase();
+          let badgeClass = 'badge';
+          if (status.includes('FAIL')) badgeClass = 'badge badge-fail';
+          else if (status.includes('SUPP') || status.includes('ATKT')) badgeClass = 'badge badge-supp';
+
+          card.innerHTML = `
+            <div class="exam-header">
+              <div class="exam-title-box">
+                <span class="exam-title">${m.exam_title || 'Examination Result'}</span>
+                <span class="exam-meta">SGPA / Result: <strong>${m.sgpa || 'N/A'}</strong> • Status: <span class="${badgeClass}">${status}</span></span>
+              </div>
+              <button class="btn-open-tab" onclick="openMarksheetInNewTab(${globalIdx})">
+                <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                Open Marksheet
+              </button>
+            </div>
+          `;
+          examsList.appendChild(card);
+        });
+
+        studentWrapper.appendChild(examsList);
+        container.appendChild(studentWrapper);
       });
     }
   </script>

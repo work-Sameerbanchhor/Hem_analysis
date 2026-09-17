@@ -46,9 +46,23 @@ def get_local_results_from_db(rollno: str) -> list:
                             SELECT enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url 
                             FROM results 
                             WHERE {conditions}
-                            LIMIT 30
+                            ORDER BY name ASC, roll_number ASC
+                            LIMIT 100
                         """, params)
                         rows = cursor.fetchall()
+                        
+                        # Multi-semester expansion for matched students with enrollment numbers
+                        found_enr = list({r[0] for r in rows if r[0]})
+                        if found_enr:
+                            cursor.execute("""
+                                SELECT enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url 
+                                FROM results 
+                                WHERE enrollment_no = ANY(%s)
+                                ORDER BY name ASC, roll_number ASC
+                            """, (found_enr,))
+                            expanded_rows = cursor.fetchall()
+                            rows_without_enr = [r for r in rows if not r[0]]
+                            rows = expanded_rows + rows_without_enr
 
         seen_keys = set()
         for row in rows:
