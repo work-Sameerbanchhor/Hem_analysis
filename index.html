@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HYU Result Search Portal | Hemchand Yadav Vishwavidyalaya</title>
+  <title>HYU // RESULT SEARCH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --card-border: #1f293d;
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --accent: #10b981;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --bg: #000000;
+      --card-bg: #0a0a0a;
+      --card-border: #262626;
+      --border-hover: #555555;
+      --text: #ffffff;
+      --text-muted: #888888;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
     * {
@@ -28,24 +27,22 @@
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: var(--font-sans);
-      line-height: 1.5;
+      font-family: var(--font-mono);
+      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
 
     header {
-      background: linear-gradient(180deg, #131d31 0%, #0d1527 100%);
+      background: #050505;
       border-bottom: 1px solid var(--card-border);
       padding: 1rem 1.5rem;
-      position: sticky;
-      top: 0;
-      z-index: 50;
     }
 
     .header-container {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -57,64 +54,34 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
 
     .brand-icon {
-      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
+      border: 1px solid #ffffff;
+      padding: 4px 8px;
+      font-size: 0.85rem;
       font-weight: 700;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      letter-spacing: 0.05em;
+      background: #ffffff;
+      color: #000000;
     }
 
     .brand-text h1 {
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
     .brand-text p {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
-    }
-
-    .server-status {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.85rem;
-      background: #1e293b;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
-      border: 1px solid var(--card-border);
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #9ca3af;
-    }
-
-    .status-dot.online {
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
-    }
-
-    .status-dot.offline {
-      background: #ef4444;
-      box-shadow: 0 0 8px #ef4444;
+      letter-spacing: 0.04em;
     }
 
     main {
-      max-width: 1100px;
+      max-width: 1000px;
       width: 100%;
       margin: 2rem auto;
       padding: 0 1rem;
@@ -124,24 +91,23 @@
     .search-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      padding: 1.75rem;
       margin-bottom: 2rem;
     }
 
     .search-title {
-      font-size: 1.5rem;
+      font-size: 1.15rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      text-align: center;
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
     .search-subtitle {
       color: var(--text-muted);
-      font-size: 0.95rem;
-      text-align: center;
-      margin-bottom: 1.75rem;
+      font-size: 0.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
     }
 
     .search-form {
@@ -159,43 +125,49 @@
     .search-input {
       flex: 1;
       min-width: 260px;
-      background: #0d1322;
-      border: 1px solid #2d3b55;
-      border-radius: 10px;
-      padding: 0.85rem 1.25rem;
-      color: white;
-      font-size: 1.05rem;
+      background: #000000;
+      border: 1px solid var(--card-border);
+      padding: 0.75rem 1rem;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.15s;
     }
 
     .search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+      border-color: #ffffff;
+    }
+
+    .search-input::placeholder {
+      color: #555555;
     }
 
     .search-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 0.85rem 1.75rem;
-      font-size: 1rem;
-      font-weight: 600;
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.15s, color 0.15s;
     }
 
     .search-btn:hover {
-      background: var(--primary-hover);
+      background: #cccccc;
+      border-color: #cccccc;
     }
 
     .search-btn:active {
-      transform: scale(0.98);
+      transform: translateY(1px);
     }
 
     .search-options {
@@ -204,64 +176,50 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 1rem;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      padding-top: 0.5rem;
-      border-top: 1px solid #1a2336;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--card-border);
     }
 
     .mode-radios {
       display: flex;
-      gap: 1rem;
+      gap: 1.25rem;
+      flex-wrap: wrap;
     }
 
     .mode-radios label {
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
+      color: var(--text);
     }
 
-    .sample-chips {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-
-    .sample-chip {
-      background: #1b263b;
-      border: 1px solid #2d3b55;
-      border-radius: 6px;
-      padding: 0.25rem 0.65rem;
-      font-size: 0.8rem;
-      color: #93c5fd;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .sample-chip:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
+    .mode-radios input[type="radio"] {
+      accent-color: #ffffff;
     }
 
     .api-config {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     .api-config input {
-      background: #0d1322;
-      border: 1px solid #2d3b55;
-      border-radius: 6px;
-      color: white;
-      padding: 0.25rem 0.5rem;
-      font-size: 0.8rem;
+      background: #000000;
+      border: 1px solid var(--card-border);
+      color: #ffffff;
+      font-family: var(--font-mono);
+      padding: 0.3rem 0.6rem;
+      font-size: 0.75rem;
       width: 180px;
+      outline: none;
+    }
+
+    .api-config input:focus {
+      border-color: #ffffff;
     }
 
     /* Results section */
@@ -274,39 +232,39 @@
     .student-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
       padding: 1.5rem;
       display: flex;
       gap: 1.5rem;
-      align-items: center;
+      align-items: flex-start;
       flex-wrap: wrap;
     }
 
     .student-photo {
-      width: 90px;
-      height: 110px;
-      background: #1e293b;
-      border: 2px solid #334155;
-      border-radius: 8px;
+      width: 85px;
+      height: 105px;
+      background: #000000;
+      border: 1px solid var(--card-border);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      color: #64748b;
-      font-size: 0.8rem;
+      color: #555555;
+      font-size: 0.7rem;
       flex-shrink: 0;
+      letter-spacing: 0.05em;
     }
 
     .student-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: grayscale(100%);
     }
 
     .student-info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.75rem 1.5rem;
+      gap: 0.85rem 1.5rem;
       flex: 1;
     }
 
@@ -316,16 +274,17 @@
     }
 
     .info-label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      margin-bottom: 2px;
     }
 
     .info-val {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: #f3f4f6;
+      color: #ffffff;
     }
 
     .exam-accordion {
@@ -337,13 +296,12 @@
     .exam-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
       overflow: hidden;
-      transition: border-color 0.2s;
+      transition: border-color 0.15s;
     }
 
     .exam-card:hover {
-      border-color: #3b82f6;
+      border-color: var(--border-hover);
     }
 
     .exam-header {
@@ -353,7 +311,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
-      background: #141d30;
+      background: #050505;
     }
 
     .exam-title-box {
@@ -363,82 +321,60 @@
     }
 
     .exam-title {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      color: #fff;
+      color: #ffffff;
+      letter-spacing: 0.02em;
     }
 
     .exam-meta {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
     .badge {
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid #ffffff;
+      color: #ffffff;
+      background: transparent;
+    }
+
+    .badge-fail {
+      border-style: dashed;
+      color: #aaaaaa;
+      border-color: #888888;
+    }
+
+    .badge-supp {
+      border-style: dotted;
+      color: #cccccc;
+      border-color: #aaaaaa;
+    }
+
+    .btn-open-tab {
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+      padding: 0.55rem 1rem;
+      font-family: var(--font-mono);
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-    }
-
-    .badge-pass {
-      background: rgba(16, 185, 129, 0.15);
-      color: #10b981;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .badge-fail {
-      background: rgba(239, 68, 68, 0.15);
-      color: #ef4444;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .badge-supp {
-      background: rgba(245, 158, 11, 0.15);
-      color: #f59e0b;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
-    .btn-open-tab {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1.1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+      gap: 0.45rem;
+      transition: background 0.15s, color 0.15s;
     }
 
     .btn-open-tab:hover {
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-    }
-
-    .btn-link-sm {
-      background: #1e293b;
-      color: #93c5fd;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 0.55rem 0.9rem;
-      font-size: 0.8rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: all 0.2s;
-    }
-
-    .btn-link-sm:hover {
-      background: #334155;
-      color: #fff;
+      background: #000000;
+      color: #ffffff;
     }
 
     .loader {
@@ -448,10 +384,10 @@
     }
 
     .spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid rgba(59, 130, 246, 0.2);
-      border-top-color: var(--primary);
+      width: 36px;
+      height: 36px;
+      border: 2px solid #222222;
+      border-top-color: #ffffff;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin: 0 auto 1rem;
@@ -463,67 +399,21 @@
 
     .alert {
       padding: 1rem 1.25rem;
-      border-radius: 10px;
       margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .alert-error {
-      background: rgba(239, 68, 68, 0.15);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    /* Crawler Section */
-    .crawler-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 1.25rem 1.5rem;
-      margin-top: 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .crawler-info h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .crawler-info p {
       font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .btn-secondary {
-      background: #1e293b;
-      color: white;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 0.6rem 1.2rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-secondary:hover {
-      background: #334155;
+      border: 1px solid #ffffff;
+      background: #0a0a0a;
+      color: #ffffff;
     }
 
     footer {
       border-top: 1px solid var(--card-border);
       text-align: center;
-      padding: 1.5rem;
+      padding: 1.25rem;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       margin-top: auto;
+      letter-spacing: 0.04em;
     }
   </style>
 </head>
@@ -535,20 +425,16 @@
         <div class="brand-icon">HYU</div>
         <div class="brand-text">
           <h1>Hemchand Yadav Vishwavidyalaya</h1>
-          <p>Durg University Live Marksheet & Result Portal</p>
+          <p>Durg University Result Engine</p>
         </div>
-      </div>
-      <div class="server-status">
-        <div class="status-dot" id="statusDot"></div>
-        <span id="statusText">Connecting to API...</span>
       </div>
     </div>
   </header>
 
   <main>
     <div class="search-card">
-      <h2 class="search-title">Instant Result Verification</h2>
-      <p class="search-subtitle">Search across all UG, PG, Law, Education, and Diploma programs</p>
+      <h2 class="search-title">Result Search</h2>
+      <p class="search-subtitle">Search by Roll Number or Student Name</p>
 
       <form class="search-form" id="searchForm" onsubmit="event.preventDefault(); handleSearch();">
         <div class="input-group">
@@ -556,52 +442,39 @@
             type="text" 
             class="search-input" 
             id="rollInput" 
-            placeholder="Enter Roll Number (e.g. 2533181005, 63030001) or Name..." 
+            placeholder="Enter Roll Number or Name..." 
             autocomplete="off"
             required
           />
           <button type="submit" class="search-btn" id="searchBtn">
-            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-            Search Result
+            [ Search Result ]
           </button>
-        </div>
-
-        <div class="sample-chips">
-          <span style="font-size: 0.8rem; color: var(--text-muted);">Quick Samples:</span>
-          <span class="sample-chip" onclick="fillAndSearch('2533181005')">2533181005 (M.Sc. CS NEP)</span>
-          <span class="sample-chip" onclick="fillAndSearch('63030001')">63030001 (B.A. Annual 8-digit)</span>
-          <span class="sample-chip" onclick="fillAndSearch('43690402')">43690402 (B.Sc.-B.Ed 8-digit)</span>
-          <span class="sample-chip" onclick="fillAndSearch('2434248027')">2434248027 (LL.B. NEP)</span>
-          <span class="sample-chip" onclick="fillAndSearch('2533769015')">2533769015 (M.Lib. NEP)</span>
-          <span class="sample-chip" onclick="fillAndSearch('2533550021')">2533550021 (BBA NEP)</span>
         </div>
 
         <div class="search-options">
           <div class="mode-radios">
-            <span>Mode:</span>
+            <span style="color: var(--text-muted);">Mode:</span>
             <label><input type="radio" name="searchMode" value="both" checked> Auto (DB + Live)</label>
             <label><input type="radio" name="searchMode" value="db"> Database Cache</label>
             <label><input type="radio" name="searchMode" value="live"> Live Scrape</label>
           </div>
 
           <div class="api-config">
-            <span>API Server:</span>
-            <input type="text" id="apiUrlInput" value="http://localhost:7860" onchange="checkHealth()" />
+            <span style="color: var(--text-muted);">API:</span>
+            <input type="text" id="apiUrlInput" value="http://localhost:7860" />
           </div>
         </div>
       </form>
     </div>
 
     <!-- Error Alert -->
-    <div id="errorBox" class="alert alert-error" style="display: none;"></div>
+    <div id="errorBox" class="alert" style="display: none;"></div>
 
     <!-- Loading State -->
     <div id="loader" class="loader">
       <div class="spinner"></div>
-      <h3 id="loaderText">Fetching student marksheets...</h3>
-      <p style="color: var(--text-muted); font-size: 0.85rem;" id="loaderTimer">0.0s</p>
+      <h3 id="loaderText" style="font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em;">QUERYING MARKSHEETS...</h3>
+      <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px;" id="loaderTimer">0.0s</p>
     </div>
 
     <!-- Results Display -->
@@ -617,22 +490,10 @@
       <!-- Marksheets List (Cards with 'Open in New Tab' button) -->
       <div class="exam-accordion" id="examsList"></div>
     </div>
-
-    <!-- Crawler Status Bar -->
-    <div class="crawler-card">
-      <div class="crawler-info">
-        <h3 id="crawlStatusHeader">Background Auto-Crawler: IDLE</h3>
-        <p id="crawlStatusSub">Monitors 1,354 degree batches across 84 affiliated centers</p>
-      </div>
-      <div style="display: flex; gap: 0.5rem;">
-        <button class="btn-secondary" onclick="fetchCrawlerStatus()">Refresh Status</button>
-        <button class="btn-secondary" style="background: var(--primary); border-color: var(--primary);" onclick="triggerCrawler()">Trigger Crawl</button>
-      </div>
-    </div>
   </main>
 
   <footer>
-    <p>Hemchand Yadav Vishwavidyalaya Results Engine &copy; 2026. Connected to Amazon RDS PostgreSQL & Live Portals.</p>
+    <p>Hemchand Yadav Vishwavidyalaya Results Engine &copy; 2026</p>
   </footer>
 
   <script>
@@ -642,61 +503,6 @@
     function getApiBase() {
       const inputVal = document.getElementById('apiUrlInput').value.trim();
       return inputVal.replace(/\/+$/, '');
-    }
-
-    async function checkHealth() {
-      const dot = document.getElementById('statusDot');
-      const text = document.getElementById('statusText');
-      try {
-        const res = await fetch(`${getApiBase()}/health`, { signal: AbortSignal.timeout(3000) });
-        if (res.ok) {
-          const data = await res.json();
-          dot.className = 'status-dot online';
-          text.innerText = `Connected (${(data.stored_student_results || 0).toLocaleString()} results in DB)`;
-        } else {
-          throw new Error();
-        }
-      } catch (e) {
-        dot.className = 'status-dot offline';
-        text.innerText = 'API Offline (Ensure port 7860 is running)';
-      }
-    }
-
-    async function fetchCrawlerStatus() {
-      try {
-        const res = await fetch(`${getApiBase()}/api/crawl/status`);
-        if (res.ok) {
-          const data = await res.json();
-          document.getElementById('crawlStatusHeader').innerText = `Crawler: ${data.status.toUpperCase()}`;
-          let desc = data.current_exam || 'Idle';
-          if (data.colleges_progress) {
-            desc += ` (${data.colleges_progress} colleges)`;
-          }
-          if (data.records_added) {
-            desc += ` • ${data.records_added.toLocaleString()} records saved`;
-          }
-          document.getElementById('crawlStatusSub').innerText = desc;
-        }
-      } catch (e) {
-        console.error('Failed to fetch crawler status:', e);
-      }
-    }
-
-    async function triggerCrawler() {
-      try {
-        const res = await fetch(`${getApiBase()}/api/crawl/update`, { method: 'POST' });
-        if (res.ok) {
-          alert('Crawler triggered successfully!');
-          fetchCrawlerStatus();
-        }
-      } catch (e) {
-        alert('Failed to trigger crawler: ' + e.message);
-      }
-    }
-
-    function fillAndSearch(roll) {
-      document.getElementById('rollInput').value = roll;
-      handleSearch();
     }
 
     async function handleSearch() {
@@ -756,7 +562,7 @@
 
       const w = window.open('', '_blank');
       if (!w) {
-        alert('Popup blocked! Please allow popups for this site to view the marksheet.');
+        alert('Popup blocked. Please allow popups to view marksheet.');
         return;
       }
 
@@ -770,41 +576,54 @@
   <meta charset="UTF-8">
   <title>${m.exam_title || 'Marksheet'} - ${student.roll_no || ''} - ${student.name || ''}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #000000;
+      --card-bg: #0a0a0a;
+      --border: #262626;
+      --text: #ffffff;
+      --text-muted: #888888;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f1f5f9;
-      color: #0f172a;
+      font-family: var(--font-mono);
+      background: var(--bg);
+      color: var(--text);
       margin: 0;
       padding: 24px;
+      line-height: 1.5;
     }
     .container {
-      max-width: 980px;
+      max-width: 1000px;
       margin: 0 auto;
-      background: #ffffff;
-      padding: 28px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      border: 1px solid #e2e8f0;
+      background: var(--card-bg);
+      padding: 24px;
+      border: 1px solid var(--border);
     }
     .top-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid #e2e8f0;
+      border-bottom: 1px solid var(--border);
       padding-bottom: 16px;
       margin-bottom: 20px;
       flex-wrap: wrap;
       gap: 12px;
     }
     .top-title h1 {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       margin: 0 0 4px 0;
-      color: #1e3a8a;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
     .top-title p {
-      font-size: 0.9rem;
-      color: #64748b;
+      font-size: 0.8rem;
+      color: var(--text-muted);
       margin: 0;
     }
     .actions {
@@ -813,39 +632,33 @@
     }
     .btn {
       padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      border: 1px solid #ffffff;
+      background: #ffffff;
+      color: #000000;
+      transition: all 0.15s;
     }
-    .btn-print {
-      background: #2563eb;
-      color: white;
-      border: none;
+    .btn:hover {
+      background: #000000;
+      color: #ffffff;
     }
-    .btn-print:hover { background: #1d4ed8; }
-    .btn-link {
-      background: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
-    }
-    .btn-link:hover { background: #e2e8f0; }
     .meta-strip {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
+      background: #000000;
+      border: 1px solid var(--border);
       padding: 12px 16px;
       margin-bottom: 20px;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
-    .meta-item strong { color: #1e293b; }
+    .meta-item strong { color: #ffffff; }
+    .meta-item { color: var(--text-muted); }
     .marksheet-content {
       overflow-x: auto;
       margin-top: 10px;
@@ -853,25 +666,38 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      color: #ffffff;
+      font-family: var(--font-mono);
     }
     th, td {
-      border: 1px solid #cbd5e1;
-      padding: 8px 12px;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
       text-align: left;
     }
     th {
-      background: #f1f5f9;
+      background: #111111;
       font-weight: 600;
-      color: #334155;
+      color: #ffffff;
+      text-transform: uppercase;
+      font-size: 0.75rem;
     }
     tr:nth-child(even) {
-      background: #fafafa;
+      background: #050505;
     }
     @media print {
-      body { background: white; padding: 0; }
-      .container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
-      .actions { display: none; }
+      body { background: #ffffff !important; color: #000000 !important; padding: 0; }
+      .container { background: #ffffff !important; border: none !important; padding: 0; max-width: 100%; color: #000000 !important; }
+      .top-title h1 { color: #000000 !important; }
+      .top-title p { color: #555555 !important; }
+      .meta-strip { background: #ffffff !important; border: 1px solid #000000 !important; color: #000000 !important; }
+      .meta-item strong { color: #000000 !important; }
+      .meta-item { color: #000000 !important; }
+      table { color: #000000 !important; }
+      th { background: #f0f0f0 !important; color: #000000 !important; border: 1px solid #000000 !important; }
+      td { border: 1px solid #000000 !important; color: #000000 !important; }
+      tr:nth-child(even) { background: #ffffff !important; }
+      .actions { display: none !important; }
     }
   </style>
 </head>
@@ -879,12 +705,11 @@
   <div class="container">
     <div class="top-nav">
       <div class="top-title">
-        <h1>Hemchand Yadav Vishwavidyalaya, Durg</h1>
-        <p>${m.exam_title || 'Official Examination Result'}</p>
+        <h1>Hemchand Yadav Vishwavidyalaya</h1>
+        <p>${m.exam_title || 'Examination Result'}</p>
       </div>
       <div class="actions">
-        <button class="btn btn-print" onclick="window.print()">Print / Save PDF</button>
-        ${m.official_url ? `<a class="btn btn-link" href="${m.official_url}" target="_blank">Official Portal Link &rarr;</a>` : ''}
+        <button class="btn" onclick="window.print()">[ Print / Save PDF ]</button>
       </div>
     </div>
 
@@ -897,7 +722,7 @@
     </div>
 
     <div class="marksheet-content">
-      ${m.html || '<p style="text-align:center; padding: 20px; color:#64748b;">No raw HTML marksheet available.</p>'}
+      ${m.html || '<p style="text-align:center; padding: 20px; color:#888888;">No raw HTML marksheet available.</p>'}
     </div>
   </div>
 </body>
@@ -927,7 +752,7 @@
         <div class="info-item" style="grid-column: 1 / -1;"><span class="info-label">College / Center</span><span class="info-val">${info.college || info.center || 'N/A'}</span></div>
       `;
 
-      // Render Marksheets List with 'Open Marksheet in New Tab'
+      // Render Marksheets List
       const examsList = document.getElementById('examsList');
       examsList.innerHTML = '';
 
@@ -936,23 +761,20 @@
         card.className = 'exam-card';
 
         const status = (m.result_status || 'N/A').toUpperCase();
-        let badgeClass = 'badge-pass';
-        if (status.includes('FAIL')) badgeClass = 'badge-fail';
-        else if (status.includes('SUPP') || status.includes('ATKT')) badgeClass = 'badge-supp';
+        let badgeClass = 'badge';
+        if (status.includes('FAIL')) badgeClass = 'badge badge-fail';
+        else if (status.includes('SUPP') || status.includes('ATKT')) badgeClass = 'badge badge-supp';
 
         card.innerHTML = `
           <div class="exam-header">
             <div class="exam-title-box">
               <span class="exam-title">${m.exam_title || 'Examination Result'}</span>
-              <span class="exam-meta">SGPA / Result: <strong>${m.sgpa || 'N/A'}</strong> • Status: <span class="badge ${badgeClass}">${status}</span></span>
+              <span class="exam-meta">SGPA / Result: <strong>${m.sgpa || 'N/A'}</strong> • Status: <span class="${badgeClass}">${status}</span></span>
             </div>
-            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-              ${m.official_url ? `<a href="${m.official_url}" target="_blank" class="btn-link-sm">Official Portal Link &rarr;</a>` : ''}
-              <button class="btn-open-tab" onclick="openMarksheetInNewTab(${idx})">
-                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                Open Marksheet in New Tab
-              </button>
-            </div>
+            <button class="btn-open-tab" onclick="openMarksheetInNewTab(${idx})">
+              <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              Open Marksheet
+            </button>
           </div>
         `;
         examsList.appendChild(card);
@@ -961,14 +783,9 @@
 
     // Initialize on page load
     window.addEventListener('DOMContentLoaded', () => {
-      // Auto-detect port if page is served from the backend
       if (window.location.port === '7860') {
         document.getElementById('apiUrlInput').value = window.location.origin;
       }
-      checkHealth();
-      fetchCrawlerStatus();
-      setInterval(checkHealth, 15000);
-      setInterval(fetchCrawlerStatus, 10000);
     });
   </script>
 </body>
