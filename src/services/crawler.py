@@ -4,6 +4,7 @@ import httpx
 from bs4 import BeautifulSoup
 
 from src.core.config import CRAWL_STATUS, COLLEGES, UNIFIED_CONFIGS, COURSE_MAP
+from src.core.database import get_db_conn
 from src.services.scraper import fetch_latest_batches, scrape_exam_async
 from src.services.results import save_result_to_db
 from src.services.catalog import save_exam_batch_to_rds, load_unified_configs
@@ -92,37 +93,51 @@ async def run_auto_crawler():
     t_start = time.time()
     
     try:
-        # 1. Fetch latest batches from web indices (downloads full HTML to disk & filters)
-        CRAWL_STATUS["current_exam"] = "Downloading index HTML files & cleaning..."
+        # 1. Fetch latest batches from web indices (downloads full HTML to disk & syncs to catalog)
+        CRAWL_STATUS["current_exam"] = "Downloading index HTML files & checking for new batches..."
         latest_batches = await fetch_latest_batches()
-        
-        # 2. Check existing exams by (description, publication_date, source)
-        existing_keys = {(c["description"].strip().lower(), c.get("publication_date", "").strip(), c.get("source", "")) for c in UNIFIED_CONFIGS}
-        
-        # 3. Identify new batches locked strictly to REGULAR / PRIVATE and relevant courses
-        new_batches = []
         for b in latest_batches:
-            if not is_strictly_regular_or_private(b["description"], b["source"]):
-                continue
-            if not is_relevant_exam(b["description"], b["source"]):
-                continue
-            key = (b["description"].strip().lower(), b.get("publication_date", "").strip(), b.get("source", ""))
-            if key not in existing_keys:
-                new_batches.append(b)
+            if is_strictly_regular_or_private(b["description"], b["source"]) and is_relevant_exam(b["description"], b["source"]):
+                save_exam_batch_to_rds(b)
+        load_unified_configs(force_reload=True)
+        
+        # 2. Query RDS exam_catalog for pending uncrawled batches, prioritized by newest year first
+        new_batches = []
+        with get_db_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute("""
+                    SELECT id, description, link, publication_date, year, source
+                    FROM exam_catalog
+                    WHERE (is_crawled IS NOT TRUE OR is_crawled IS NULL)
+                    ORDER BY year DESC NULLS LAST, id DESC
+                """)
+                for row in cur.fetchall():
+                    desc = row[1]
+                    source = row[5]
+                    if is_strictly_regular_or_private(desc, source) and is_relevant_exam(desc, source):
+                        new_batches.append({
+                            "id": row[0],
+                            "description": row[1],
+                            "link": row[2],
+                            "publication_date": row[3],
+                            "year": str(row[4]) if row[4] else "",
+                            "source": row[5]
+                        })
         
         if not new_batches:
-            print("No new exams found to crawl.")
+            print("No uncrawled exams found in catalog.")
             CRAWL_STATUS["status"] = "completed"
-            CRAWL_STATUS["current_exam"] = "Finished: No new exams found."
+            CRAWL_STATUS["current_exam"] = "Finished: All relevant exams are fully crawled."
             return
             
-        print(f"Found {len(new_batches)} new exams to crawl.")
+        print(f"Found {len(new_batches)} pending exams to crawl.")
         
         colleges = COLLEGES
         total_records_added = 0
         semaphore = asyncio.Semaphore(12)
         
         for idx, batch in enumerate(new_batches):
+            saved_in_batch = 0
             CRAWL_STATUS["current_exam"] = f"[{idx+1}/{len(new_batches)}] Scrape: {batch['description']}"
             CRAWL_STATUS["colleges_progress"] = f"0/{len(colleges)}"
             
@@ -184,6 +199,7 @@ async def run_auto_crawler():
                                 found_any = True
                                 consecutive_fails = 0
                                 saved_in_college += 1
+                                saved_in_batch += 1
                                 
                                 roll_val = tasks[res_idx]
                                 save_result_to_db(roll_val, res)
@@ -202,9 +218,20 @@ async def run_auto_crawler():
                     CRAWL_STATUS["colleges_progress"] = f"{colleges_done}/{len(colleges)}"
                     CRAWL_STATUS["elapsed_seconds"] = int(time.time() - t_start)
                     
-            # Once a batch is fully crawled, persist it to Amazon RDS exam_catalog & reload config cache
-            save_exam_batch_to_rds(batch)
-            load_unified_configs(force_reload=True)
+            # Mark this batch as crawled in Amazon RDS exam_catalog
+            batch_id = batch.get("id")
+            if batch_id:
+                try:
+                    with get_db_conn() as conn:
+                        with conn.cursor() as cur:
+                            cur.execute("""
+                                UPDATE exam_catalog 
+                                SET is_crawled = TRUE, crawled_records = %s, last_crawled_at = NOW() 
+                                WHERE id = %s
+                            """, (saved_in_batch, batch_id))
+                            conn.commit()
+                except Exception as e:
+                    print(f"Error updating crawl status for batch {batch_id}: {e}")
                     
         CRAWL_STATUS["status"] = "completed"
         CRAWL_STATUS["current_exam"] = f"Finished. Crawled {len(new_batches)} exams."

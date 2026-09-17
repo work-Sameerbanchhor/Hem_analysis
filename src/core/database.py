@@ -98,6 +98,11 @@ def init_db():
                     CREATE INDEX IF NOT EXISTS idx_exam_catalog_year ON exam_catalog(year);
                     CREATE INDEX IF NOT EXISTS idx_exam_catalog_source ON exam_catalog(source);
                     CREATE INDEX IF NOT EXISTS idx_exam_catalog_desc ON exam_catalog(LOWER(description));
+
+                    ALTER TABLE exam_catalog ADD COLUMN IF NOT EXISTS is_crawled BOOLEAN DEFAULT FALSE;
+                    ALTER TABLE exam_catalog ADD COLUMN IF NOT EXISTS crawled_records INT DEFAULT 0;
+                    ALTER TABLE exam_catalog ADD COLUMN IF NOT EXISTS last_crawled_at TIMESTAMP;
+                    CREATE INDEX IF NOT EXISTS idx_exam_catalog_crawled ON exam_catalog(is_crawled);
                 """)
             conn.commit()
             print("Verified Amazon RDS PostgreSQL database schemas (results & exam_catalog).")
