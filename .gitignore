@@ -8,4 +8,5 @@ venv/
 .env
 *.log
 searches.log
+*.db
 Roll_analysis

@@ -68,7 +68,7 @@ async def get_results(
     if mode in ["db", "both"]:
         results = get_local_results_from_db(rollno)
         if results:
-            print(f"DB HIT for {rollno} — found {len(results)} results in Amazon RDS database.")
+            print(f"DB HIT for {rollno} — found {len(results)} results in Turso database.")
             for res in results:
                 roll_val = res.get("student_info", {}).get("roll_no") or rollno
                 norm = f"{roll_val}_{normalize_title(res.get('exam_title', ''))}"

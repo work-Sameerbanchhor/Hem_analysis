@@ -10,6 +10,8 @@ from src.main import app, create_app
 # Backward-compatible convenience imports
 from src.core.config import (
     BASE_DIR,
+    TURSO_DATABASE_URL,
+    TURSO_AUTH_TOKEN,
     RDS_HOST,
     RDS_PORT,
     RDS_DATABASE,
@@ -18,8 +20,8 @@ from src.core.config import (
     UNIFIED_CONFIGS,
     CRAWL_STATUS,
 )
-from src.core.database import get_db_pool, get_db_conn, init_db, check_rds_connection
-from src.services.results import get_local_results_from_db, save_result_to_db
+from src.core.database import get_db_pool, get_db_conn, init_db, check_rds_connection, check_turso_connection, get_turso_client
+from src.services.results import get_local_results_from_db, save_result_to_db, save_results_batch_to_db
 from src.services.catalog import sync_indices_to_rds, load_unified_configs, save_exam_batch_to_rds
 from src.services.roll_parser import sanitize_durg_roll_number, parse_roll, classify_roll
 from src.services.html_parser import parse_hyu_html, normalize_title
@@ -33,8 +35,11 @@ __all__ = [
     "get_db_conn",
     "init_db",
     "check_rds_connection",
+    "check_turso_connection",
+    "get_turso_client",
     "get_local_results_from_db",
     "save_result_to_db",
+    "save_results_batch_to_db",
     "sync_indices_to_rds",
     "load_unified_configs",
     "save_exam_batch_to_rds",
@@ -46,6 +51,8 @@ __all__ = [
     "scrape_exam_async",
     "fetch_latest_batches",
     "run_auto_crawler",
+    "TURSO_DATABASE_URL",
+    "TURSO_AUTH_TOKEN",
     "COURSE_MAP",
     "UNIFIED_CONFIGS",
     "CRAWL_STATUS",

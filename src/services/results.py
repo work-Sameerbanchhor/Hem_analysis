@@ -1,6 +1,31 @@
 import time
+import gzip
 from src.core.database import get_db_conn
 from src.services.html_parser import parse_hyu_html
+
+def decompress_html(raw_data) -> str:
+    """Helper to safely decompress gzipped HTML or return plaintext if not compressed."""
+    if not raw_data:
+        return ""
+    if isinstance(raw_data, (bytes, bytearray)):
+        try:
+            return gzip.decompress(raw_data).decode("utf-8")
+        except Exception:
+            try:
+                return raw_data.decode("utf-8", errors="ignore")
+            except Exception:
+                return str(raw_data)
+    return str(raw_data)
+
+def compress_html(html_str: str) -> bytes:
+    """Helper to safely compress HTML string using gzip."""
+    if not html_str:
+        return b""
+    if isinstance(html_str, str):
+        return gzip.compress(html_str.encode("utf-8"))
+    if isinstance(html_str, (bytes, bytearray)):
+        return bytes(html_str)
+    return b""
 
 def get_local_results_from_db(rollno: str) -> list:
     results = []
@@ -17,31 +42,32 @@ def get_local_results_from_db(rollno: str) -> list:
                     cursor.execute("""
                         SELECT enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url 
                         FROM results 
-                        WHERE roll_number = %s OR UPPER(enrollment_no) = UPPER(%s)
-                    """, (roll_val, query_str))
+                        WHERE roll_number = ? OR UPPER(enrollment_no) = UPPER(?)
+                    """, [roll_val, query_str])
                 else:
                     cursor.execute("""
                         SELECT enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url 
                         FROM results 
-                        WHERE UPPER(enrollment_no) = UPPER(%s)
-                    """, (query_str,))
+                        WHERE UPPER(enrollment_no) = UPPER(?)
+                    """, [query_str])
                 rows = cursor.fetchall()
 
                 # 2. Extract enrollment numbers to fetch ALL academic years for this student
                 enrollment_nos = {r[0] for r in rows if r[0]}
                 if enrollment_nos:
-                    cursor.execute("""
+                    placeholders = ", ".join(["?"] * len(enrollment_nos))
+                    cursor.execute(f"""
                         SELECT enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url 
                         FROM results 
-                        WHERE enrollment_no = ANY(%s)
-                    """, (list(enrollment_nos),))
+                        WHERE enrollment_no IN ({placeholders})
+                    """, list(enrollment_nos))
                     rows = cursor.fetchall()
                 elif not rows:
                     # 3. Search by Name
                     query_words = query_str.split()
                     if query_words:
-                        conditions = " AND ".join(["LOWER(name) LIKE %s" for _ in query_words])
-                        params = [f"%{word.lower()}%" for word in query_words]
+                        conditions = " AND ".join(["name LIKE ? COLLATE NOCASE" for _ in query_words])
+                        params = [f"%{word}%" for word in query_words]
                         cursor.execute(f"""
                             SELECT enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url 
                             FROM results 
@@ -54,12 +80,13 @@ def get_local_results_from_db(rollno: str) -> list:
                         # Multi-semester expansion for matched students with enrollment numbers
                         found_enr = list({r[0] for r in rows if r[0]})
                         if found_enr:
-                            cursor.execute("""
+                            placeholders = ", ".join(["?"] * len(found_enr))
+                            cursor.execute(f"""
                                 SELECT enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url 
                                 FROM results 
-                                WHERE enrollment_no = ANY(%s)
+                                WHERE enrollment_no IN ({placeholders})
                                 ORDER BY name ASC, roll_number ASC
-                            """, (found_enr,))
+                            """, found_enr)
                             expanded_rows = cursor.fetchall()
                             rows_without_enr = [r for r in rows if not r[0]]
                             rows = expanded_rows + rows_without_enr
@@ -71,7 +98,7 @@ def get_local_results_from_db(rollno: str) -> list:
             exam_title = row[3]
             result_status = row[4]
             sgpa = row[5]
-            html_content = row[6]
+            html_content = decompress_html(row[6])
             official_url = row[7]
             
             dedup_key = f"{enroll_val or roll_val}_{exam_title}"
@@ -97,10 +124,11 @@ def get_local_results_from_db(rollno: str) -> list:
                 "official_url": official_url
             })
     except Exception as e:
-        print(f"Error reading result from Amazon RDS database for {rollno}: {e}")
+        print(f"Error reading result from Turso database for {rollno}: {e}")
     return results
 
 def save_result_to_db(rollno: str, result: dict):
+    """Saves or updates a single student result in Turso with gzip compressed HTML."""
     try:
         roll_val = int(rollno) if str(rollno).isdigit() else 0
         if not roll_val:
@@ -112,26 +140,82 @@ def save_result_to_db(rollno: str, result: dict):
         exam_title = result.get("exam_title", "Pre-Scraped Exam Result")
         result_status = result.get("result_status", "N/A")
         sgpa = result.get("sgpa", "N/A")
-        html_result = result.get("html", "")
+        compressed_html = compress_html(result.get("html", ""))
         official_url = result.get("official_url", "")
         updated_at = time.strftime("%Y-%m-%d %H:%M:%S")
         
         insert_query = """
             INSERT INTO results (
                 enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url, updated_at
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT (enrollment_no, roll_number, exam_title) DO UPDATE SET
-                name = EXCLUDED.name,
-                result_status = EXCLUDED.result_status,
-                sgpa = EXCLUDED.sgpa,
-                html_result = EXCLUDED.html_result,
-                official_url = EXCLUDED.official_url,
-                updated_at = EXCLUDED.updated_at
+                name = excluded.name,
+                result_status = excluded.result_status,
+                sgpa = excluded.sgpa,
+                html_result = excluded.html_result,
+                official_url = excluded.official_url,
+                updated_at = excluded.updated_at
         """
         with get_db_conn() as conn:
             with conn.cursor() as cursor:
-                cursor.execute(insert_query, (enrollment_no, roll_val, name, exam_title, result_status, sgpa, html_result, official_url, updated_at))
-            conn.commit()
-        print(f"Cached live result for {rollno} [{enrollment_no}] ({exam_title}) into Amazon RDS database.")
+                cursor.execute(insert_query, [
+                    enrollment_no, roll_val, name, exam_title, result_status, sgpa, compressed_html, official_url, updated_at
+                ])
+        print(f"Cached live result for {rollno} [{enrollment_no}] ({exam_title}) into Turso database (gzip compressed).")
     except Exception as e:
-        print(f"Error caching live result to Amazon RDS for {rollno}: {e}")
+        print(f"Error caching live result to Turso for {rollno}: {e}")
+
+def save_results_batch_to_db(results_list: list) -> int:
+    """
+    Saves a micro-batch of results in an atomic Turso batch transaction.
+    Significantly reduces network roundtrips during full-scale scraping.
+    """
+    if not results_list:
+        return 0
+    try:
+        insert_query = """
+            INSERT INTO results (
+                enrollment_no, roll_number, name, exam_title, result_status, sgpa, html_result, official_url, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT (enrollment_no, roll_number, exam_title) DO UPDATE SET
+                name = excluded.name,
+                result_status = excluded.result_status,
+                sgpa = excluded.sgpa,
+                html_result = excluded.html_result,
+                official_url = excluded.official_url,
+                updated_at = excluded.updated_at
+        """
+        stmts = []
+        updated_at = time.strftime("%Y-%m-%d %H:%M:%S")
+        valid_count = 0
+
+        for item in results_list:
+            rollno = item.get("rollno")
+            roll_val = int(rollno) if rollno and str(rollno).isdigit() else 0
+            if not roll_val:
+                continue
+
+            res = item.get("result", {})
+            student_info = res.get("student_info", {})
+            name = student_info.get("name", "")
+            enrollment_no = student_info.get("enrollment_no", "")
+            exam_title = res.get("exam_title", "Pre-Scraped Exam Result")
+            result_status = res.get("result_status", "N/A")
+            sgpa = res.get("sgpa", "N/A")
+            compressed_html = compress_html(res.get("html", ""))
+            official_url = res.get("official_url", "")
+
+            stmts.append((insert_query, [
+                enrollment_no, roll_val, name, exam_title, result_status, sgpa, compressed_html, official_url, updated_at
+            ]))
+            valid_count += 1
+
+        if stmts:
+            with get_db_conn() as conn:
+                with conn.cursor() as cursor:
+                    cursor.batch(stmts)
+            print(f"Batch-inserted {valid_count} results into Turso database (atomic transaction).")
+        return valid_count
+    except Exception as e:
+        print(f"Error batch-inserting results to Turso: {e}")
+        return 0

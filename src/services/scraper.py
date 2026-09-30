@@ -17,6 +17,61 @@ from src.services.html_parser import (
 from src.services.roll_parser import parse_roll, classify_roll
 from src.services.results import save_result_to_db
 
+async def scrape_exam_with_payload_async(
+    client: httpx.AsyncClient,
+    domain: str,
+    exam_link: str,
+    payload: dict,
+    token: str,
+    rollno: str,
+    semaphore: asyncio.Semaphore,
+    exam_title: str = ""
+):
+    """
+    High-performance scraping function that reuses pre-fetched CSRF token and form payload,
+    cutting HTTP network roundtrips by 50% during large crawler runs.
+    """
+    ajax_url = f"{domain}/get-result-details"
+    post_headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': token,
+        'Origin': domain,
+        'Referer': exam_link,
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+    
+    data = payload.copy()
+    data['EXAMROLLNUMBER'] = rollno
+    data['_token'] = token
+    
+    async with semaphore:
+        for attempt in range(2):
+            try:
+                res = await client.post(ajax_url, data=data, headers=post_headers, timeout=12.0)
+                if res.status_code == 200:
+                    res_json = res.json()
+                    if res_json.get("status") is False:
+                        return None
+                    if res_json.get("status") is True and "html" in res_json:
+                        html_content = res_json["html"]
+                        if len(html_content) > 200:
+                            parsed_details = parse_hyu_html(html_content)
+                            tcc_val = str(payload.get('tcc', '')).strip("'\"")
+                            return {
+                                "exam_title": parsed_details.get("exam_title") or exam_title,
+                                "student_info": parsed_details.get("student_info", {}),
+                                "result_status": parsed_details.get("result_status", "N/A"),
+                                "sgpa": parsed_details.get("sgpa", "N/A"),
+                                "html": html_content,
+                                "official_url": f"{domain}/result-details?tcc={tcc_val}&rollno={rollno}"
+                            }
+                await asyncio.sleep(0.3)
+            except Exception:
+                await asyncio.sleep(0.3)
+                
+        return None
+
 async def scrape_exam_async(client: httpx.AsyncClient, exam_title: str, exam_link: str, rollno: str, semaphore: asyncio.Semaphore):
     parsed_url = urllib.parse.urlparse(exam_link)
     domain = f"{parsed_url.scheme}://{parsed_url.netloc}"
@@ -49,38 +104,9 @@ async def scrape_exam_async(client: httpx.AsyncClient, exam_title: str, exam_lin
                     'p1': '', 'all': ''
                 }
                 
-                ajax_url = f"{domain}/get-result-details"
-                post_headers = {
-                    'User-Agent': headers['User-Agent'],
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': token,
-                    'Origin': domain,
-                    'Referer': exam_link,
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                }
-                
-                data = payload.copy()
-                data['EXAMROLLNUMBER'] = rollno
-                data['_token'] = token
-                
-                res = await client.post(ajax_url, data=data, headers=post_headers, timeout=12.0)
-                if res.status_code == 200:
-                    res_json = res.json()
-                    if res_json.get("status") is False:
-                        return None
-                    if res_json.get("status") is True and "html" in res_json:
-                        html_content = res_json["html"]
-                        if len(html_content) > 200:
-                            parsed_details = parse_hyu_html(html_content)
-                            return {
-                                "exam_title": parsed_details["exam_title"] or exam_title,
-                                "student_info": parsed_details["student_info"],
-                                "result_status": parsed_details["result_status"],
-                                "sgpa": parsed_details["sgpa"],
-                                "html": html_content,
-                                "official_url": f"{domain}/result-details?tcc={payload['tcc']}&rollno={rollno}"
-                            }
-                await asyncio.sleep(0.5)
+                return await scrape_exam_with_payload_async(
+                    client, domain, exam_link, payload, token, rollno, semaphore, exam_title
+                )
             except Exception:
                 await asyncio.sleep(0.5)
                 

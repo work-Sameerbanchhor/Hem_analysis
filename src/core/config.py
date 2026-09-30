@@ -3,7 +3,11 @@ import os
 # Root directory of the project
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Amazon AWS RDS PostgreSQL Configuration
+# Turso (libSQL) Database Configuration
+TURSO_DATABASE_URL = os.environ.get("TURSO_DATABASE_URL", f"file:{os.path.join(BASE_DIR, 'hyu_results.db')}")
+TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "")
+
+# Amazon AWS RDS PostgreSQL Configuration (Legacy / Fallback)
 RDS_HOST = os.environ.get("RDS_HOST", "hemchand-university-database.cdqk2yemwwg9.ap-south-1.rds.amazonaws.com")
 RDS_PORT = int(os.environ.get("RDS_PORT", 5432))
 RDS_DATABASE = os.environ.get("RDS_DATABASE", "postgres")
@@ -79,23 +83,23 @@ COURSE_MAP = {
     "40":  {"keywords": ["computer application", "bca", "b.c.a"], "exclusions": []},
     
     # B.Sc. (Bachelor of Science)
+    "010": {"keywords": ["b.sc", "bachelor of science"], "required": ["part - iii", "part-iii", "part 3", "final year", "3rd year"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
+    "009": {"keywords": ["b.sc", "bachelor of science"], "required": ["part - ii", "part-ii", "part 2", "second year", "2nd year"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
     "008": {"keywords": ["b.sc", "bachelor of science"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
-    "009": {"keywords": ["b.sc", "bachelor of science"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
-    "010": {"keywords": ["b.sc", "bachelor of science"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
     "012": {"keywords": ["b.sc", "bachelor of science"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
     "090": {"keywords": ["b.sc", "bachelor of science"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
     "30":  {"keywords": ["b.sc", "bachelor of science"], "exclusions": ["b.sc.-b.ed", "b.sc. b.ed", "m.sc", "home science", "b.h.sc."]},
     
     # B.Com. (Bachelor of Commerce)
+    "006": {"keywords": ["b.com", "bachelor of commerce"], "required": ["part - iii", "part-iii", "part 3", "final year", "3rd year"], "exclusions": ["m.com"]},
+    "005": {"keywords": ["b.com", "bachelor of commerce"], "required": ["part - ii", "part-ii", "part 2", "second year", "2nd year"], "exclusions": ["m.com"]},
     "004": {"keywords": ["b.com", "bachelor of commerce"], "exclusions": ["m.com"]},
-    "005": {"keywords": ["b.com", "bachelor of commerce"], "exclusions": ["m.com"]},
-    "006": {"keywords": ["b.com", "bachelor of commerce"], "exclusions": ["m.com"]},
     "20":  {"keywords": ["b.com", "bachelor of commerce"], "exclusions": ["m.com"]},
     
     # B.A. (Bachelor of Arts)
+    "003": {"keywords": ["b.a.", "bachelor of arts", " b.a "], "required": ["part - iii", "part-iii", "part 3", "final year", "3rd year"], "exclusions": ["b.a.-b.ed", "b.a. b.ed", "m.a.", "b.a. (ll.b.)"]},
+    "002": {"keywords": ["b.a.", "bachelor of arts", " b.a "], "required": ["part - ii", "part-ii", "part 2", "second year", "2nd year"], "exclusions": ["b.a.-b.ed", "b.a. b.ed", "m.a.", "b.a. (ll.b.)"]},
     "001": {"keywords": ["b.a.", "bachelor of arts", " b.a "], "exclusions": ["b.a.-b.ed", "b.a. b.ed", "m.a.", "b.a. (ll.b.)"]},
-    "002": {"keywords": ["b.a.", "bachelor of arts", " b.a "], "exclusions": ["b.a.-b.ed", "b.a. b.ed", "m.a.", "b.a. (ll.b.)"]},
-    "003": {"keywords": ["b.a.", "bachelor of arts", " b.a "], "exclusions": ["b.a.-b.ed", "b.a. b.ed", "m.a.", "b.a. (ll.b.)"]},
     "030": {"keywords": ["b.a.", "bachelor of arts", " b.a "], "exclusions": ["b.a.-b.ed", "b.a. b.ed", "m.a.", "b.a. (ll.b.)"]},
     "10":  {"keywords": ["b.a.", "bachelor of arts", " b.a "], "exclusions": ["b.a.-b.ed", "b.a. b.ed", "m.a.", "b.a. (ll.b.)"]},
     
@@ -187,5 +191,7 @@ COURSE_MAP = {
     "613": {"keywords": ["d.c.a", "dca", "diploma in computer application"], "exclusions": ["pgdca", "p.g.d.c.a"]},
     "71":  {"keywords": ["pgdca", "p.g.d.c.a"], "exclusions": []},
     "135": {"keywords": ["pgdca", "p.g.d.c.a"], "exclusions": []},
+    "73":  {"keywords": ["pgdyep", "yoga education and philosophy", "yoga"], "exclusions": []},
+    "137": {"keywords": ["pgdyep", "yoga education and philosophy", "yoga"], "exclusions": []},
     "179": {"keywords": ["pgdgc", "guidance", "counselling"], "exclusions": []}
 }

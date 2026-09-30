@@ -3,15 +3,14 @@ import re
 import html
 from datetime import datetime
 from bs4 import BeautifulSoup
-from psycopg2.extras import execute_values
 
 from src.core.config import BASE_DIR, UNIFIED_CONFIGS
 from src.core.database import get_db_conn
 
-def sync_indices_to_rds(legacy_html_path: str = None, nep_html_path: str = None) -> int:
+def sync_indices_to_db(legacy_html_path: str = None, nep_html_path: str = None) -> int:
     """
     Parses full university HTML index files (legacy_index.html and nep_index.html),
-    extracts clean unique exams, and upserts them directly into RDS exam_catalog table.
+    extracts clean unique exams, and upserts them directly into Turso exam_catalog table.
     """
     legacy_file = legacy_html_path or os.path.join(BASE_DIR, "legacy_index.html")
     nep_file = nep_html_path or os.path.join(BASE_DIR, "nep_index.html")
@@ -88,6 +87,7 @@ def sync_indices_to_rds(legacy_html_path: str = None, nep_html_path: str = None)
                                 year = year_num
                         else:
                             desc = raw_desc
+                            year = year_num
 
                         if desc and link:
                             key = (desc.lower(), pub_date, "nep")
@@ -100,28 +100,35 @@ def sync_indices_to_rds(legacy_html_path: str = None, nep_html_path: str = None)
 
     records = list(catalog.values())
     try:
+        upsert_sql = """
+            INSERT INTO exam_catalog (description, link, publication_date, year, source)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT (description, publication_date, source) DO UPDATE SET
+                link = excluded.link,
+                year = excluded.year,
+                updated_at = datetime('now')
+        """
+        stmts = [(upsert_sql, list(rec)) for rec in records]
+        
         with get_db_conn() as conn:
             with conn.cursor() as cur:
-                upsert_sql = """
-                    INSERT INTO exam_catalog (description, link, publication_date, year, source)
-                    VALUES %s
-                    ON CONFLICT (description, publication_date, source) DO UPDATE SET
-                        link = EXCLUDED.link,
-                        year = EXCLUDED.year,
-                        updated_at = CURRENT_TIMESTAMP
-                """
-                execute_values(cur, upsert_sql, records, page_size=1000)
-            conn.commit()
-        print(f"Synced {len(records):,} clean exam entries into Amazon RDS exam_catalog.")
+                chunk_size = 500
+                for i in range(0, len(stmts), chunk_size):
+                    cur.batch(stmts[i:i + chunk_size])
+                    
+        print(f"Synced {len(records):,} clean exam entries into Turso exam_catalog.")
     except Exception as e:
-        print(f"Error syncing indices to RDS exam_catalog: {e}")
+        print(f"Error syncing indices to Turso exam_catalog: {e}")
 
     return len(records)
 
+# Backward-compatible alias
+sync_indices_to_rds = sync_indices_to_db
+
 def load_unified_configs(force_reload: bool = False):
     """
-    Loads all active exam configurations from Amazon RDS exam_catalog into RAM (UNIFIED_CONFIGS).
-    If the RDS table is empty, automatically synchronizes from downloaded HTML index files.
+    Loads all active exam configurations from Turso exam_catalog into RAM (UNIFIED_CONFIGS).
+    If the table is empty, automatically synchronizes from downloaded HTML index files.
     """
     global UNIFIED_CONFIGS
     if UNIFIED_CONFIGS and not force_reload:
@@ -134,7 +141,7 @@ def load_unified_configs(force_reload: bool = False):
                 cur.execute("""
                     SELECT description, link, publication_date, year, source 
                     FROM exam_catalog 
-                    ORDER BY year DESC NULLS LAST, id DESC
+                    ORDER BY CASE WHEN year IS NULL THEN 1 ELSE 0 END, year DESC, id DESC
                 """)
                 rows = cur.fetchall()
                 for r in rows:
@@ -147,19 +154,20 @@ def load_unified_configs(force_reload: bool = False):
                     })
         UNIFIED_CONFIGS.clear()
         UNIFIED_CONFIGS.extend(configs)
-        print(f"Loaded {len(UNIFIED_CONFIGS):,} exam configurations from Amazon RDS exam_catalog.")
+        print(f"Loaded {len(UNIFIED_CONFIGS):,} exam configurations from Turso exam_catalog.")
     except Exception as e:
-        print(f"Error loading exam configurations from RDS: {e}")
+        print(f"Error loading exam configurations from Turso: {e}")
 
-    # If RDS table had zero records, perform initial sync from HTML index
+    # If table had zero records, perform initial sync from HTML index
     if not UNIFIED_CONFIGS:
-        synced = sync_indices_to_rds()
+        synced = sync_indices_to_db()
         if synced > 0:
             return load_unified_configs(force_reload=True)
 
     return UNIFIED_CONFIGS
 
-def save_exam_batch_to_rds(batch: dict):
+def save_exam_batch_to_db(batch: dict):
+    """Upserts a single exam batch entry into the exam_catalog table."""
     desc = batch.get("description", "").strip()
     link = batch.get("link", "").strip()
     pub_date = batch.get("publication_date", "").strip()
@@ -177,13 +185,15 @@ def save_exam_batch_to_rds(batch: dict):
             with conn.cursor() as cur:
                 cur.execute("""
                     INSERT INTO exam_catalog (description, link, publication_date, year, source)
-                    VALUES (%s, %s, %s, %s, %s)
+                    VALUES (?, ?, ?, ?, ?)
                     ON CONFLICT (description, publication_date, source) DO UPDATE SET
-                        link = EXCLUDED.link,
-                        year = EXCLUDED.year,
-                        updated_at = CURRENT_TIMESTAMP
-                """, (desc, link, pub_date, year_int, source))
-            conn.commit()
-        print(f"Saved exam catalog entry in Amazon RDS: {desc} ({source})")
+                        link = excluded.link,
+                        year = excluded.year,
+                        updated_at = datetime('now')
+                """, [desc, link, pub_date, year_int, source])
+        print(f"Saved exam catalog entry in Turso: {desc} ({source})")
     except Exception as e:
-        print(f"Error saving exam batch to RDS: {e}")
+        print(f"Error saving exam batch to Turso: {e}")
+
+# Backward-compatible alias
+save_exam_batch_to_rds = save_exam_batch_to_db

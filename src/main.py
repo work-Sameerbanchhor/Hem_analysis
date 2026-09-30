@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.core.database import init_db, check_rds_connection
+from src.core.database import init_db, check_rds_connection, close_turso_client
 from src.services.catalog import load_unified_configs
 from src.api.routers import results, crawler, logs, health
 
@@ -13,13 +13,14 @@ async def lifespan(app: FastAPI):
     check_rds_connection()
     load_unified_configs()
     yield
-    # Teardown tasks (if any)
+    # Teardown tasks
+    close_turso_client()
 
 def create_app() -> FastAPI:
     application = FastAPI(
         title="HYU Live Result API",
         version="2.0.0",
-        description="Production-grade distributed API for Hemchand Yadav Vishwavidyalaya results and auto-crawler backed by Amazon RDS PostgreSQL.",
+        description="Production-grade distributed API for Hemchand Yadav Vishwavidyalaya results and auto-crawler backed by Turso (libSQL).",
         lifespan=lifespan
     )
 
