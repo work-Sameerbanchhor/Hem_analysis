@@ -99,22 +99,23 @@ def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str)
             else:
                 detected_code = "10" # Default B.A.
 
-        # For NEP admission cohort offset if 3rd/5th semester
+        # Multi-semester admission cohort offset (Students retain admission roll across all semesters)
         offset = 0
-        if source == "nep":
-            if "3rd sem" in c_lower or "4th sem" in c_lower:
-                offset += 1
-            elif "5th sem" in c_lower or "6th sem" in c_lower:
-                offset += 2
-            if "supply" in c_lower or "atkt" in c_lower:
-                offset += 1
-            try:
-                yy_int = int(year_str[-2:]) - offset
-            except Exception:
-                yy_int = 24
-            calc_yy = f"{yy_int:02d}"
-        else:
-            calc_yy = yy_prefix
+        if any(s in c_lower for s in ["3rd sem", "4th sem", "third sem", "fourth sem", "sem - 3", "sem - 4"]):
+            offset = 1
+        elif any(s in c_lower for s in ["5th sem", "6th sem", "fifth sem", "sixth sem", "sem - 5", "sem - 6"]):
+            offset = 2
+        elif any(s in c_lower for s in ["7th sem", "8th sem", "seventh sem", "eighth sem", "sem - 7", "sem - 8"]):
+            offset = 3
+            
+        if source == "nep" and any(s in c_lower for s in ["supply", "atkt"]):
+            offset += 1
+            
+        try:
+            yy_int = int(year_str[-2:]) - offset
+        except Exception:
+            yy_int = 24
+        calc_yy = f"{yy_int:02d}"
             
         max_serial = 800
         consecutive_fails_limit = 15
@@ -123,12 +124,13 @@ def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str)
     else:
         # Annual Track: Part I, Part II, Part III, Previous, Final
         if yy_full >= 2024:
-            # 8-digit format: [LAST_DIGIT][CCC][SERIAL_4D]
+            # 8-digit format: [LAST_DIGIT][CCC][SERIAL_4D] (e.g. 41010001, 53022422, 62020869)
             max_serial = 2500
             consecutive_fails_limit = 15
             return (lambda c, i: f"{last_digit}{c}{i:04d}"), max_serial, consecutive_fails_limit
         else:
-            # Pre-2024 legacy annual format (11 or 12 digits)
+            # Pre-2024 legacy annual format is 11 digits: [LAST_DIGIT][CCC][CODE_3D][SERIAL_4D]
+            # Empirically verified: 2019 B.Com (91010050001), 2023 B.A. (31070010214)
             detected_code = None
             for code, mapping in COURSE_MAP.items():
                 if len(code) == 3:
@@ -167,10 +169,7 @@ def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str)
                 else:
                     detected_code = "001"
                     
-            if yy_full in [2022, 2023]:
-                return (lambda c, i: f"{yy_prefix}{c}{detected_code}{i:04d}"), 2500, 15
-            else:
-                return (lambda c, i: f"{last_digit}{c}{detected_code}{i:04d}"), 2500, 15
+            return (lambda c, i: f"{last_digit}{c}{detected_code}{i:04d}"), 2500, 15
 
 async def run_auto_crawler():
     global CRAWL_STATUS
