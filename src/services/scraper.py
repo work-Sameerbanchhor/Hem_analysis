@@ -80,35 +80,35 @@ async def scrape_exam_async(client: httpx.AsyncClient, exam_title: str, exam_lin
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
     
-    async with semaphore:
-        for attempt in range(3):
-            try:
+    for attempt in range(3):
+        try:
+            async with semaphore:
                 r = await client.get(exam_link, headers=headers, timeout=12.0)
-                if r.status_code != 200:
-                    await asyncio.sleep(0.5)
-                    continue
-                    
-                soup = BeautifulSoup(r.text, 'html.parser')
-                token_elem = soup.find('input', {'name': '_token'})
-                if not token_elem:
-                    await asyncio.sleep(0.5)
-                    continue
-                token = token_elem['value']
-                
-                payload = {
-                    'COURSECD':   soup.find('input', {'name': 'COURSECD'})['value'] if soup.find('input', {'name': 'COURSECD'}) else '',
-                    'SEMCODE':    soup.find('input', {'name': 'SEMCODE'})['value'] if soup.find('input', {'name': 'SEMCODE'}) else '',
-                    'RESULTTYPE': soup.find('input', {'name': 'RESULTTYPE'})['value'] if soup.find('input', {'name': 'RESULTTYPE'}) else '',
-                    'session':    soup.find('input', {'name': 'session'})['value'] if soup.find('input', {'name': 'session'}) else '',
-                    'tcc':        soup.find('input', {'name': 'tcc'})['value'] if soup.find('input', {'name': 'tcc'}) else '',
-                    'p1': '', 'all': ''
-                }
-                
-                return await scrape_exam_with_payload_async(
-                    client, domain, exam_link, payload, token, rollno, semaphore, exam_title
-                )
-            except Exception:
+            if r.status_code != 200:
                 await asyncio.sleep(0.5)
+                continue
+                
+            soup = BeautifulSoup(r.text, 'html.parser')
+            token_elem = soup.find('input', {'name': '_token'})
+            if not token_elem:
+                await asyncio.sleep(0.5)
+                continue
+            token = token_elem['value']
+            
+            payload = {
+                'COURSECD':   soup.find('input', {'name': 'COURSECD'})['value'] if soup.find('input', {'name': 'COURSECD'}) else '',
+                'SEMCODE':    soup.find('input', {'name': 'SEMCODE'})['value'] if soup.find('input', {'name': 'SEMCODE'}) else '',
+                'RESULTTYPE': soup.find('input', {'name': 'RESULTTYPE'})['value'] if soup.find('input', {'name': 'RESULTTYPE'}) else '',
+                'session':    soup.find('input', {'name': 'session'})['value'] if soup.find('input', {'name': 'session'}) else '',
+                'tcc':        soup.find('input', {'name': 'tcc'})['value'] if soup.find('input', {'name': 'tcc'}) else '',
+                'p1': '', 'all': ''
+            }
+            
+            return await scrape_exam_with_payload_async(
+                client, domain, exam_link, payload, token, rollno, semaphore, exam_title
+            )
+        except Exception:
+            await asyncio.sleep(0.5)
                 
         return None
 
