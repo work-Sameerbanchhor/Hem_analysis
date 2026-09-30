@@ -119,15 +119,29 @@ def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str)
             
         max_serial = 800
         consecutive_fails_limit = 15
-        return (lambda c, i: f"{calc_yy}{c}{detected_code}{i:03d}"), max_serial, consecutive_fails_limit
+        return (lambda c, i: f"{calc_yy}{c}{detected_code}{i:03d}"), [1], max_serial, consecutive_fails_limit
         
     else:
         # Annual Track: Part I, Part II, Part III, Previous, Final
         if yy_full >= 2024:
             # 8-digit format: [LAST_DIGIT][CCC][SERIAL_4D] (e.g. 41010001, 53022422, 62020869)
-            max_serial = 2500
+            is_ug = any(k in c_lower for k in ["b.a", "b.sc", "b.com", "bca", "bba", "bachelor", "part - i", "part - ii", "part - iii", "1st year", "2nd year", "3rd year"])
+            is_pg_annual = (any(k in c_lower for k in ["m.a", "m.com", "m.sc", "master"]) or any(k in c_lower for k in ["previous", "final"])) and not is_ug
+            is_comm = any(k in c_lower for k in ["b.com", "commerce"])
+            is_sci = any(k in c_lower for k in ["b.sc", "science"])
+            
+            if is_pg_annual:
+                candidate_starts = [3000, 4000, 4500, 5000, 5500, 5720, 6000, 6500, 7000]
+            elif is_comm:
+                candidate_starts = [1, 500, 1000, 1500, 2000, 2500, 3000, 3400, 4000]
+            elif is_sci:
+                candidate_starts = [1, 500, 1000, 1500, 2000, 2270, 2500, 3000]
+            else:
+                candidate_starts = [1] # Standard B.A. Annual starts at 1
+                
+            max_serial = 8000
             consecutive_fails_limit = 15
-            return (lambda c, i: f"{last_digit}{c}{i:04d}"), max_serial, consecutive_fails_limit
+            return (lambda c, i: f"{last_digit}{c}{i:04d}"), candidate_starts, max_serial, consecutive_fails_limit
         else:
             # Pre-2024 legacy annual format is 11 digits: [LAST_DIGIT][CCC][CODE_3D][SERIAL_4D]
             # Empirically verified: 2019 B.Com (91010050001), 2023 B.A. (31070010214)
@@ -169,7 +183,7 @@ def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str)
                 else:
                     detected_code = "001"
                     
-            return (lambda c, i: f"{last_digit}{c}{detected_code}{i:04d}"), 2500, 15
+            return (lambda c, i: f"{last_digit}{c}{detected_code}{i:04d}"), [1], 2500, 15
 
 async def run_auto_crawler():
     global CRAWL_STATUS
@@ -267,7 +281,7 @@ async def run_auto_crawler():
                 course_name = batch["description"]
                 year_str = batch["year"]
                 
-                roll_generator, max_serial, consecutive_fails_limit = resolve_crawler_roll_generator(course_name, source, year_str)
+                roll_generator, candidate_starts, max_serial, consecutive_fails_limit = resolve_crawler_roll_generator(course_name, source, year_str)
                     
                 colleges_done = 0
                 for college_idx, coll in enumerate(colleges):
@@ -275,8 +289,53 @@ async def run_auto_crawler():
                     found_any = False
                     saved_in_college = 0
                     
+                    # Determine active starting serial for this college
+                    active_start = candidate_starts[0]
+                    if len(candidate_starts) > 1:
+                        for probe_start in candidate_starts:
+                            probe_rolls = [roll_generator(coll, i) for i in range(probe_start, probe_start + 10)]
+                            probe_tasks = [
+                                scrape_exam_with_payload_async(
+                                    client, domain, batch["link"], payload, token, r_num, semaphore, course_name
+                                )
+                                for r_num in probe_rolls
+                            ]
+                            probe_res = await asyncio.gather(*probe_tasks)
+                            if any(probe_res):
+                                active_start = probe_start
+                                found_any = True
+                                break
+                                
+                        if not found_any:
+                            colleges_done += 1
+                            continue
+                            
+                    # If cohort was discovered at an offset > 1, sweep backward up to 30 numbers to catch edge students
+                    if active_start > 1:
+                        back_rolls = [roll_generator(coll, i) for i in range(max(1, active_start - 30), active_start)]
+                        back_tasks = [
+                            scrape_exam_with_payload_async(
+                                client, domain, batch["link"], payload, token, r_num, semaphore, course_name
+                            )
+                            for r_num in back_rolls
+                        ]
+                        back_res = await asyncio.gather(*back_tasks)
+                        back_items = []
+                        for r_num, res in zip(back_rolls, back_res):
+                            if res:
+                                found_any = True
+                                saved_in_college += 1
+                                saved_in_batch += 1
+                                back_items.append({"rollno": r_num, "result": res})
+                        if back_items:
+                            inserted = save_results_batch_to_db(back_items)
+                            total_records_added += inserted
+                            CRAWL_STATUS["records_added"] = total_records_added
+
+                    # Stream forward from active_start chunk by chunk until consecutive_fails_limit
                     chunk_size = 10
-                    for i_start in range(1, max_serial + 1, chunk_size):
+                    consecutive_fails = 0
+                    for i_start in range(active_start, max_serial + 1, chunk_size):
                         tasks = []
                         for i in range(i_start, min(i_start + chunk_size, max_serial + 1)):
                             roll = roll_generator(coll, i)
