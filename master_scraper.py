@@ -30,6 +30,7 @@ import signal
 import sqlite3
 import argparse
 import asyncio
+import concurrent.futures
 from datetime import datetime
 import httpx
 from bs4 import BeautifulSoup
@@ -81,14 +82,20 @@ signal.signal(signal.SIGINT, handle_signal)
 signal.signal(signal.SIGTERM, handle_signal)
 
 # ======================================================================================
-# 2. SQLITE PROGRESS MANIFEST
+# 2. SQLITE PROGRESS MANIFEST & FUSE-OPTIMIZED PRAGMAS
 # ======================================================================================
 
 def get_manifest_db(output_dir: str):
     os.makedirs(output_dir, exist_ok=True)
     db_path = os.path.join(output_dir, "manifest.sqlite")
-    conn = sqlite3.connect(db_path, timeout=30.0)
-    conn.execute("PRAGMA journal_mode=WAL")
+    conn = sqlite3.connect(db_path, timeout=60.0)
+    try:
+        conn.execute("PRAGMA journal_mode=WAL")
+    except Exception:
+        conn.execute("PRAGMA journal_mode=TRUNCATE")
+    conn.execute("PRAGMA synchronous=NORMAL")
+    conn.execute("PRAGMA cache_size=-64000")  # 64MB memory page cache
+    conn.execute("PRAGMA temp_store=MEMORY")
     with conn:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS batches (
@@ -117,6 +124,108 @@ def get_manifest_db(output_dir: str):
         conn.execute("CREATE INDEX IF NOT EXISTS idx_marksheets_batch ON marksheets (batch_id)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_marksheets_roll ON marksheets (roll_number)")
     return conn
+
+# ======================================================================================
+# 2.1 HIGH-THROUGHPUT RAM BUFFER MANAGER (FUSE / I/O BOTTLENECK REMOVER)
+# ======================================================================================
+
+class RamBufferManager:
+    """
+    High-throughput in-memory buffer manager designed to eliminate FUSE storage and network I/O bottlenecks:
+    - Maintains in-memory index of all existing marksheets in RAM (zero FUSE stat calls).
+    - Buffers up to N records (default: 5,000) directly in memory.
+    - Flushes in parallel using multi-threaded disk writers and single atomic SQLite transactions.
+    """
+    def __init__(self, output_dir: str, db_conn: sqlite3.Connection, buffer_size: int = 5000, num_io_workers: int = 32):
+        self.output_dir = output_dir
+        self.db_conn = db_conn
+        self.buffer_size = buffer_size
+        self.num_io_workers = num_io_workers
+        self.buffer = []
+        self.pending_batch_updates = []
+        self.seen_marksheets = set()  # set of (batch_id, roll_number_str)
+        self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=num_io_workers)
+        self.total_flushed_records = 0
+
+    def load_existing_marksheets(self):
+        """Pre-loads all existing (batch_id, roll_number) from SQLite manifest into RAM."""
+        t0 = time.time()
+        cur = self.db_conn.cursor()
+        cur.execute("SELECT batch_id, roll_number FROM marksheets")
+        rows = cur.fetchall()
+        for bid, rnum in rows:
+            self.seen_marksheets.add((bid, str(rnum)))
+        elapsed = round(time.time() - t0, 2)
+        print(f"[*] In-Memory Index: Loaded {len(self.seen_marksheets):,} existing marksheet keys into RAM ({elapsed}s) -> 0 FUSE stat calls.")
+
+    def is_cached(self, batch_id: int, roll_number: str) -> bool:
+        return (batch_id, str(roll_number)) in self.seen_marksheets
+
+    async def add_marksheet(self, record: dict):
+        self.buffer.append(record)
+        self.seen_marksheets.add((record['batch_id'], str(record['roll_number'])))
+        if len(self.buffer) >= self.buffer_size:
+            await self.flush()
+
+    def stage_batch_completion(self, batch_id: int, total_students: int, completed_at: str):
+        self.pending_batch_updates.append((total_students, completed_at, batch_id))
+
+    async def flush(self):
+        if not self.buffer and not self.pending_batch_updates:
+            return
+
+        records_to_flush = list(self.buffer)
+        self.buffer.clear()
+        batch_updates_to_flush = list(self.pending_batch_updates)
+        self.pending_batch_updates.clear()
+
+        count = len(records_to_flush)
+        b_count = len(batch_updates_to_flush)
+        t0 = time.time()
+        print(f"\n[>>>] RAM Buffer Threshold Reached ({count:,} records). Bulk saving to FUSE disk & manifest...")
+
+        # 1. Parallel I/O writing on FUSE using ThreadPoolExecutor
+        if records_to_flush:
+            def _write_one(item):
+                try:
+                    os.makedirs(os.path.dirname(item['file_path']), exist_ok=True)
+                    with open(item['file_path'], 'w', encoding='utf-8') as f:
+                        f.write(item['html_data'])
+                    return True
+                except Exception as e:
+                    print(f"[!] FUSE write error for {item['file_path']}: {e}")
+                    return False
+
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(self.executor, lambda: list(self.executor.map(_write_one, records_to_flush)))
+
+        # 2. Single Atomic SQLite Transaction
+        with self.db_conn:
+            if records_to_flush:
+                manifest_rows = [
+                    (r['batch_id'], str(r['roll_number']), r['year'], r['college_code'], r['file_path'], r['file_size'], r['scraped_at'])
+                    for r in records_to_flush
+                ]
+                self.db_conn.executemany("""
+                    INSERT OR REPLACE INTO marksheets 
+                    (batch_id, roll_number, year, college_code, file_path, file_size, scraped_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, manifest_rows)
+
+            if batch_updates_to_flush:
+                self.db_conn.executemany("""
+                    UPDATE batches 
+                    SET status = 'COMPLETED', students_scraped = ?, completed_at = ?
+                    WHERE batch_id = ?
+                """, batch_updates_to_flush)
+
+        self.total_flushed_records += count
+        dt = round(time.time() - t0, 2)
+        write_speed = round(count / max(0.01, dt), 1)
+        print(f"[<<<] Successfully committed {count:,} marksheets and {b_count} batches in {dt}s ({write_speed} records/sec)!\n")
+
+    def close(self):
+        self.executor.shutdown(wait=True)
 
 # ======================================================================================
 # 3. ROLL NUMBER GENERATOR RESOLVER
@@ -235,13 +344,13 @@ async def scrape_batch(
     client: httpx.AsyncClient,
     batch: dict,
     output_dir: str,
-    db_conn: sqlite3.Connection,
+    ram_manager: RamBufferManager,
     semaphore: asyncio.Semaphore
 ) -> int:
     """
     Completely scrapes an active batch across all affiliated college centers.
     Dynamically identifies cohort size per college using consecutive miss thresholds.
-    Saves every valid raw marksheet HTML to disk and records to SQLite manifest.
+    Buffers marksheets in RAM and bulk-saves in batches of N (default: 5000).
     """
     global SHUTDOWN_REQUESTED
     if SHUTDOWN_REQUESTED:
@@ -253,7 +362,6 @@ async def scrape_batch(
     link = batch['link']
     batch_slug = f"{bid:04d}_{sanitize_slug(desc)}"
     batch_dir = os.path.join(output_dir, yr, batch_slug)
-    os.makedirs(batch_dir, exist_ok=True)
 
     # 1. Fetch CSRF token & form payload
     try:
@@ -300,9 +408,8 @@ async def scrape_batch(
     t_batch_start = time.time()
 
     async def fetch_single_roll(roll: str):
-        file_path = os.path.join(batch_dir, f"{roll}.html")
-        # Idempotent skip if already on disk
-        if os.path.exists(file_path) and os.path.getsize(file_path) > 500:
+        # 1. Zero-IO in-memory check (0 FUSE stat calls)
+        if ram_manager.is_cached(bid, roll):
             return roll, None, True
 
         d = payload_base.copy()
@@ -314,16 +421,16 @@ async def scrape_batch(
                     rj = res.json()
                     if rj.get('status') is True:
                         html_text = rj.get('html', '')
-                        if len(html_text) > 200 and 'Marks Sheet' in html_text or 'PASS' in html_text or 'FAIL' in html_text or 'PROMOTED' in html_text or 'WITHHELD' in html_text:
+                        if len(html_text) > 200 and ('Marks Sheet' in html_text or 'PASS' in html_text or 'FAIL' in html_text or 'PROMOTED' in html_text or 'WITHHELD' in html_text):
                             return roll, html_text, False
                 return roll, None, False
             except Exception:
                 return roll, None, False
 
-    # Mark batch IN_PROGRESS in manifest
+    # Mark batch IN_PROGRESS in manifest (fast single execute)
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    with db_conn:
-        db_conn.execute("""
+    with ram_manager.db_conn:
+        ram_manager.db_conn.execute("""
             INSERT INTO batches (batch_id, year, description, link, status, students_scraped, started_at)
             VALUES (?, ?, ?, ?, 'IN_PROGRESS', 0, ?)
             ON CONFLICT(batch_id) DO UPDATE SET status='IN_PROGRESS', started_at=?
@@ -349,13 +456,16 @@ async def scrape_batch(
                         total_scraped_batch += 1
                     elif html_data:
                         file_path = os.path.join(batch_dir, f"{r_num}.html")
-                        with open(file_path, "w", encoding="utf-8") as f:
-                            f.write(html_data)
-                        with db_conn:
-                            db_conn.execute("""
-                                INSERT OR REPLACE INTO marksheets (batch_id, roll_number, year, college_code, file_path, file_size, scraped_at)
-                                VALUES (?, ?, ?, ?, ?, ?, ?)
-                            """, (bid, r_num, yr, col, file_path, len(html_data), datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+                        await ram_manager.add_marksheet({
+                            'batch_id': bid,
+                            'roll_number': r_num,
+                            'year': yr,
+                            'college_code': col,
+                            'file_path': file_path,
+                            'html_data': html_data,
+                            'file_size': len(html_data),
+                            'scraped_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        })
                         found_in_college += 1
                         total_scraped_batch += 1
 
@@ -377,13 +487,16 @@ async def scrape_batch(
                         consecutive_fails = 0
                     elif html_data:
                         file_path = os.path.join(batch_dir, f"{r_num}.html")
-                        with open(file_path, "w", encoding="utf-8") as f:
-                            f.write(html_data)
-                        with db_conn:
-                            db_conn.execute("""
-                                INSERT OR REPLACE INTO marksheets (batch_id, roll_number, year, college_code, file_path, file_size, scraped_at)
-                                VALUES (?, ?, ?, ?, ?, ?, ?)
-                            """, (bid, r_num, yr, col, file_path, len(html_data), datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+                        await ram_manager.add_marksheet({
+                            'batch_id': bid,
+                            'roll_number': r_num,
+                            'year': yr,
+                            'college_code': col,
+                            'file_path': file_path,
+                            'html_data': html_data,
+                            'file_size': len(html_data),
+                            'scraped_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        })
                         found_in_college += 1
                         total_scraped_batch += 1
                         consecutive_fails = 0
@@ -402,14 +515,9 @@ async def scrape_batch(
         if found_in_college > 0:
             print(f"   [+] College {col}: Scraped {found_in_college} student marksheets.")
 
-    # Mark batch COMPLETED in manifest
+    # Stage batch completion in RAM manager (atomic commit with marksheet flush)
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    with db_conn:
-        db_conn.execute("""
-            UPDATE batches 
-            SET status = 'COMPLETED', students_scraped = ?, completed_at = ?
-            WHERE batch_id = ?
-        """, (total_scraped_batch, now_str, bid))
+    ram_manager.stage_batch_completion(bid, total_scraped_batch, now_str)
 
     elapsed = round(time.time() - t_batch_start, 1)
     print(f"[*] Completed Batch [{bid}] ({yr}) {desc[:45]}... | Total: {total_scraped_batch} marksheets ({elapsed}s)")
@@ -451,6 +559,15 @@ async def run_master_scraper(args):
                 VALUES (?, ?, ?, ?, 'EMPTY_SHELL', 0, ?, ?)
             """, (s['id'], s['year'], s['description'], s['link'], now_str, now_str))
 
+    # Initialize RAM buffer manager & load existing keys into memory
+    ram_manager = RamBufferManager(
+        output_dir=args.output_dir,
+        db_conn=db_conn,
+        buffer_size=args.buffer_size,
+        num_io_workers=args.io_workers
+    )
+    ram_manager.load_existing_marksheets()
+
     # Filter batches based on CLI flags
     filtered_batches = passing_batches
     if args.year:
@@ -472,6 +589,8 @@ async def run_master_scraper(args):
     print(f"[*] Batches already completed: {len(completed_ids)}")
     print(f"[*] Batches remaining to scrape: {len(to_scrape)}")
     print(f"[*] HTTP Concurrency Limit: {args.concurrency}")
+    print(f"[*] RAM Buffer Size: {args.buffer_size:,} records")
+    print(f"[*] Parallel Disk I/O Workers: {args.io_workers}")
     print("=" * 88)
 
     if not to_scrape:
@@ -489,8 +608,12 @@ async def run_master_scraper(args):
             if SHUTDOWN_REQUESTED:
                 break
             print(f"\n>>> [{idx+1}/{len(to_scrape)}] Processing Batch {batch['id']} ({batch['year']}): {batch['description']}")
-            count = await scrape_batch(client, batch, args.output_dir, db_conn, semaphore)
+            count = await scrape_batch(client, batch, args.output_dir, ram_manager, semaphore)
             total_students_session += count
+
+        # Flush any remaining marksheets sitting in RAM buffer before exit
+        await ram_manager.flush()
+        ram_manager.close()
 
     cur.execute("SELECT COUNT(*), COUNT(DISTINCT batch_id) FROM marksheets")
     row = cur.fetchone()
@@ -515,7 +638,9 @@ def main():
     parser = argparse.ArgumentParser(description="Hemchand Yadav Vishwavidyalaya Standalone Master Scraper")
     parser.add_argument("--year", type=str, default="", help="Scrape specific academic year (e.g. 2026, 2025, 2024...)")
     parser.add_argument("--batch", type=int, default=0, help="Scrape specific batch ID (e.g. 1)")
-    parser.add_argument("--concurrency", type=int, default=15, help="Number of concurrent HTTP connections (default: 15)")
+    parser.add_argument("--concurrency", type=int, default=20, help="Number of concurrent HTTP connections (default: 20)")
+    parser.add_argument("--buffer-size", type=int, default=5000, help="Number of records to buffer in RAM before saving to disk & SQLite (default: 5000)")
+    parser.add_argument("--io-workers", type=int, default=32, help="Number of parallel disk writer threads for FUSE storage (default: 32)")
     parser.add_argument("--output-dir", type=str, default=DEFAULT_OUTPUT_DIR, help="Directory to save raw HTML marksheets")
     parser.add_argument("--all", action="store_true", help="Scrape all 1,005 passing batches across all years")
     args = parser.parse_args()
