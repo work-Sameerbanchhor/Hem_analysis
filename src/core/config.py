@@ -3,9 +3,14 @@ import os
 # Root directory of the project
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Turso (libSQL) Database Configuration
-TURSO_DATABASE_URL = os.environ.get("TURSO_DATABASE_URL", f"file:{os.path.join(BASE_DIR, 'hyu_results.db')}")
-TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "")
+# Local SQLite Database Configuration (Turso Cloud commented out for now)
+LOCAL_DB_PATH = os.path.join(BASE_DIR, "hyu_results.db")
+TURSO_DATABASE_URL = f"file:{LOCAL_DB_PATH}"
+TURSO_AUTH_TOKEN = ""
+
+# Turso Cloud (Commented out for now - using local SQLite only)
+# TURSO_DATABASE_URL = os.environ.get("TURSO_DATABASE_URL", "libsql://<your-db>.turso.io")
+# TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "")
 
 # Amazon AWS RDS PostgreSQL Configuration (Legacy / Fallback)
 RDS_HOST = os.environ.get("RDS_HOST", "hemchand-university-database.cdqk2yemwwg9.ap-south-1.rds.amazonaws.com")
