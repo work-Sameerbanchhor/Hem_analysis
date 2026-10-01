@@ -349,8 +349,9 @@ async def scrape_batch(
 ) -> int:
     """
     Completely scrapes an active batch across all affiliated college centers.
-    Dynamically identifies cohort size per college using consecutive miss thresholds.
-    Buffers marksheets in RAM and bulk-saves in batches of N (default: 5000).
+    - Parallel College Discovery: probes all 90+ colleges concurrently in ~1.5s to find active centers.
+    - Dynamic Class Boundary Detection: sweeps only confirmed active colleges.
+    - Buffers marksheets in RAM and bulk-saves in batches of N (default: 5,000).
     """
     global SHUTDOWN_REQUESTED
     if SHUTDOWN_REQUESTED:
@@ -391,12 +392,6 @@ async def scrape_batch(
 
     gen, candidate_starts, max_serial, primary_col = build_generator_for_batch(batch)
 
-    # Prioritize verified college center first
-    colleges_to_sweep = list(ORDERED_COLLEGES)
-    if primary_col and primary_col in colleges_to_sweep:
-        colleges_to_sweep.remove(primary_col)
-        colleges_to_sweep.insert(0, primary_col)
-
     post_headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36',
         'X-Requested-With': 'XMLHttpRequest',
@@ -436,16 +431,95 @@ async def scrape_batch(
             ON CONFLICT(batch_id) DO UPDATE SET status='IN_PROGRESS', started_at=?
         """, (bid, yr, desc, link, now_str, now_str))
 
-    for col_idx, col in enumerate(colleges_to_sweep):
+    # ==================================================================================
+    # PHASE 1: PARALLEL COLLEGE DISCOVERY (Find all offering centers in ~1.5s)
+    # ==================================================================================
+    active_colleges = []
+    if primary_col and primary_col in ORDERED_COLLEGES:
+        active_colleges.append(primary_col)
+
+    # Determine probe roll offsets for discovery (probe 1, 2 and any high start offset e.g. 1000/2000)
+    high_offsets = [s for s in candidate_starts if s >= 1000]
+    probe_offsets = [1, 2] + high_offsets[:2]
+
+    async def probe_college(col: str):
+        if SHUTDOWN_REQUESTED:
+            return col, False
+        found_any = False
+        for offset in probe_offsets:
+            if offset > max_serial:
+                continue
+            r_num = gen(col, offset)
+            r, html_data, is_cached = await fetch_single_roll(r_num)
+            if is_cached:
+                found_any = True
+            elif html_data:
+                file_path = os.path.join(batch_dir, f"{r_num}.html")
+                await ram_manager.add_marksheet({
+                    'batch_id': bid,
+                    'roll_number': r_num,
+                    'year': yr,
+                    'college_code': col,
+                    'file_path': file_path,
+                    'html_data': html_data,
+                    'file_size': len(html_data),
+                    'scraped_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                })
+                found_any = True
+        return col, found_any
+
+    colleges_to_probe = [c for c in ORDERED_COLLEGES if c != primary_col]
+    probe_tasks = [probe_college(c) for c in colleges_to_probe]
+    probe_results = await asyncio.gather(*probe_tasks)
+
+    for col, is_act in probe_results:
+        if is_act and col not in active_colleges:
+            active_colleges.append(col)
+
+    # ==================================================================================
+    # PHASE 2: STREAM ONLY CONFIRMED ACTIVE COLLEGES
+    # ==================================================================================
+    for col in active_colleges:
         if SHUTDOWN_REQUESTED:
             break
 
         found_in_college = 0
-        consecutive_fails = 0
 
         for start_val in candidate_starts:
+            if SHUTDOWN_REQUESTED:
+                break
+
+            # Fast short-circuit: for secondary high offsets (> 100), check if offset or offset+1 has any student
+            if start_val > 100:
+                quick_probe_rolls = [gen(col, start_val), gen(col, start_val + 1)]
+                has_student = False
+                for q_roll in quick_probe_rolls:
+                    q_r, q_html, q_cached = await fetch_single_roll(q_roll)
+                    if q_cached:
+                        has_student = True
+                        found_in_college += 1
+                        total_scraped_batch += 1
+                    elif q_html:
+                        file_path = os.path.join(batch_dir, f"{q_roll}.html")
+                        await ram_manager.add_marksheet({
+                            'batch_id': bid,
+                            'roll_number': q_roll,
+                            'year': yr,
+                            'college_code': col,
+                            'file_path': file_path,
+                            'html_data': q_html,
+                            'file_size': len(q_html),
+                            'scraped_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        })
+                        has_student = True
+                        found_in_college += 1
+                        total_scraped_batch += 1
+                if not has_student:
+                    # Offset not populated at this college, skip to next start_val
+                    continue
+
             # 1. Backward edge sweep (up to 25 rolls) if starting at offset > 1
-            if start_val > 1:
+            if start_val > 1 and start_val <= 100:
                 back_start = max(1, start_val - 25)
                 back_rolls = [gen(col, i) for i in range(back_start, start_val)]
                 back_tasks = [fetch_single_roll(r) for r in back_rolls]
@@ -472,6 +546,7 @@ async def scrape_batch(
             # 2. Forward dynamic stream chunk by chunk
             curr = start_val
             chunk_size = 12
+            consecutive_fails = 0
             while curr <= max_serial and not SHUTDOWN_REQUESTED:
                 rolls_chunk = [gen(col, curr + j) for j in range(chunk_size) if curr + j <= max_serial]
                 if not rolls_chunk:
@@ -504,8 +579,6 @@ async def scrape_batch(
                         consecutive_fails += 1
 
                 # DYNAMIC CLASS BOUNDARY DETECTOR:
-                # - If active students exist at this college: class list has finished after 15 consecutive misses
-                # - If zero students found at this college: college doesn't offer this degree, exit after 5 misses!
                 limit = 15 if found_in_college > 0 else 5
                 if consecutive_fails >= limit:
                     break
@@ -520,7 +593,8 @@ async def scrape_batch(
     ram_manager.stage_batch_completion(bid, total_scraped_batch, now_str)
 
     elapsed = round(time.time() - t_batch_start, 1)
-    print(f"[*] Completed Batch [{bid}] ({yr}) {desc[:45]}... | Total: {total_scraped_batch} marksheets ({elapsed}s)")
+    active_str = f" across {len(active_colleges)} colleges" if active_colleges else " (no active colleges)"
+    print(f"[*] Completed Batch [{bid}] ({yr}) {desc[:40]}... | Total: {total_scraped_batch} marksheets{active_str} ({elapsed}s)")
     return total_scraped_batch
 
 # ======================================================================================
