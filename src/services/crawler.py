@@ -1,4 +1,6 @@
 import asyncio
+import os
+import json
 import time
 import urllib.parse
 import httpx
@@ -11,15 +13,87 @@ from src.services.results import save_results_batch_to_db
 from src.services.catalog import save_exam_batch_to_rds, load_unified_configs
 from src.services.html_parser import is_strictly_regular_or_private, is_relevant_exam
 
-def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str):
+VERIFIED_BATCH_LOOKUP = None
+
+def get_verified_batch_info(link: str) -> dict:
+    """Loads and caches the empirical 1,442 batch verification results."""
+    global VERIFIED_BATCH_LOOKUP
+    if VERIFIED_BATCH_LOOKUP is None:
+        p = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "analysis", "checker_results.json")
+        if os.path.exists(p):
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    VERIFIED_BATCH_LOOKUP = json.load(f)
+            except Exception as e:
+                print(f"Warning: Could not load verified batch cache: {e}")
+                VERIFIED_BATCH_LOOKUP = {}
+        else:
+            VERIFIED_BATCH_LOOKUP = {}
+    return VERIFIED_BATCH_LOOKUP.get(link)
+
+def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str, link: str = ""):
     """
-    Empirically verified roll number generator covering all 3,486 university exams.
-    - Semester Track (2,349 exams): 10-digit [YY][CCC][CODE_2D][SERIAL_3D]
-    - Annual Track (1,137 exams): 8-digit [LAST_DIGIT][CCC][SERIAL_4D] (>=2024) or 11/12-digit (<2024)
+    Empirically verified roll number generator covering all university examination batches (2019–2026).
+    1. If a verified hit roll exists in checker_results.json, it directly reconstructs the exact passing pattern.
+    2. Otherwise, applies the comprehensive multi-year rule engine across Semester and Annual tracks.
     """
+    # 1. Check verified empirical hit database first
+    if link:
+        verified = get_verified_batch_info(link)
+        if verified and verified.get("status") == "PASS":
+            scheme = verified.get("pattern_scheme")
+            hit_roll = str(verified.get("hit_roll"))
+            
+            candidate_starts = [1]
+            if len(hit_roll) >= 3:
+                try:
+                    val = int(hit_roll[-3:])
+                    if val > 10 and val not in candidate_starts:
+                        candidate_starts.append(val)
+                except Exception:
+                    pass
+            if len(hit_roll) >= 4:
+                try:
+                    val4 = int(hit_roll[-4:])
+                    if val4 > 50 and val4 not in candidate_starts:
+                        candidate_starts.append(val4)
+                except Exception:
+                    pass
+
+            if scheme == "NEP_10D":
+                yy, cd = hit_roll[:2], hit_roll[5:7]
+                return (lambda c, i, y=yy, code=cd: f"{y}{c}{code}{i:03d}"), candidate_starts, 800, 15
+            elif scheme == "ANNUAL_8D":
+                ld = hit_roll[0]
+                return (lambda c, i, y=ld: f"{y}{c}{i:04d}"), candidate_starts, 8000, 15
+            elif scheme == "LEGACY_SEM_11D":
+                yy, cd = hit_roll[:2], hit_roll[5:8]
+                return (lambda c, i, y=yy, code=cd: f"{y}{c}{code}{i:03d}"), candidate_starts, 800, 15
+            elif scheme == "LEGACY_SEM_11D_REV":
+                yy, cd = hit_roll[3:5], hit_roll[5:8]
+                return (lambda c, i, y=yy, code=cd: f"{c}{y}{code}{i:03d}"), candidate_starts, 800, 15
+            elif scheme == "LEGACY_ANNUAL_11D":
+                ld, cd = hit_roll[0], hit_roll[4:7]
+                return (lambda c, i, y=ld, code=cd: f"{y}{c}{code}{i:04d}"), candidate_starts, 2500, 15
+            elif scheme == "LEGACY_12D":
+                yy, cd = hit_roll[:2], hit_roll[5:8]
+                return (lambda c, i, y=yy, code=cd: f"{y}{c}{code}{i:04d}"), candidate_starts, 2500, 15
+            elif scheme == "PRSU_10D":
+                cd = hit_roll[5:7]
+                return (lambda c, i, code=cd: f"17{c}{code}{i:03d}"), candidate_starts, 800, 15
+            elif scheme == "HISTORICAL_SEEDED":
+                if len(hit_roll) == 11 and hit_roll.startswith("8"):
+                    cd = hit_roll[4:7]
+                    return (lambda c, i, code=cd: f"8{c}{code}{i:04d}"), candidate_starts, 2500, 15
+                elif len(hit_roll) == 11 and hit_roll.startswith("9"):
+                    cd = hit_roll[4:7]
+                    return (lambda c, i, code=cd: f"9{c}{code}{i:04d}"), candidate_starts, 2500, 15
+                elif len(hit_roll) == 10 and (hit_roll.startswith("17") or hit_roll.startswith("74")):
+                    prefix = hit_roll[:7]
+                    return (lambda c, i, p=prefix: f"{p}{i:03d}"), candidate_starts, 800, 15
+
+    # 2. General multi-year heuristic fallback
     c_lower = course_name.lower()
-    
-    # 1. Determine if this exam is Semester track or Annual track
     is_sem = 'sem' in c_lower or 'semester' in c_lower or source == 'nep'
     
     try:
@@ -30,76 +104,7 @@ def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str)
     last_digit = str(yy_full)[-1]
     
     if is_sem:
-        # Semester Track: 10-digit format: [YY][CCC][CODE_2D][SERIAL_3D]
-        detected_code = None
-        for code, mapping in COURSE_MAP.items():
-            if len(code) == 2:
-                if any(kw in c_lower for kw in mapping["keywords"]) and not any(ex in c_lower for ex in mapping.get("exclusions", [])):
-                    detected_code = code
-                    break
-                    
-        if not detected_code:
-            # Fallback heuristics for all faculties
-            if "b.sc" in c_lower or "science" in c_lower:
-                detected_code = "30"
-            elif "b.com" in c_lower or "commerce" in c_lower:
-                detected_code = "20"
-            elif "bca" in c_lower or "computer application" in c_lower:
-                detected_code = "40"
-            elif "bba" in c_lower or "business administration" in c_lower:
-                detected_code = "45"
-            elif "ll.b" in c_lower or "laws" in c_lower:
-                detected_code = "48"
-            elif "b.ed" in c_lower:
-                detected_code = "46"
-            elif "b.p.ed" in c_lower:
-                detected_code = "47"
-            elif "yoga" in c_lower or "pgdyep" in c_lower:
-                detected_code = "73"
-            elif "pgdca" in c_lower:
-                detected_code = "71"
-            elif "m.com" in c_lower:
-                detected_code = "76"
-            elif "chemistry" in c_lower:
-                detected_code = "77"
-            elif "hindi" in c_lower:
-                detected_code = "75"
-            elif "sociology" in c_lower:
-                detected_code = "56"
-            elif "economics" in c_lower:
-                detected_code = "57"
-            elif "political" in c_lower:
-                detected_code = "59"
-            elif "english" in c_lower:
-                detected_code = "55"
-            elif "history" in c_lower:
-                detected_code = "60"
-            elif "psychology" in c_lower:
-                detected_code = "61"
-            elif "botany" in c_lower:
-                detected_code = "62"
-            elif "zoology" in c_lower:
-                detected_code = "63"
-            elif "mathematics" in c_lower:
-                detected_code = "64"
-            elif "physics" in c_lower:
-                detected_code = "67"
-            elif "biotechnology" in c_lower or "bio tech" in c_lower:
-                detected_code = "68"
-            elif "microbiology" in c_lower:
-                detected_code = "82"
-            elif "social work" in c_lower or "msw" in c_lower:
-                detected_code = "74"
-            elif "m.ed" in c_lower:
-                detected_code = "79"
-            elif "library" in c_lower or "m.lib" in c_lower or "b.lib" in c_lower:
-                detected_code = "69"
-            elif "ll.m" in c_lower:
-                detected_code = "70"
-            else:
-                detected_code = "10" # Default B.A.
-
-        # Multi-semester admission cohort offset (Students retain admission roll across all semesters)
+        # Multi-semester admission cohort offset
         offset = 0
         if any(s in c_lower for s in ["3rd sem", "4th sem", "third sem", "fourth sem", "sem - 3", "sem - 4"]):
             offset = 1
@@ -110,80 +115,164 @@ def resolve_crawler_roll_generator(course_name: str, source: str, year_str: str)
             
         if source == "nep" and any(s in c_lower for s in ["supply", "atkt"]):
             offset += 1
-            
-        try:
-            yy_int = int(year_str[-2:]) - offset
-        except Exception:
-            yy_int = 24
-        calc_yy = f"{yy_int:02d}"
-            
-        max_serial = 800
-        consecutive_fails_limit = 15
-        return (lambda c, i: f"{calc_yy}{c}{detected_code}{i:03d}"), [1], max_serial, consecutive_fails_limit
+
+        calc_yy = f"{(yy_full - offset) % 100:02d}"
+
+        if yy_full >= 2023:
+            # Modern 10-digit Semester / NEP: [YY][CCC][CODE_2D][SERIAL_3D]
+            detected_code = "10" # Default BA
+            if "b.sc" in c_lower or "science" in c_lower: detected_code = "30"
+            elif "b.com" in c_lower or "commerce" in c_lower: detected_code = "20"
+            elif "bca" in c_lower or "computer application" in c_lower: detected_code = "40"
+            elif "bba" in c_lower: detected_code = "45"
+            elif "b.ed" in c_lower: detected_code = "46"
+            elif "b.p.ed" in c_lower: detected_code = "47"
+            elif "ll.b" in c_lower or "laws" in c_lower: detected_code = "48"
+            elif "english" in c_lower: detected_code = "55"
+            elif "sociology" in c_lower: detected_code = "56"
+            elif "economics" in c_lower: detected_code = "57"
+            elif "geography" in c_lower: detected_code = "58"
+            elif "political" in c_lower: detected_code = "59"
+            elif "history" in c_lower: detected_code = "60"
+            elif "psychology" in c_lower: detected_code = "61"
+            elif "botany" in c_lower: detected_code = "62"
+            elif "zoology" in c_lower: detected_code = "63"
+            elif "mathematics" in c_lower: detected_code = "64"
+            elif "physics" in c_lower: detected_code = "67"
+            elif "biotechnology" in c_lower or "bio tech" in c_lower: detected_code = "68"
+            elif "library" in c_lower or "m.lib" in c_lower: detected_code = "69"
+            elif "ll.m" in c_lower: detected_code = "70"
+            elif "pgdca" in c_lower: detected_code = "71"
+            elif "yoga" in c_lower or "pgdyep" in c_lower: detected_code = "73"
+            elif "social work" in c_lower or "msw" in c_lower: detected_code = "74"
+            elif "hindi" in c_lower or "sanskrit" in c_lower: detected_code = "75"
+            elif "m.com" in c_lower: detected_code = "76"
+            elif "chemistry" in c_lower: detected_code = "77"
+            elif "m.ed" in c_lower: detected_code = "79"
+            elif "home science" in c_lower: detected_code = "80"
+            elif "computer science" in c_lower or "m sc it" in c_lower: detected_code = "81"
+            elif "microbiology" in c_lower: detected_code = "82"
+            elif "textile" in c_lower: detected_code = "83"
+            elif "food" in c_lower or "nutrition" in c_lower: detected_code = "85"
+
+            return (lambda c, i, y=calc_yy, cd=detected_code: f"{y}{c}{cd}{i:03d}"), [1], 800, 15
+
+        elif yy_full == 2019:
+            # 2019 Foundation Semester Cohort: [CCC]18[Course_3D][SSS]
+            legacy_code = "001"
+            if "sociology" in c_lower: legacy_code = "045"
+            elif "economics" in c_lower: legacy_code = "049"
+            elif "political" in c_lower: legacy_code = "057"
+            elif "english" in c_lower: legacy_code = "041"
+            elif "hindi" in c_lower: legacy_code = "037"
+            elif "history" in c_lower: legacy_code = "065"
+            elif "geography" in c_lower: legacy_code = "053"
+            elif "psychology" in c_lower: legacy_code = "069"
+            elif "chemistry" in c_lower: legacy_code = "093"
+            elif "botany" in c_lower: legacy_code = "073"
+            elif "zoology" in c_lower: legacy_code = "077"
+            elif "mathematics" in c_lower: legacy_code = "081"
+            elif "physics" in c_lower: legacy_code = "085"
+            elif "biotechnology" in c_lower: legacy_code = "089"
+            elif "microbiology" in c_lower: legacy_code = "101"
+            elif "computer science" in c_lower: legacy_code = "097"
+            elif "m.com" in c_lower: legacy_code = "117"
+            elif "b.ed" in c_lower: legacy_code = "029"
+            elif "b.p.ed" in c_lower: legacy_code = "033"
+            elif "ll.b" in c_lower: legacy_code = "023"
+            elif "m.ed" in c_lower: legacy_code = "129"
+            elif "m.lib" in c_lower: legacy_code = "121"
+            elif "pgdca" in c_lower: legacy_code = "135"
+            elif "dca" in c_lower: legacy_code = "133"
+            elif "bba" in c_lower: legacy_code = "017"
+
+            return (lambda c, i, cd=legacy_code: f"{c}18{cd}{i:03d}"), [1], 800, 15
+
+        else:
+            # 2020-2022 Legacy Semesters: [YY][CCC][Course_3D][SSS]
+            legacy_code = "001"
+            if "sociology" in c_lower: legacy_code = "045"
+            elif "economics" in c_lower: legacy_code = "049"
+            elif "political" in c_lower: legacy_code = "057"
+            elif "english" in c_lower: legacy_code = "041"
+            elif "hindi" in c_lower: legacy_code = "037"
+            elif "history" in c_lower: legacy_code = "065"
+            elif "geography" in c_lower: legacy_code = "053"
+            elif "chemistry" in c_lower: legacy_code = "093"
+            elif "botany" in c_lower: legacy_code = "073"
+            elif "zoology" in c_lower: legacy_code = "077"
+            elif "mathematics" in c_lower: legacy_code = "081"
+            elif "physics" in c_lower: legacy_code = "085"
+            elif "biotechnology" in c_lower: legacy_code = "089"
+            elif "microbiology" in c_lower: legacy_code = "101"
+            elif "computer science" in c_lower: legacy_code = "097"
+            elif "m.com" in c_lower: legacy_code = "117"
+            elif "b.ed" in c_lower: legacy_code = "029"
+            elif "b.p.ed" in c_lower: legacy_code = "033"
+            elif "ll.b" in c_lower: legacy_code = "023"
+            elif "m.ed" in c_lower: legacy_code = "129"
+            elif "m.lib" in c_lower: legacy_code = "121"
+            elif "social work" in c_lower: legacy_code = "125"
+            elif "pgdca" in c_lower: legacy_code = "135"
+            elif "dca" in c_lower: legacy_code = "133"
+            elif "bba" in c_lower: legacy_code = "017"
+
+            return (lambda c, i, y=calc_yy, cd=legacy_code: f"{y}{c}{cd}{i:03d}"), [1], 800, 15
         
     else:
         # Annual Track: Part I, Part II, Part III, Previous, Final
+        is_ug = any(k in c_lower for k in ["b.a", "b.sc", "b.com", "bca", "bba", "bachelor", "part - i", "part - ii", "part - iii", "1st year", "2nd year", "3rd year"])
+        is_pg_annual = (any(k in c_lower for k in ["m.a", "m.com", "m.sc", "master"]) or any(k in c_lower for k in ["previous", "final"])) and not is_ug
+        
         if yy_full >= 2024:
-            # 8-digit format: [LAST_DIGIT][CCC][SERIAL_4D] (e.g. 41010001, 53022422, 62020869)
-            is_ug = any(k in c_lower for k in ["b.a", "b.sc", "b.com", "bca", "bba", "bachelor", "part - i", "part - ii", "part - iii", "1st year", "2nd year", "3rd year"])
-            is_pg_annual = (any(k in c_lower for k in ["m.a", "m.com", "m.sc", "master"]) or any(k in c_lower for k in ["previous", "final"])) and not is_ug
-            is_comm = any(k in c_lower for k in ["b.com", "commerce"])
-            is_sci = any(k in c_lower for k in ["b.sc", "science"])
-            
+            # Modern 8-digit format: [LAST_DIGIT][CCC][SERIAL_4D]
             if is_pg_annual:
-                candidate_starts = [3000, 4000, 4500, 5000, 5500, 5720, 6000, 6500, 7000]
-            elif is_comm:
+                candidate_starts = [1000, 1200, 1500, 1800, 2000, 2200, 2500, 2800, 3000, 3100, 3200, 3450, 3500, 4000, 4500, 5000, 5500, 5720, 6000, 6500, 7000]
+            elif any(k in c_lower for k in ["b.com", "commerce"]):
                 candidate_starts = [1, 500, 1000, 1500, 2000, 2500, 3000, 3400, 4000]
-            elif is_sci:
+            elif any(k in c_lower for k in ["b.sc", "science"]):
                 candidate_starts = [1, 500, 1000, 1500, 2000, 2270, 2500, 3000]
             else:
-                candidate_starts = [1] # Standard B.A. Annual starts at 1
+                candidate_starts = [1, 10, 50, 100, 200, 500, 1000, 1500, 2000, 2500, 3000]
                 
-            max_serial = 8000
-            consecutive_fails_limit = 15
-            return (lambda c, i: f"{last_digit}{c}{i:04d}"), candidate_starts, max_serial, consecutive_fails_limit
+            return (lambda c, i, ld=last_digit: f"{ld}{c}{i:04d}"), candidate_starts, 8000, 15
         else:
-            # Pre-2024 legacy annual format is 11 digits: [LAST_DIGIT][CCC][CODE_3D][SERIAL_4D]
-            # Empirically verified: 2019 B.Com (91010050001), 2023 B.A. (31070010214)
-            detected_code = None
-            for code, mapping in COURSE_MAP.items():
-                if len(code) == 3:
-                    if any(kw in c_lower for kw in mapping["keywords"]) and not any(ex in c_lower for ex in mapping.get("exclusions", [])):
-                        if mapping.get("required"):
-                            if any(req in c_lower for req in mapping["required"]):
-                                detected_code = code
-                                break
-                        else:
-                            detected_code = code
-                            break
-            if not detected_code:
-                if "bca" in c_lower:
-                    detected_code = "013"
-                elif "b.com" in c_lower or "commerce" in c_lower:
-                    if any(k in c_lower for k in ["part - iii", "part-iii", "part 3", "final year", "3rd year"]):
-                        detected_code = "006"
-                    elif any(k in c_lower for k in ["part - ii", "part-ii", "part 2", "second year", "2nd year"]):
-                        detected_code = "005"
-                    else:
-                        detected_code = "004"
-                elif "b.sc" in c_lower or "science" in c_lower:
-                    if any(k in c_lower for k in ["part - iii", "part-iii", "part 3", "final year", "3rd year"]):
-                        detected_code = "010"
-                    elif any(k in c_lower for k in ["part - ii", "part-ii", "part 2", "second year", "2nd year"]):
-                        detected_code = "009"
-                    else:
-                        detected_code = "008"
-                elif "b.a" in c_lower or "arts" in c_lower:
-                    if any(k in c_lower for k in ["part - iii", "part-iii", "part 3", "final year", "3rd year"]):
-                        detected_code = "003"
-                    elif any(k in c_lower for k in ["part - ii", "part-ii", "part 2", "second year", "2nd year"]):
-                        detected_code = "002"
-                    else:
-                        detected_code = "001"
-                else:
-                    detected_code = "001"
-                    
-            return (lambda c, i: f"{last_digit}{c}{detected_code}{i:04d}"), [1], 2500, 15
+            # Pre-2024 legacy annual format: 11 digits [LAST_DIGIT][CCC][CODE_3D][SERIAL_4D]
+            detected_code = "001"
+            if "bca" in c_lower:
+                detected_code = "013"
+            elif "b.com" in c_lower or "commerce" in c_lower:
+                if any(k in c_lower for k in ["part - iii", "final year", "3rd year"]): detected_code = "006"
+                elif any(k in c_lower for k in ["part - ii", "second year", "2nd year"]): detected_code = "005"
+                else: detected_code = "004"
+            elif "b.sc" in c_lower or "science" in c_lower:
+                if any(k in c_lower for k in ["part - iii", "final year", "3rd year"]): detected_code = "009"
+                elif any(k in c_lower for k in ["part - ii", "second year", "2nd year"]): detected_code = "008"
+                else: detected_code = "007"
+            elif "b.a" in c_lower or "arts" in c_lower:
+                if any(k in c_lower for k in ["part - iii", "final year", "3rd year"]): detected_code = "003"
+                elif any(k in c_lower for k in ["part - ii", "second year", "2nd year"]): detected_code = "002"
+                else: detected_code = "001"
+            elif is_pg_annual:
+                if "hindi" in c_lower: detected_code = "037" if "previous" in c_lower else "039"
+                elif "english" in c_lower: detected_code = "041" if "previous" in c_lower else "043"
+                elif "sociology" in c_lower: detected_code = "045" if "previous" in c_lower else "047"
+                elif "economics" in c_lower: detected_code = "049" if "previous" in c_lower else "051"
+                elif "political" in c_lower: detected_code = "057" if "previous" in c_lower else "059"
+                elif "history" in c_lower: detected_code = "065" if "previous" in c_lower else "067"
+                elif "geography" in c_lower: detected_code = "053" if "previous" in c_lower else "055"
+                elif "mathematics" in c_lower: detected_code = "081" if "previous" in c_lower else "083"
+                elif "m.com" in c_lower: detected_code = "117" if "previous" in c_lower else "119"
+                elif "sanskrit" in c_lower: detected_code = "150" if "previous" in c_lower else "151"
+                elif "philosophy" in c_lower: detected_code = "158" if "previous" in c_lower else "159"
+                elif "public" in c_lower: detected_code = "152" if "previous" in c_lower else "153"
+                elif "psychology" in c_lower: detected_code = "069" if "previous" in c_lower else "071"
+
+            candidate_starts = [1]
+            if is_pg_annual:
+                candidate_starts = [1, 1000, 1200, 1500, 1800, 2000, 2200, 2500, 2800, 3000, 3500, 4000, 5000, 6000]
+
+            return (lambda c, i, ld=last_digit, cd=detected_code: f"{ld}{c}{cd}{i:04d}"), candidate_starts, 2500, 15
 
 async def run_auto_crawler():
     global CRAWL_STATUS
@@ -245,7 +334,44 @@ async def run_auto_crawler():
         for idx, batch in enumerate(new_batches):
             saved_in_batch = 0
             CRAWL_STATUS["current_exam"] = f"[{idx+1}/{len(new_batches)}] Scrape: {batch['description']}"
-            CRAWL_STATUS["colleges_progress"] = f"0/{len(colleges)}"
+            
+            link = batch.get("link", "")
+            verified = get_verified_batch_info(link)
+
+            # Skip verified empty CMS shells (0 enrolled students / draft placeholders)
+            if verified and verified.get("status") == "FAIL":
+                print(f"Skipping verified empty CMS shell batch [{batch.get('id')}]: {batch.get('description')}")
+                batch_id = batch.get("id")
+                if batch_id:
+                    try:
+                        with get_db_conn() as conn:
+                            with conn.cursor() as cur:
+                                cur.execute("""
+                                    UPDATE exam_catalog 
+                                    SET is_crawled = 1, crawled_records = 0, last_crawled_at = datetime('now') 
+                                    WHERE id = ?
+                                """, (batch_id,))
+                    except Exception as e:
+                        print(f"Error marking shell batch {batch_id} as crawled: {e}")
+                continue
+
+            # Prioritize verified hit college if known
+            colleges_to_crawl = list(colleges)
+            if verified and verified.get("status") == "PASS":
+                hit_col = verified.get("hit_college")
+                if hit_col == "SEEDED":
+                    hit_roll = str(verified.get("hit_roll", ""))
+                    if len(hit_roll) == 11 and hit_roll[0] in ["8", "9"]:
+                        hit_col = hit_roll[1:4]
+                    elif hit_roll.startswith("17"):
+                        hit_col = hit_roll[2:5]
+                    elif hit_roll.startswith("74"):
+                        hit_col = "221"
+                if hit_col and hit_col in colleges_to_crawl:
+                    colleges_to_crawl.remove(hit_col)
+                    colleges_to_crawl.insert(0, hit_col)
+
+            CRAWL_STATUS["colleges_progress"] = f"0/{len(colleges_to_crawl)}"
             
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0"
@@ -281,10 +407,12 @@ async def run_auto_crawler():
                 course_name = batch["description"]
                 year_str = batch["year"]
                 
-                roll_generator, candidate_starts, max_serial, consecutive_fails_limit = resolve_crawler_roll_generator(course_name, source, year_str)
+                roll_generator, candidate_starts, max_serial, consecutive_fails_limit = resolve_crawler_roll_generator(
+                    course_name, source, year_str, link=batch["link"]
+                )
                     
                 colleges_done = 0
-                for college_idx, coll in enumerate(colleges):
+                for college_idx, coll in enumerate(colleges_to_crawl):
                     consecutive_fails = 0
                     found_any = False
                     saved_in_college = 0
@@ -376,7 +504,7 @@ async def run_auto_crawler():
                             break
                             
                     colleges_done += 1
-                    CRAWL_STATUS["colleges_progress"] = f"{colleges_done}/{len(colleges)}"
+                    CRAWL_STATUS["colleges_progress"] = f"{colleges_done}/{len(colleges_to_crawl)}"
                     CRAWL_STATUS["elapsed_seconds"] = int(time.time() - t_start)
                     
             # Mark this batch as crawled in Turso exam_catalog

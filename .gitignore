@@ -10,3 +10,4 @@ venv/
 searches.log
 *.db
 Roll_analysis
+scratch/
