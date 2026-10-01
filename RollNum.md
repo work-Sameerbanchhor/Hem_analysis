@@ -1220,35 +1220,35 @@ This manual (`UPDATED_ROLL_STRUCTURE.MD`) is hereby approved and adopted as the 
 
 ### 23.1 Comprehensive Multi-Year Verification Summary (2019–2026)
 
-Across all 8 academic years, every single one of the **1,442 clean `REGULAR / PRIVATE` batches** hosted on the official university portal (`durg.ucanapply.com`) has been systematically tested against live server responses, resulting in **956 verified passing marksheets** and **486 conclusively classified empty portal shells**:
+Across all 8 academic years, every single one of the **1,442 clean `REGULAR / PRIVATE` batches** hosted on the official university portal (`durg.ucanapply.com`) has been systematically tested against live server responses, resulting in **1,005 verified passing marksheets** (elevated from 956 via archive cross-verification) and **437 conclusively classified empty portal shells**:
 
 | Academic Year | Total Batches | Active PASS Marksheets | Empty / Shell Batches | Empirical Marksheet Hit Rate | Total Resolution Rate |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | **2026** | 183 | 126 | 57 | 68.9% | **100.0%** |
-| **2025** | 191 | 132 | 59 | 69.1% | **100.0%** |
-| **2024** | 188 | 108 | 80 | 57.4% | **100.0%** |
-| **2023** | 183 | 82 | 101 | 44.8% | **100.0%** |
-| **2022** | 178 | 134 | 44 | 75.3% | **100.0%** |
-| **2021** | 175 | 135 | 40 | 77.1% | **100.0%** |
-| **2020** | 171 | 126 | 45 | 73.7% | **100.0%** |
-| **2019** | 173 | 113 | 60 | 65.3% | **100.0%** |
-| **Grand Total** | **1,442** | **956** | **486** | **66.3%** | **100.0%** |
+| **2025** | 191 | 142 | 49 | 74.3% | **100.0%** |
+| **2024** | 188 | 122 | 66 | 64.9% | **100.0%** |
+| **2023** | 183 | 95 | 88 | 51.9% | **100.0%** |
+| **2022** | 178 | 136 | 42 | 76.4% | **100.0%** |
+| **2021** | 175 | 136 | 39 | 77.7% | **100.0%** |
+| **2020** | 171 | 132 | 39 | 77.2% | **100.0%** |
+| **2019** | 173 | 116 | 57 | 67.1% | **100.0%** |
+| **Grand Total** | **1,442** | **1,005** | **437** | **69.7%** | **100.0%** |
 
 ### 23.2 Multi-Year Pattern Distribution
 
 | Pattern Scheme | Total Passed Batches | Academic Scope & Applicable Eras |
 | :--- | :---: | :--- |
 | **NEP_10D** | **264** | Modern 10-digit Semester & NEP scheme (`[YY][CCC][CODE_2D][SSS]`) across 2023–2026 |
-| **LEGACY_SEM_11D** | **252** | Standard 11-digit Semester scheme (`[YY][CCC][CODE_3D][SSS]`) across 2020–2022 |
-| **LEGACY_12D** | **128** | 12-digit Annual & Transitional Semester scheme (`[YY][CCC][CODE_3D][SSSS]`) across 2020–2023 |
-| **LEGACY_ANNUAL_11D** | **124** | 11-digit Annual scheme (`[LAST_DIGIT][CCC][CODE_3D][SSSS]`) across 2019–2023 |
-| **LEGACY_SEM_11D_REV** | **94** | Reversed 11-digit Semester scheme (`[CCC][YY][CODE_3D][SSS]`) across 2019–2020 |
-| **ANNUAL_8D** | **66** | Streamlined 8-digit Annual scheme (`[LAST_DIGIT][CCC][SSSS]`) across 2024–2026 |
+| **LEGACY_SEM_11D** | **256** | Standard 11-digit Semester scheme (`[YY][CCC][CODE_3D][SSS]`) across 2020–2022 |
+| **LEGACY_12D** | **141** | 12-digit Annual & Transitional Semester scheme (`[YY][CCC][CODE_3D][SSSS]`) across 2020–2023 |
+| **LEGACY_ANNUAL_11D** | **130** | 11-digit Annual scheme (`[LAST_DIGIT][CCC][CODE_3D][SSSS]`) across 2019–2023 |
+| **LEGACY_SEM_11D_REV** | **98** | Reversed 11-digit Semester scheme (`[CCC][YY][CODE_3D][SSS]`) across 2019–2020 |
+| **ANNUAL_8D** | **88** | Streamlined 8-digit Annual scheme (`[LAST_DIGIT][CCC][SSSS]`) across 2024–2026 |
 | **HISTORICAL_SEEDED** | **27** | Empirically verified PRSU transition / inaugural foundation cohorts in 2019 |
 | **PRSU_10D** | **1** | 10-digit PRSU pre-bifurcation roll format (`17...`) in 2019 |
-| **Total Marksheet Hits** | **956** | **Complete coverage across all active faculties and degree levels** |
+| **Total Marksheet Hits** | **1,005** | **Complete coverage across all active faculties and degree levels** |
 
 **System Status:** Fully Validated & Ready for Production Scraping  
 **Coverage:** 100% of Academic Faculties (UG, PG, Law, Education, Physical Education, Diplomas, NEP 2020)  
-**Total Validated Live Marksheets:** 956 Verified Cohorts  
+**Total Validated Live Marksheets:** 1,005 Verified Cohorts  
 **Total Production Records Stored & Verifiable:** >47,500 Student Records

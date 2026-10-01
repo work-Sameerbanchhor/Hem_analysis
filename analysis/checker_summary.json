@@ -1,60 +1,60 @@
 {
-  "timestamp": "2026-10-01 22:58:32",
+  "timestamp": "2026-10-01 23:21:50",
   "total_evaluated": 1442,
-  "passed": 956,
-  "failed": 486,
-  "pass_rate_percentage": 66.3,
+  "passed": 1005,
+  "failed": 437,
+  "pass_rate_percentage": 69.7,
   "breakdown_by_year": {
     "2026": {
       "pass": 126,
       "fail": 57
     },
     "2025": {
-      "pass": 132,
-      "fail": 59
+      "pass": 142,
+      "fail": 49
     },
     "2024": {
-      "pass": 108,
-      "fail": 80
+      "pass": 122,
+      "fail": 66
     },
     "2023": {
-      "pass": 82,
-      "fail": 101
+      "pass": 95,
+      "fail": 88
     },
     "2022": {
-      "pass": 134,
-      "fail": 44
+      "pass": 136,
+      "fail": 42
     },
     "2021": {
-      "pass": 135,
-      "fail": 40
+      "pass": 136,
+      "fail": 39
     },
     "2020": {
-      "pass": 126,
-      "fail": 45
+      "pass": 132,
+      "fail": 39
     },
     "2019": {
-      "pass": 113,
-      "fail": 60
+      "pass": 116,
+      "fail": 57
     }
   },
   "breakdown_by_track": {
     "Semester": {
-      "pass": 717,
-      "fail": 288
+      "pass": 729,
+      "fail": 276
     },
     "Annual": {
-      "pass": 239,
-      "fail": 198
+      "pass": 276,
+      "fail": 161
     }
   },
   "breakdown_by_pattern_scheme": {
     "NEP_10D": 264,
-    "ANNUAL_8D": 66,
-    "LEGACY_12D": 128,
-    "LEGACY_ANNUAL_11D": 124,
-    "LEGACY_SEM_11D": 252,
-    "LEGACY_SEM_11D_REV": 94,
+    "ANNUAL_8D": 88,
+    "LEGACY_12D": 141,
+    "LEGACY_ANNUAL_11D": 130,
+    "LEGACY_SEM_11D": 256,
+    "LEGACY_SEM_11D_REV": 98,
     "HISTORICAL_SEEDED": 27,
     "PRSU_10D": 1
   },
@@ -1068,34 +1068,6 @@
       ]
     },
     {
-      "id": 257,
-      "year": "2025",
-      "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Previous (Previous)",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53021000",
-        "53021001",
-        "53021200",
-        "53021201",
-        "53021500",
-        "53021501"
-      ]
-    },
-    {
-      "id": 258,
-      "year": "2025",
-      "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Final (Final)",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53021000",
-        "53021001",
-        "53021200",
-        "53021201",
-        "53021500",
-        "53021501"
-      ]
-    },
-    {
       "id": 259,
       "year": "2025",
       "description": "B.A.Additional (B.A. Add) (UG) Second Year (2nd Year) REGULAR / PRIVATE",
@@ -1222,34 +1194,6 @@
       ]
     },
     {
-      "id": 285,
-      "year": "2025",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020500",
-        "53020501",
-        "53021000",
-        "53021001"
-      ]
-    },
-    {
-      "id": 286,
-      "year": "2025",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020500",
-        "53020501",
-        "53021000",
-        "53021001"
-      ]
-    },
-    {
       "id": 287,
       "year": "2025",
       "description": "Bachelor of Computer Application (BCA) (UG) Final Year (3rd Year) REGULAR / PRIVATE NEW SYLLABUS",
@@ -1275,76 +1219,6 @@
         "53020501",
         "53021000",
         "53021001"
-      ]
-    },
-    {
-      "id": 289,
-      "year": "2025",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020010",
-        "53020011",
-        "53020050",
-        "53020051"
-      ]
-    },
-    {
-      "id": 290,
-      "year": "2025",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020010",
-        "53020011",
-        "53020050",
-        "53020051"
-      ]
-    },
-    {
-      "id": 291,
-      "year": "2025",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020500",
-        "53020501",
-        "53021000",
-        "53021001"
-      ]
-    },
-    {
-      "id": 292,
-      "year": "2025",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020500",
-        "53020501",
-        "53021000",
-        "53021001"
-      ]
-    },
-    {
-      "id": 293,
-      "year": "2025",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020010",
-        "53020011",
-        "53020050",
-        "53020051"
       ]
     },
     {
@@ -1421,20 +1295,6 @@
       "id": 302,
       "year": "2025",
       "description": "MASTER OF PHILOSOPHY IN CLINICAL PSYCHOLOGY (M.PHIL CLINICAL PSYCHOLOGY) (MPHIL) First Year (1st Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "53020001",
-        "53020002",
-        "53020010",
-        "53020011",
-        "53020050",
-        "53020051"
-      ]
-    },
-    {
-      "id": 303,
-      "year": "2025",
-      "description": "MASTER OF PHILOSOPHY IN CLINICAL PSYCHOLOGY (M.PHIL CLINICAL PSYCHOLOGY) (MPHIL) Second Year (2nd Year) REGULAR / PRIVATE",
       "reason": "No marksheet hit across 20 colleges",
       "attempted_sample_rolls": [
         "53020001",
@@ -1936,20 +1796,6 @@
       ]
     },
     {
-      "id": 436,
-      "year": "2024",
-      "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) Fourth Semester (Sem - 4) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "2330285001",
-        "2330285002",
-        "2330285002",
-        "2330285003",
-        "2330285003",
-        "2330285004"
-      ]
-    },
-    {
       "id": 437,
       "year": "2024",
       "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
@@ -2031,62 +1877,6 @@
         "2430246003",
         "2430246003",
         "2430246004"
-      ]
-    },
-    {
-      "id": 451,
-      "year": "2024",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020500",
-        "43020501",
-        "43021000",
-        "43021001"
-      ]
-    },
-    {
-      "id": 452,
-      "year": "2024",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020500",
-        "43020501",
-        "43021000",
-        "43021001"
-      ]
-    },
-    {
-      "id": 453,
-      "year": "2024",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020500",
-        "43020501",
-        "43021000",
-        "43021001"
-      ]
-    },
-    {
-      "id": 456,
-      "year": "2024",
-      "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Final (Final)",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43021000",
-        "43021001",
-        "43021200",
-        "43021201",
-        "43021500",
-        "43021501"
       ]
     },
     {
@@ -2286,34 +2076,6 @@
       ]
     },
     {
-      "id": 482,
-      "year": "2024",
-      "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) First Year (1st Year) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020500",
-        "43020501",
-        "43021000",
-        "43021001"
-      ]
-    },
-    {
-      "id": 483,
-      "year": "2024",
-      "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) Second Year (2nd Year) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020500",
-        "43020501",
-        "43021000",
-        "43021001"
-      ]
-    },
-    {
       "id": 484,
       "year": "2024",
       "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) Final Year (3rd Year) REGULAR / PRIVATE",
@@ -2328,65 +2090,9 @@
       ]
     },
     {
-      "id": 485,
-      "year": "2024",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020500",
-        "43020501",
-        "43021000",
-        "43021001"
-      ]
-    },
-    {
-      "id": 486,
-      "year": "2024",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020010",
-        "43020011",
-        "43020050",
-        "43020051"
-      ]
-    },
-    {
       "id": 487,
       "year": "2024",
       "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020010",
-        "43020011",
-        "43020050",
-        "43020051"
-      ]
-    },
-    {
-      "id": 488,
-      "year": "2024",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020010",
-        "43020011",
-        "43020050",
-        "43020051"
-      ]
-    },
-    {
-      "id": 489,
-      "year": "2024",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
       "reason": "No marksheet hit across 20 colleges",
       "attempted_sample_rolls": [
         "43020001",
@@ -2482,37 +2188,9 @@
       ]
     },
     {
-      "id": 496,
-      "year": "2024",
-      "description": "MASTER OF PHILOSOPHY IN PSYCHIATRIC SOCIAL WORK (M.PHIL PSYCHIATRIC SOCIAL WORK) (MPHIL) First Year (1st Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020010",
-        "43020011",
-        "43020050",
-        "43020051"
-      ]
-    },
-    {
       "id": 497,
       "year": "2024",
       "description": "MASTER OF PHILOSOPHY IN PSYCHIATRIC SOCIAL WORK (M.PHIL PSYCHIATRIC SOCIAL WORK) (MPHIL) Second Year (2nd Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "43020001",
-        "43020002",
-        "43020010",
-        "43020011",
-        "43020050",
-        "43020051"
-      ]
-    },
-    {
-      "id": 498,
-      "year": "2024",
-      "description": "MASTER OF PHILOSOPHY IN CLINICAL PSYCHOLOGY (M.PHIL CLINICAL PSYCHOLOGY) (MPHIL) First Year (1st Year) REGULAR / PRIVATE",
       "reason": "No marksheet hit across 20 colleges",
       "attempted_sample_rolls": [
         "43020001",
@@ -2706,20 +2384,6 @@
       ]
     },
     {
-      "id": 546,
-      "year": "2024",
-      "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "2330285001",
-        "2330285002",
-        "2330285002",
-        "2330285003",
-        "2330285003",
-        "2330285004"
-      ]
-    },
-    {
       "id": 547,
       "year": "2024",
       "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
@@ -2801,20 +2465,6 @@
         "2330268003",
         "2330268003",
         "2330268004"
-      ]
-    },
-    {
-      "id": 572,
-      "year": "2023",
-      "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) First Year (1st Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020070001",
-        "233020070002",
-        "233020070002",
-        "233020070003",
-        "233020070003",
-        "233020070004"
       ]
     },
     {
@@ -3280,20 +2930,6 @@
       ]
     },
     {
-      "id": 630,
-      "year": "2023",
-      "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Fourth Semester (Sem - 4) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "223021090001",
-        "223021090002",
-        "223021090002",
-        "223021090003",
-        "223021090003",
-        "223021090004"
-      ]
-    },
-    {
       "id": 631,
       "year": "2023",
       "description": "Master of Arts in Home Science (M.A.H.Sc.) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
@@ -3319,20 +2955,6 @@
         "223021090003",
         "223021090003",
         "223021090004"
-      ]
-    },
-    {
-      "id": 633,
-      "year": "2023",
-      "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233021090001",
-        "233021090002",
-        "233021090002",
-        "233021090003",
-        "233021090003",
-        "233021090004"
       ]
     },
     {
@@ -3406,20 +3028,6 @@
       ]
     },
     {
-      "id": 651,
-      "year": "2023",
-      "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Previous (Previous)",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020760001",
-        "233020760002",
-        "233020760002",
-        "233020760003",
-        "233020760003",
-        "233020760004"
-      ]
-    },
-    {
       "id": 652,
       "year": "2023",
       "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
@@ -3434,48 +3042,6 @@
       ]
     },
     {
-      "id": 653,
-      "year": "2023",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020070001",
-        "233020070002",
-        "233020070002",
-        "233020070003",
-        "233020070003",
-        "233020070004"
-      ]
-    },
-    {
-      "id": 654,
-      "year": "2023",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020070001",
-        "233020070002",
-        "233020070002",
-        "233020070003",
-        "233020070003",
-        "233020070004"
-      ]
-    },
-    {
-      "id": 655,
-      "year": "2023",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020070001",
-        "233020070002",
-        "233020070002",
-        "233020070003",
-        "233020070003",
-        "233020070004"
-      ]
-    },
-    {
       "id": 661,
       "year": "2023",
       "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Final (Final)",
@@ -3487,34 +3053,6 @@
         "223020750003",
         "223020750003",
         "223020750004"
-      ]
-    },
-    {
-      "id": 662,
-      "year": "2023",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020010001",
-        "233020010002",
-        "233020010002",
-        "233020010003",
-        "233020010003",
-        "233020010004"
-      ]
-    },
-    {
-      "id": 666,
-      "year": "2023",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020010001",
-        "233020010002",
-        "233020010002",
-        "233020010003",
-        "233020010003",
-        "233020010004"
       ]
     },
     {
@@ -3644,20 +3182,6 @@
       ]
     },
     {
-      "id": 680,
-      "year": "2023",
-      "description": "MASTER OF PHILOSOPHY IN PSYCHIATRIC SOCIAL WORK (M.PHIL PSYCHIATRIC SOCIAL WORK) (MPHIL) First Year (1st Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020010001",
-        "233020010002",
-        "233020010002",
-        "233020010003",
-        "233020010003",
-        "233020010004"
-      ]
-    },
-    {
       "id": 681,
       "year": "2023",
       "description": "MASTER OF PHILOSOPHY IN PSYCHIATRIC SOCIAL WORK (M.PHIL PSYCHIATRIC SOCIAL WORK) (MPHIL) Second Year (2nd Year) REGULAR / PRIVATE",
@@ -3669,20 +3193,6 @@
         "223020010003",
         "223020010003",
         "223020010004"
-      ]
-    },
-    {
-      "id": 682,
-      "year": "2023",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233020010001",
-        "233020010002",
-        "233020010002",
-        "233020010003",
-        "233020010003",
-        "233020010004"
       ]
     },
     {
@@ -3809,20 +3319,6 @@
         "233021090003",
         "233021090003",
         "233021090004"
-      ]
-    },
-    {
-      "id": 696,
-      "year": "2023",
-      "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "223021090001",
-        "223021090002",
-        "223021090002",
-        "223021090003",
-        "223021090003",
-        "223021090004"
       ]
     },
     {
@@ -4047,20 +3543,6 @@
         "233020070003",
         "233020070003",
         "233020070004"
-      ]
-    },
-    {
-      "id": 729,
-      "year": "2023",
-      "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) First Semester (Sem - 1) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "233021090001",
-        "233021090002",
-        "233021090002",
-        "233021090003",
-        "233021090003",
-        "233021090004"
       ]
     },
     {
@@ -4327,20 +3809,6 @@
         "23020070003",
         "23020070003",
         "23020070004"
-      ]
-    },
-    {
-      "id": 807,
-      "year": "2022",
-      "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "21302109001",
-        "21302109002",
-        "21302109002",
-        "21302109003",
-        "21302109003",
-        "21302109004"
       ]
     },
     {
@@ -4750,20 +4218,6 @@
       ]
     },
     {
-      "id": 913,
-      "year": "2022",
-      "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) First Semester (Sem - 1) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "21302109001",
-        "21302109002",
-        "21302109002",
-        "21302109003",
-        "21302109003",
-        "21302109004"
-      ]
-    },
-    {
       "id": 914,
       "year": "2022",
       "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
@@ -5114,20 +4568,6 @@
       ]
     },
     {
-      "id": 1010,
-      "year": "2021",
-      "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) Final Year (3rd Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "93010070001",
-        "93010070002",
-        "93010070002",
-        "93010070003",
-        "93010070003",
-        "93010070004"
-      ]
-    },
-    {
       "id": 1015,
       "year": "2021",
       "description": "Master of Arts in Public Admin(PVT) (MAPublicadm(PVT)) (PG) Final (Final)",
@@ -5450,48 +4890,6 @@
       ]
     },
     {
-      "id": 1109,
-      "year": "2020",
-      "description": "B.A.Additional (B.A. Add) (UG) Final Year (3rd Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "23010030001",
-        "23010030002",
-        "23010030002",
-        "23010030003",
-        "23010030003",
-        "23010030004"
-      ]
-    },
-    {
-      "id": 1110,
-      "year": "2020",
-      "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "23010010001",
-        "23010010002",
-        "23010010002",
-        "23010010003",
-        "23010010003",
-        "23010010004"
-      ]
-    },
-    {
-      "id": 1111,
-      "year": "2020",
-      "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "23010070001",
-        "23010070002",
-        "23010070002",
-        "23010070003",
-        "23010070003",
-        "23010070004"
-      ]
-    },
-    {
       "id": 1114,
       "year": "2020",
       "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE",
@@ -5545,20 +4943,6 @@
         "93010610003",
         "93010610003",
         "93010610004"
-      ]
-    },
-    {
-      "id": 1134,
-      "year": "2020",
-      "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Final (Final)",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "93010750001",
-        "93010750002",
-        "93010750002",
-        "93010750003",
-        "93010750003",
-        "93010750004"
       ]
     },
     {
@@ -5691,20 +5075,6 @@
       "id": 1169,
       "year": "2020",
       "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Fourth Semester (Sem - 4) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "18301109001",
-        "18301109002",
-        "18301109002",
-        "18301109003",
-        "18301109003",
-        "18301109004"
-      ]
-    },
-    {
-      "id": 1170,
-      "year": "2020",
-      "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) Fourth Semester (Sem - 4) REGULAR / PRIVATE",
       "reason": "No marksheet hit across 20 colleges",
       "attempted_sample_rolls": [
         "18301109001",
@@ -5937,20 +5307,6 @@
         "18301065003",
         "18301065003",
         "18301065004"
-      ]
-    },
-    {
-      "id": 1262,
-      "year": "2020",
-      "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "18301109001",
-        "18301109002",
-        "18301109002",
-        "18301109003",
-        "18301109003",
-        "18301109004"
       ]
     },
     {
@@ -6290,20 +5646,6 @@
       ]
     },
     {
-      "id": 1329,
-      "year": "2019",
-      "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "30118109001",
-        "30118109002",
-        "30118109002",
-        "30118109003",
-        "30118109003",
-        "30118109004"
-      ]
-    },
-    {
       "id": 1331,
       "year": "2019",
       "description": "B.A.Additional (B.A. Add) (UG) First Year (1st Year) REGULAR / PRIVATE",
@@ -6315,20 +5657,6 @@
         "93010010003",
         "93010010003",
         "93010010004"
-      ]
-    },
-    {
-      "id": 1332,
-      "year": "2019",
-      "description": "B.A.Additional (B.A. Add) (UG) Second Year (2nd Year) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "93010020001",
-        "93010020002",
-        "93010020002",
-        "93010020003",
-        "93010020003",
-        "93010020004"
       ]
     },
     {
@@ -6679,20 +6007,6 @@
         "30118041003",
         "30118041003",
         "30118041004"
-      ]
-    },
-    {
-      "id": 1429,
-      "year": "2019",
-      "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) First Semester (Sem - 1) REGULAR / PRIVATE",
-      "reason": "No marksheet hit across 20 colleges",
-      "attempted_sample_rolls": [
-        "30118109001",
-        "30118109002",
-        "30118109002",
-        "30118109003",
-        "30118109003",
-        "30118109004"
       ]
     },
     {

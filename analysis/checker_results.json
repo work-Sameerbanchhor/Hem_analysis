@@ -3436,34 +3436,24 @@
     "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Previous (Previous)",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik9vbU1KS2EzQmVuUkEzeDBTMXc2M3c9PSIsInZhbHVlIjoiemNGdmcrc2N6WmpvQ2tTckswNzRNQ0NZNGlRb1R6Mncra1haUmkzci9sWT0iLCJtYWMiOiI1ZjUwNGE1Y2RjMjA2ZmZmOTRhMzMwMWRiOTA1YWY2ZTNlOWUzN2Q1MjQ3ZDdlMmJjYWRiMjVmNGFmN2RmZDI0IiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53021000",
-      "53021001",
-      "53021200",
-      "53021201",
-      "53021500",
-      "53021501"
-    ],
-    "time": 41.06
+    "status": "PASS",
+    "time": 41.06,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53313650",
+    "hit_college": "331",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlRoZXpEM2pIWHFtcEsvdVZWeWxJVmc9PSIsInZhbHVlIjoiRjQ5UCtVTVdONlVPL251MTRSUkFvKzBjUCtmbXhBM3l4TkFFRWtBYXdPaz0iLCJtYWMiOiIxMGIzNGExZWI5ZjViZDI4Y2FlNzFhYmVlNjEwYmI3OWEzYzg2NmFiN2VhNmI2MjAyM2Y0MmI1YTdmMzI1ODkxIiwidGFnIjoiIn0=": {
     "id": 258,
     "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Final (Final)",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlRoZXpEM2pIWHFtcEsvdVZWeWxJVmc9PSIsInZhbHVlIjoiRjQ5UCtVTVdONlVPL251MTRSUkFvKzBjUCtmbXhBM3l4TkFFRWtBYXdPaz0iLCJtYWMiOiIxMGIzNGExZWI5ZjViZDI4Y2FlNzFhYmVlNjEwYmI3OWEzYzg2NmFiN2VhNmI2MjAyM2Y0MmI1YTdmMzI1ODkxIiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53021000",
-      "53021001",
-      "53021200",
-      "53021201",
-      "53021500",
-      "53021501"
-    ],
-    "time": 41.24
+    "status": "PASS",
+    "time": 41.24,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "55011968",
+    "hit_college": "501",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImYrMmJySU9JL0Qrc0VYNStiYnpmSEE9PSIsInZhbHVlIjoibTZJbENPSndJcVVQSjgwQll2dXMzd2t2eklVamlseTNRZ3pubno1ZUZaTT0iLCJtYWMiOiJhZjJmZjIxOTFlZGVkN2Y0YzcwODg3ODc4MDUxMjI3Y2EyNmEzYzhiN2ZlODMwMzFiN2Y1OGE2MzI2ODM1Njk1IiwidGFnIjoiIn0=": {
     "id": 259,
@@ -3827,34 +3817,24 @@
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImJwWHBFeWlJSjRkL0VaL0NRRnlhalE9PSIsInZhbHVlIjoicCtDSnlVbDlrbmFaMmdaZGZPZnJocVRZV3UyRUJCc01ZTmhLRUpNNmtBaz0iLCJtYWMiOiJjMTlkNGM3NzFiN2RlMDcyMTI2MmE4MGY5ZTkyNzAwZGE5OWE0ZDcwMDFhODYwNjE4MjgzNWQzMzgyNjc2ZThmIiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020500",
-      "53020501",
-      "53021000",
-      "53021001"
-    ],
-    "time": 27.16
+    "status": "PASS",
+    "time": 27.16,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53690376",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjZWUmhpaUxsWGdNOXE5K0ljNUFSSnc9PSIsInZhbHVlIjoiS0FDQWZ4bVAxc24wMXhacTMrdVZwMm1JSTJyVFZ1WlEyU1NNdWJBSFVsOD0iLCJtYWMiOiJiODk0OTU2ZTQ2ZGQzNDI3YTU1Nzk2NDYyODIyYjBjNWVmMWYzMWQxMDQ5ZWZmMmFlNDI5YzNlNDgxYjRkYWNkIiwidGFnIjoiIn0=": {
     "id": 286,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjZWUmhpaUxsWGdNOXE5K0ljNUFSSnc9PSIsInZhbHVlIjoiS0FDQWZ4bVAxc24wMXhacTMrdVZwMm1JSTJyVFZ1WlEyU1NNdWJBSFVsOD0iLCJtYWMiOiJiODk0OTU2ZTQ2ZGQzNDI3YTU1Nzk2NDYyODIyYjBjNWVmMWYzMWQxMDQ5ZWZmMmFlNDI5YzNlNDgxYjRkYWNkIiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020500",
-      "53020501",
-      "53021000",
-      "53021001"
-    ],
-    "time": 27.17
+    "status": "PASS",
+    "time": 27.17,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53690488",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IndPUW4yb0x4TEM2bkdBc0RudUFHRnc9PSIsInZhbHVlIjoiWnZBcnlRU1A4NmpsSU5BM2tHd2xGNzR0Sk9ZdVYrSXRCVnpmQndJVWxhQT0iLCJtYWMiOiIwYWEyZDFhMTM3ZDljZDhkM2FkNDUxNWEwNzEyZTEwZjM2ODIyMWJiMzEyZmVhOTEwMzM5MTdjNGU3ZmI0NjY4IiwidGFnIjoiIn0=": {
     "id": 287,
@@ -3895,85 +3875,60 @@
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlB2UFovN0xnS0k0b3Q3ZGtVNFlwdlE9PSIsInZhbHVlIjoiTVBxOXlaQlhXVHg3QjJBS1A3NW5URmdIdzNKcG9rS1F2OEFWZlp3VS9vdz0iLCJtYWMiOiJjNTE5MTA0ZDQ2OWYwNmU2NjZmODllZTg1ZGM5OTgzZGJiMTgwNTZmNzQ1NmUxZDYxZWRjMGY1ZjU0ZTllNjQ3IiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020010",
-      "53020011",
-      "53020050",
-      "53020051"
-    ],
-    "time": 43.77
+    "status": "PASS",
+    "time": 43.77,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53690130",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlhMNTJWeExMRnNtaXZGQjE3eGEwMVE9PSIsInZhbHVlIjoiRTQ3MzRiTFQreW03NEk2MDE0bzlqUzZOaXhuNG9xeFJ0R1dCbk9IMGVPWT0iLCJtYWMiOiJiOTNhYTUwNGJhNGVjODMwMjg3ZDI1ODQxZDZlZjk1NzU0MTFkNDA0MTVhY2YzOWZlMDQxNjM2NDc2MDlkYzZhIiwidGFnIjoiIn0=": {
     "id": 290,
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlhMNTJWeExMRnNtaXZGQjE3eGEwMVE9PSIsInZhbHVlIjoiRTQ3MzRiTFQreW03NEk2MDE0bzlqUzZOaXhuNG9xeFJ0R1dCbk9IMGVPWT0iLCJtYWMiOiJiOTNhYTUwNGJhNGVjODMwMjg3ZDI1ODQxZDZlZjk1NzU0MTFkNDA0MTVhY2YzOWZlMDQxNjM2NDc2MDlkYzZhIiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020010",
-      "53020011",
-      "53020050",
-      "53020051"
-    ],
-    "time": 41.7
+    "status": "PASS",
+    "time": 41.7,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53690210",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik9Gd3k1RUg1bEtkWUJNMXM1ZGxiK1E9PSIsInZhbHVlIjoibVE2N0NoK05zZmczbU1kZ0dqV2t3S1Bma0RHcExaZXpMNWkzN2lCOFdBWT0iLCJtYWMiOiIwMjg4NzhhYTgwZjM2MDA4MDBjZDdhNjcwYjE1ZmEyYTBmNDc5MzY5YzNmMzE4ZDBiMjAxYzZjNzU4MDc5NjZmIiwidGFnIjoiIn0=": {
     "id": 291,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik9Gd3k1RUg1bEtkWUJNMXM1ZGxiK1E9PSIsInZhbHVlIjoibVE2N0NoK05zZmczbU1kZ0dqV2t3S1Bma0RHcExaZXpMNWkzN2lCOFdBWT0iLCJtYWMiOiIwMjg4NzhhYTgwZjM2MDA4MDBjZDdhNjcwYjE1ZmEyYTBmNDc5MzY5YzNmMzE4ZDBiMjAxYzZjNzU4MDc5NjZmIiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020500",
-      "53020501",
-      "53021000",
-      "53021001"
-    ],
-    "time": 31.8
+    "status": "PASS",
+    "time": 31.8,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53690596",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkYvL1BGb0h4ZmU0cHV1bThFR0UvZWc9PSIsInZhbHVlIjoiUWZFZDRSdmZ0N2E0cWY4QjhNRkFWWXB6YVo0WDByaHo3WnhyMUhlWGZaYz0iLCJtYWMiOiIxYzEwZmE4NWIxNWNkMGViYmFiMDYwNTQzZWJjNjRjM2Y3MWZhMGUyMzhiNWFmOTMxOWRiMzE4NTQyYWU4YTUyIiwidGFnIjoiIn0=": {
     "id": 292,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkYvL1BGb0h4ZmU0cHV1bThFR0UvZWc9PSIsInZhbHVlIjoiUWZFZDRSdmZ0N2E0cWY4QjhNRkFWWXB6YVo0WDByaHo3WnhyMUhlWGZaYz0iLCJtYWMiOiIxYzEwZmE4NWIxNWNkMGViYmFiMDYwNTQzZWJjNjRjM2Y3MWZhMGUyMzhiNWFmOTMxOWRiMzE4NTQyYWU4YTUyIiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020500",
-      "53020501",
-      "53021000",
-      "53021001"
-    ],
-    "time": 31.78
+    "status": "PASS",
+    "time": 31.78,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53690693",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Inh5ajltak5kYnprT2d4Rmp0K3l3MVE9PSIsInZhbHVlIjoiNnV6a2c4KzhMTUEwbEFUZDc4YVVNaVEvNzdVeWtUUlc2Zktod3FQVEt6QT0iLCJtYWMiOiIwMDU0Mjk2ZGY1MGM1OTlhNzk5OGRiYWY1MGQyZWQ3ODY1Yzc4MzQxODZiNjQ4MTgwZTI5Mzc2MmU4MTA4M2Q0IiwidGFnIjoiIn0=": {
     "id": 293,
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Inh5ajltak5kYnprT2d4Rmp0K3l3MVE9PSIsInZhbHVlIjoiNnV6a2c4KzhMTUEwbEFUZDc4YVVNaVEvNzdVeWtUUlc2Zktod3FQVEt6QT0iLCJtYWMiOiIwMDU0Mjk2ZGY1MGM1OTlhNzk5OGRiYWY1MGQyZWQ3ODY1Yzc4MzQxODZiNjQ4MTgwZTI5Mzc2MmU4MTA4M2Q0IiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020010",
-      "53020011",
-      "53020050",
-      "53020051"
-    ],
-    "time": 43.79
+    "status": "PASS",
+    "time": 43.79,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "53690046",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlBKWUp2S3p6cVhweUNSbUNQbk1rUWc9PSIsInZhbHVlIjoibVpOMzhQazh0QnBGdjJjN1Qvay9sbHk0YzNvVGxOV1A5Q0hZbVVhWUNVMD0iLCJtYWMiOiJiNmNmYzk5NmJjNjFlMTdjNTc4ZGQyZDIwNDY0ZDUyYmQ2NGE0MTczNTZjYmY5Njk3MDhhMTQ4MzA2MzhjOTk0IiwidGFnIjoiIn0=": {
     "id": 294,
@@ -4118,17 +4073,12 @@
     "description": "MASTER OF PHILOSOPHY IN CLINICAL PSYCHOLOGY (M.PHIL CLINICAL PSYCHOLOGY) (MPHIL) Second Year (2nd Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik5ZK0FZMTExOXorRUc2dzBBV0ZQa0E9PSIsInZhbHVlIjoiMG9iTEVLTHNGbncra2hTZmJxZUNraEF0QXovNFhZZDB2bTZnWUkxREptYz0iLCJtYWMiOiJlOWVjYTViZjg3N2U0NWJiN2M3MTdiNWE1ODUxY2ViNjM5Y2U0MDhiNzFkMTZlNmM3M2U1YTliNWYxODUxNGY4IiwidGFnIjoiIn0=",
     "year": "2025",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "53020001",
-      "53020002",
-      "53020010",
-      "53020011",
-      "53020050",
-      "53020051"
-    ],
-    "time": 43.13
+    "status": "PASS",
+    "time": 43.13,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "55310024",
+    "hit_college": "531",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImJ0WmlRajBXVVBKZ0x1MmxXNDdwakE9PSIsInZhbHVlIjoiRzVTdWJVeS9xc2NwWlUwV0xyU1o0N2JyYWQrMEYxbTJablpDQ0cwM1hQaz0iLCJtYWMiOiJmNjcxNjViZmJlMzgwM2RmNDcxMGVhMDQ3ZGU1N2Y3MDdlY2UzNzBkZTVhYTYyMTljYmI2OGZkZWZmNGI4OGMyIiwidGFnIjoiIn0=": {
     "id": 304,
@@ -5894,17 +5844,12 @@
     "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) Fourth Semester (Sem - 4) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ikh4UVQ1OUl5NGhYaHFhb0NlT2trOHc9PSIsInZhbHVlIjoiS0JEZHI0VU9xckN2WDJIdTlCRURLUFlneWk4MnU1d0M5UkJhWFJEZUxBQT0iLCJtYWMiOiIwM2Y2YmNjNmVlYWYzMTk5Nzg0ODYwNjMzNTBhYjczOTBlYTMxMzcwMDY3ZTEyYmEyZjI3YzYyNDhhYzE4Njg2IiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "2330285001",
-      "2330285002",
-      "2330285002",
-      "2330285003",
-      "2330285003",
-      "2330285004"
-    ],
-    "time": 10.05
+    "status": "PASS",
+    "time": 10.05,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233021130018",
+    "hit_college": "302",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjJYbENIUVJnTXZDR0ZFekpCN2sva3c9PSIsInZhbHVlIjoiMkxJNnZKK1RjNTdsL1V0clMvaFZLNy9adFlDTmF3cnB1N0c4TmhCMUQzTT0iLCJtYWMiOiIxMTg0YjdmMGVhOGQ1NTc0M2QyMWJjOTRhYzc0NmQyNTI1ODFjNDYyMGIzZjliN2FkNzMxODc1MGI2ZmE4ZmU2IiwidGFnIjoiIn0=": {
     "id": 437,
@@ -6109,51 +6054,36 @@
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImpWQjRBQ0xBTEhoUVBKSUszSmdXYXc9PSIsInZhbHVlIjoiMTd6dWEyVHVManpXc0tXWW9hcGt6SHZIL2VFNk1hUmR5emJJYnUxWitlcz0iLCJtYWMiOiJiMmM0ZjAwNDg5MWVmMGI4NGNiOGRiNzE2NmI4MWEwYjJlMDViMDMwZTk5OTRhMzc4NDBiYzNlMDk1YjZiNDVmIiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020500",
-      "43020501",
-      "43021000",
-      "43021001"
-    ],
-    "time": 19.2
+    "status": "PASS",
+    "time": 19.2,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43690402",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Im4wRnVsYm9rTFJIUnZNbFllMzlKN3c9PSIsInZhbHVlIjoiYUtIeHpTWmRFaTZuRDBpRUlVb1JhbTZJU3d4WkVsYmdVMStRU1BBMkxzOD0iLCJtYWMiOiIyMWViY2NlYzZlYjZkZGNjM2MxYjAzOWVlMmJjNTY5ZDJiMWMwZjg1ZDFkNmZkOTJkYzFmMTI4OTg2NDg1OTMxIiwidGFnIjoiIn0=": {
     "id": 452,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Im4wRnVsYm9rTFJIUnZNbFllMzlKN3c9PSIsInZhbHVlIjoiYUtIeHpTWmRFaTZuRDBpRUlVb1JhbTZJU3d4WkVsYmdVMStRU1BBMkxzOD0iLCJtYWMiOiIyMWViY2NlYzZlYjZkZGNjM2MxYjAzOWVlMmJjNTY5ZDJiMWMwZjg1ZDFkNmZkOTJkYzFmMTI4OTg2NDg1OTMxIiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020500",
-      "43020501",
-      "43021000",
-      "43021001"
-    ],
-    "time": 18.99
+    "status": "PASS",
+    "time": 18.99,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43690508",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjQrZ3F2dFYvVjhQSkhZR0xvMzZ2NVE9PSIsInZhbHVlIjoianpTSEZ3RDNoYUNPUEpHa2o4TnhCeFhyMHVqMWNFNG0rdFZIQ1Y5YWx2Zz0iLCJtYWMiOiI3OTA4MmM1MGRiYjYyZDIyOTU4YTU1OTY0NzEwYTExN2E1OGJkMjVjY2ZmZGFmYTIyMGRjMzY0NTI3ZDczMmI1IiwidGFnIjoiIn0=": {
     "id": 453,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjQrZ3F2dFYvVjhQSkhZR0xvMzZ2NVE9PSIsInZhbHVlIjoianpTSEZ3RDNoYUNPUEpHa2o4TnhCeFhyMHVqMWNFNG0rdFZIQ1Y5YWx2Zz0iLCJtYWMiOiI3OTA4MmM1MGRiYjYyZDIyOTU4YTU1OTY0NzEwYTExN2E1OGJkMjVjY2ZmZGFmYTIyMGRjMzY0NTI3ZDczMmI1IiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020500",
-      "43020501",
-      "43021000",
-      "43021001"
-    ],
-    "time": 19.06
+    "status": "PASS",
+    "time": 19.06,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43690564",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InlpMDFiQ0ZpcUdKUHRCNFhtWlBxVFE9PSIsInZhbHVlIjoiYUdWRmNrS253SmMrb3pKQVk3VVpEdGRCSUVwdFJSZGxTOEhtQm9JZW5lND0iLCJtYWMiOiJmZmUwZjJiMzczZDU3ZjI5ZjMyMjM2NzU3MTY3ZTg5ZmQ0NmM3MmU1OWVkYzcwYWE5Y2Y0MjZkNDAyMmU3YWVhIiwidGFnIjoiIn0=": {
     "id": 454,
@@ -6184,17 +6114,12 @@
     "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Final (Final)",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImVsWVQySWh5Nngyd0hjQWJEK0tCWlE9PSIsInZhbHVlIjoiTnk3cW5GdDVxbUNTOS82U0xBb0txQ2JyMkNIWjFTSGs2UTNuVHFzTExFYz0iLCJtYWMiOiI4NDlmMzFiMThhZjkwMDQ3ZTk5NGEzOTI4OTE3MDgzNjU0OTEwOWEyZDZiYTY2ZmMzYWYzYWYzMzg2ZmU1MDNjIiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43021000",
-      "43021001",
-      "43021200",
-      "43021201",
-      "43021500",
-      "43021501"
-    ],
-    "time": 44.6
+    "status": "PASS",
+    "time": 44.6,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43015767",
+    "hit_college": "301",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik1RNTRUZ1RybTRib0JWQlA5b2NnSUE9PSIsInZhbHVlIjoiRks0cjBKdkRCa0JxcDJWMHFNTG1TYmZaVXJUK0Q5RCs0NzU3aDFxNlJBbz0iLCJtYWMiOiI2YmM2MTBlYmE0YmU4MjA2ZDhmZGU5NGU4MDNjOWMyNmIxMzAxYWQyNjgxOTkxOTYwZmU1YjQ3ODdkOTFhN2NkIiwidGFnIjoiIn0=": {
     "id": 457,
@@ -6571,34 +6496,24 @@
     "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) First Year (1st Year) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImNxM2J3UmhraXJtRTZ3SGQzdmNXbUE9PSIsInZhbHVlIjoia2ZBQ3ZIMHV2YkhMeVFQNVhrZTlIcjRtL0ZjYXArUXRvaFdNcEtmZGRhTT0iLCJtYWMiOiIwZTdmZWEwMTViNTMzNzNlODc1YmQwZjRhZGUxYzgyYzc4ZWY1OGEwMGU5ZmEzMTJjYzAxZWFhZmM0Y2FmMmJmIiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020500",
-      "43020501",
-      "43021000",
-      "43021001"
-    ],
-    "time": 26.27
+    "status": "PASS",
+    "time": 26.27,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43023723",
+    "hit_college": "302",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkpmQ1BlTGNSTVdSZjJiY2hncnVGS2c9PSIsInZhbHVlIjoiQmoxeW1XcEdSRXZpUHBZa2pYNnY1cmZMSkNha29wZndlMHhLcWgxQ1hGOD0iLCJtYWMiOiIwOGMzNmZlOWQ3MzdjNGIyNWY0ZjBlODBlZGZmNTlkOTA1MGE2YjAxMjdmZDg4MWY3NzRmMWYyZWMyYWI1YTQ0IiwidGFnIjoiIn0=": {
     "id": 483,
     "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) Second Year (2nd Year) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkpmQ1BlTGNSTVdSZjJiY2hncnVGS2c9PSIsInZhbHVlIjoiQmoxeW1XcEdSRXZpUHBZa2pYNnY1cmZMSkNha29wZndlMHhLcWgxQ1hGOD0iLCJtYWMiOiIwOGMzNmZlOWQ3MzdjNGIyNWY0ZjBlODBlZGZmNTlkOTA1MGE2YjAxMjdmZDg4MWY3NzRmMWYyZWMyYWI1YTQ0IiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020500",
-      "43020501",
-      "43021000",
-      "43021001"
-    ],
-    "time": 26.4
+    "status": "PASS",
+    "time": 26.4,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43331404",
+    "hit_college": "333",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InlwNEU3MW1YTTViRkwrblVjZkdDQXc9PSIsInZhbHVlIjoiYTQ3UnZQeHAwMHlTNUl0VGpYQ29WNXpodmVRaGxzQitPVVFKaGRPNXBPQT0iLCJtYWMiOiI1NzZmOTVjNjBlYTc1YzFjNWJjNTMyOWNmNjI0Mzk3NzI4MTY4ZWRkYzlhODdiYzBiNTZiZDBjY2NmNjcyOGIyIiwidGFnIjoiIn0=": {
     "id": 484,
@@ -6622,34 +6537,24 @@
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik44ZTRBRkVOandNR1hscXd3ajlsSlE9PSIsInZhbHVlIjoiOW9SbkhRUEJXYndRN3BvZUJZS2M2YTlTNlhqbVBESzRkOUd5Y3pheVc3VT0iLCJtYWMiOiI1ZWJkMjZhYTMzNjllNTZlNDE5YmFjMTAzOTE1MjAwM2FjM2M4ZjQxNWIwYjAxMDZkMWE3YWYxYWQwY2Y1YTRiIiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020500",
-      "43020501",
-      "43021000",
-      "43021001"
-    ],
-    "time": 26.42
+    "status": "PASS",
+    "time": 26.42,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43690674",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik1aYk5OWjB2VDBzNTAxYXRwTGowNUE9PSIsInZhbHVlIjoiU0t3NGJKeVowMFdIOEV6N1V1YW5na0ZwbmJvMTRxdFBHYjBKMkIzNjlwND0iLCJtYWMiOiIwZmFjMDc5ZWZlZmE1MzRjMWM3NzBjMWU0Njg5ZTU0ODIzNjE0ZGQ4YmFmYjVmMDYwZGY5YzVmM2E5ODBiODliIiwidGFnIjoiIn0=": {
     "id": 486,
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE NEW SYLLABUS",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik1aYk5OWjB2VDBzNTAxYXRwTGowNUE9PSIsInZhbHVlIjoiU0t3NGJKeVowMFdIOEV6N1V1YW5na0ZwbmJvMTRxdFBHYjBKMkIzNjlwND0iLCJtYWMiOiIwZmFjMDc5ZWZlZmE1MzRjMWM3NzBjMWU0Njg5ZTU0ODIzNjE0ZGQ4YmFmYjVmMDYwZGY5YzVmM2E5ODBiODliIiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020010",
-      "43020011",
-      "43020050",
-      "43020051"
-    ],
-    "time": 31.55
+    "status": "PASS",
+    "time": 31.55,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43690015",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IktTNHVtRm94MWdsTGN4RGhTTExXMGc9PSIsInZhbHVlIjoiZ0I4amJHbmJMNUdDYXVCOGtPajBQQUx6UkxrMDhUd0YzUUVJZ3FXYkRoND0iLCJtYWMiOiIwY2M1ZjY4YjY4N2I3OTUxNGQ3YjhlYzUyNjdhN2ZjODAyYWYzMTI2ZmM2OWZhNzU3YjZlYWY5NjY1MTAzZjQwIiwidGFnIjoiIn0=": {
     "id": 487,
@@ -6673,34 +6578,24 @@
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImtrN3ZrNXVONWdCYWNuTzR6OE44dkE9PSIsInZhbHVlIjoiSy9vVWQ1dkdmTC9Hc09qeFQzOVUram5DY0tEdG11NlN2REkyZm1ncFZCTT0iLCJtYWMiOiJmMGMyYWVhZjVmYzY2MmQ1YWIwM2U1ZDkzMjAyYjEyZTkwNTliN2VhNWM5YzI2YmQ0MzdkMjU2NmQ2N2UzY2I2IiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020010",
-      "43020011",
-      "43020050",
-      "43020051"
-    ],
-    "time": 31.52
+    "status": "PASS",
+    "time": 31.52,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43690204",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IldLOFYxa3NEMlhhQ09Pb2J3cHZUT2c9PSIsInZhbHVlIjoiY2N4NTArejdON1FSd0ltc1NrbCtBb1FLUGhSQkxhOWJzNGMxTkhtREw5bz0iLCJtYWMiOiIyNWNlMzBkNTI3NTc4ZjU0Zjc2ZDQ2MGMzNTljMDExNmI5Mjk3YzAyZTFiMzQ4ZjRhMDBlNmMxNmZmZWYwNDA4IiwidGFnIjoiIn0=": {
     "id": 489,
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IldLOFYxa3NEMlhhQ09Pb2J3cHZUT2c9PSIsInZhbHVlIjoiY2N4NTArejdON1FSd0ltc1NrbCtBb1FLUGhSQkxhOWJzNGMxTkhtREw5bz0iLCJtYWMiOiIyNWNlMzBkNTI3NTc4ZjU0Zjc2ZDQ2MGMzNTljMDExNmI5Mjk3YzAyZTFiMzQ4ZjRhMDBlNmMxNmZmZWYwNDA4IiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020010",
-      "43020011",
-      "43020050",
-      "43020051"
-    ],
-    "time": 31.13
+    "status": "PASS",
+    "time": 31.13,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "43690274",
+    "hit_college": "369",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InA2ZzZPMlBrVFUzbjZUOWpTRHJ3ZFE9PSIsInZhbHVlIjoiTDBqL1o2aTN6cXBRNFNVY050V09lVlZTdFE3NUN4cHFHRm9tYkJjYmNzaz0iLCJtYWMiOiJmYjBhYzQyZWE1YjVkOTg4NjIyNzUwMzc1NzBlNDJmODRhMzM2MzUxNjllZDc4YjZjZDFhNjcyMjkzOTNjOTY2IiwidGFnIjoiIn0=": {
     "id": 490,
@@ -6809,17 +6704,12 @@
     "description": "MASTER OF PHILOSOPHY IN PSYCHIATRIC SOCIAL WORK (M.PHIL PSYCHIATRIC SOCIAL WORK) (MPHIL) First Year (1st Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IktBT2pENVh3aCswYzV4SmxqdFhiR1E9PSIsInZhbHVlIjoiMDFvRTYxbzA0cHFONWJuME1vM0tjQUJLTTEwRWpQVE8zak1nNExVMFR1RT0iLCJtYWMiOiI0ODliNWI3ZDRhZjFhZDIzZjQ1ZDRlNzBkY2IzNDU3YmUyOTBmZTcyOTY4ZjU2ZDgxNmE0YjNiOTcyYjk1YTQwIiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020010",
-      "43020011",
-      "43020050",
-      "43020051"
-    ],
-    "time": 22.97
+    "status": "PASS",
+    "time": 22.97,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "45310127",
+    "hit_college": "531",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlFnV1JlZDV2RlBBOWFIbC9VTisxeEE9PSIsInZhbHVlIjoiRVV2Z1dGejhBTno3amNPRHVqQVJydzhuUTE0c0tnUTRkYTZYdm9qL1ZaYz0iLCJtYWMiOiI1YzExZWY1ZThkODY0MDE4MzZjNDkzYjgxNzA2MGVhNWQ2Nzk0NThkNzhmMGI0ODg1NDEzNzQ0ZjQ4OGFjOThhIiwidGFnIjoiIn0=": {
     "id": 497,
@@ -6843,17 +6733,12 @@
     "description": "MASTER OF PHILOSOPHY IN CLINICAL PSYCHOLOGY (M.PHIL CLINICAL PSYCHOLOGY) (MPHIL) First Year (1st Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlZia1RjUWpSdkVwWVcrRHlkdnBLcFE9PSIsInZhbHVlIjoiaDBycWpKVktRYmhvQ0FoQnFBelJhd0Ntall3a0ZZcmhweEQ0c1paaFQxMD0iLCJtYWMiOiJlY2Y1YTg4MTQyNTRhMzMxNmUxMWVkZTA4MDk3NmJmMTA3MTk0ZDM2MzY3YzM5M2E4MjEzYTZjNGJkOWM3NzU0IiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "43020001",
-      "43020002",
-      "43020010",
-      "43020011",
-      "43020050",
-      "43020051"
-    ],
-    "time": 22.98
+    "status": "PASS",
+    "time": 22.98,
+    "pattern_scheme": "ANNUAL_8D",
+    "hit_roll": "45310006",
+    "hit_college": "531",
+    "roll_length": 8
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjlSaWFKYitKeWRTU2lFWmh5TjlJRlE9PSIsInZhbHVlIjoidkhnRmNTaXJRTnFobVdvNitRQ3pIbE1rc1NJR05zUlU3UUxOamdKN2lPUT0iLCJtYWMiOiJiMWJhN2IzZDQxMWU1MDgzYjIyZmRhYTIwZDBkMzU1MGViMzlmNGQ1MGU1ODQ2NTAwYzM0ZDRkMWRiOTU3YzlhIiwidGFnIjoiIn0=": {
     "id": 499,
@@ -7489,17 +7374,12 @@
     "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IldlQXRjbmNzYzVLS1Y3VWxqdVhaT1E9PSIsInZhbHVlIjoiSmtIK292Q1puM1ZqTEovbHNEVWM4cGlYRUFZQUhCWmgzQW5iQmFHaXpvUT0iLCJtYWMiOiJlNTg0OTEzM2JhN2YyYTZiODRjOTk0OGM5ZjI4MDExYzhiZjA5MDI2N2U2ODljNjZhYWI5YWUxMzJlNDUzNmE3IiwidGFnIjoiIn0=",
     "year": "2024",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "2330285001",
-      "2330285002",
-      "2330285002",
-      "2330285003",
-      "2330285003",
-      "2330285004"
-    ],
-    "time": 10.07
+    "status": "PASS",
+    "time": 10.07,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233021130018",
+    "hit_college": "302",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjZWSFdlZWZuY0Z5Mit6dnFmTWlYcVE9PSIsInZhbHVlIjoiRFUwd09HRkhoSWUwODM5cEVhdWhpVTE3d0l0R0RJWmtvVEhJSnFGdVA1VT0iLCJtYWMiOiJiOTUxOTE1MDhhYWU3MTIzOWVhY2JhN2M4Y2Q5Y2UwNDA3OWY4NWIwZjBjYjE1OGM4ZWQ5ZTZjM2M0MTYyZGMxIiwidGFnIjoiIn0=": {
     "id": 547,
@@ -7836,17 +7716,12 @@
     "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) First Year (1st Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlBnbEF6cFgzQWNrMmx2MHpwV25CcEE9PSIsInZhbHVlIjoiT0tPS01XMmVWQjBkSytXL3RZUkNnM010aHR5a3hMSkVJRmhQV2YvL2t1az0iLCJtYWMiOiJlMzZlYzdlZGYzYzA5ZjAxMmRiNWIyZTcyMDRjNTFjMGMzYzEyYzVjZTJmOTZkNDNhMjhmYTgwNDE0OWQxZTFjIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020070001",
-      "233020070002",
-      "233020070002",
-      "233020070003",
-      "233020070003",
-      "233020070004"
-    ],
-    "time": 7.34
+    "status": "PASS",
+    "time": 7.34,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233020100016",
+    "hit_college": "302",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Imlyd0YvRDlNRjJxeHV2cWNIclk2bmc9PSIsInZhbHVlIjoiaFM5VFhtL2tGY3EyMnE4VmFpNVRwakRjUEVSUGNzVms5WnN4NklCNkxrOD0iLCJtYWMiOiJiODVlOWIxYzQ1NzhjMThlZjM5MTRhNThkNmZjNzkyODZkMmJkYTA5ZjZlN2U5NGRkYzNiYTZjNmMyNzUwZjcwIiwidGFnIjoiIn0=": {
     "id": 573,
@@ -8702,17 +8577,12 @@
     "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Fourth Semester (Sem - 4) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjJwMkNiZldDNVNqMUhoQTJZSDZSUHc9PSIsInZhbHVlIjoiU3ltSDhySkxpdWdpWEVFMU02akJ5aUhTZFl0ZHluNm1GSDlGVkpqZVkraz0iLCJtYWMiOiI1MjhkNDhmYTZiOTg5OTY2NzY1NDU2ODhkNTY3ZjI4ZGY4ZDA4NmU1NDFlY2EyNGM1ODhmYmI0MjAxNDkwZmQ5IiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "223021090001",
-      "223021090002",
-      "223021090002",
-      "223021090003",
-      "223021090003",
-      "223021090004"
-    ],
-    "time": 13.76
+    "status": "PASS",
+    "time": 13.76,
+    "pattern_scheme": "LEGACY_SEM_11D",
+    "hit_roll": "21333109016",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImFlZktzb0sxYkJRNTFvdkFsWEs1OXc9PSIsInZhbHVlIjoiZWhrdDRzR2xGMVhQQ3drVEhPV0RiVHVpc1hoTVBXRHU0aDdpakhWamx4MD0iLCJtYWMiOiJhZWE5ZDcxZjBkNGYyZDA2YmZmNTFhNTNiMTM1Y2IwZGIwYTk0MDVhNzkxNWZkNGRiYzU3ZGYyMTZhMTFkM2ExIiwidGFnIjoiIn0=": {
     "id": 631,
@@ -8753,17 +8623,12 @@
     "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlUwQkhISVp2VXFVRVNyTHhENEtLNVE9PSIsInZhbHVlIjoiWk5VRzRjclh4WHlwcGxRODBVVThtb3loQy9zY283N1BHR3ZNOWlEMXlkaz0iLCJtYWMiOiJiMzI5ZWU0OTRlMzAxNGVhOGNkZjczODM2NGVkYjhmMzBiZDNlNDc0YzZmYTZiNzlmZTVjODQ1ZTAxNDc1Nzk5IiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233021090001",
-      "233021090002",
-      "233021090002",
-      "233021090003",
-      "233021090003",
-      "233021090004"
-    ],
-    "time": 13.7
+    "status": "PASS",
+    "time": 13.7,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233021130018",
+    "hit_college": "302",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Im0yYmtJMlErR3I4cEY5RHdvZGZYc0E9PSIsInZhbHVlIjoiOXM2VlBFZmVmZTM2M3FsdFBzV01xT0lHQW1IZGdqWVdhY1JhcWhESUJJZz0iLCJtYWMiOiJjOTVjZWEzZmU3NTRiMzVjMTJjYzhjMGIyYTY5NTYxZTEzODM4NDI0N2ZiNjhmOGRiOTBlMjg1NzM5ZmI4YTFmIiwidGFnIjoiIn0=": {
     "id": 634,
@@ -8999,17 +8864,12 @@
     "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Previous (Previous)",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImVDYzdnQWJvMXY0OWxFYnY1NFA3ZGc9PSIsInZhbHVlIjoiZlc1dWg2VjFna0tuQnFrYlRSWFJpaS9BSjFOV1U1ZzFQaHh2Q0dOWXplND0iLCJtYWMiOiI2OWVjY2IxYzgyZWNkOTQ5MDU5MDJhMDE5M2FiYTc0YzMxZTZmOTkyZDYyZTYyOTg5YmMwZWIyNWI0NjU2YzYzIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020760001",
-      "233020760002",
-      "233020760002",
-      "233020760003",
-      "233020760003",
-      "233020760004"
-    ],
-    "time": 7.4
+    "status": "PASS",
+    "time": 7.4,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "234011460006",
+    "hit_college": "401",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ino5Ti85K3JTUkp1NUJIcVNVcG5WZEE9PSIsInZhbHVlIjoiRkFHWDFIVjBiUzhlZU9HOXpaNWx2WTE5WHMvSytlR0N1NFBoSzVUY2hBaz0iLCJtYWMiOiI2NmJjZWZhMDRmMmU1YzgwMmVjZWI1MDFmOWZlYjI0YmIyY2VhYTNlMDJhMWYyMzYzZjE5YTcyN2NkNGI4MDJiIiwidGFnIjoiIn0=": {
     "id": 652,
@@ -9033,51 +8893,36 @@
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlBoQXN6cURUdlNGVjRrUWJLVXpYTXc9PSIsInZhbHVlIjoiWHRFUHBVakl1RUhobUxudXg0eHZNYTUxcG11NFpzd0lrMTErUStpQWNOST0iLCJtYWMiOiIxMTU0NTUyZGVlOGNmOTA2ZTg1NjFhNzI0NTY1Y2M1OWQxOGVkNmE3YWRlZjRkNmE4NTIwNmE1MjQzY2M5MzRkIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020070001",
-      "233020070002",
-      "233020070002",
-      "233020070003",
-      "233020070003",
-      "233020070004"
-    ],
-    "time": 7.69
+    "status": "PASS",
+    "time": 7.69,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233691370015",
+    "hit_college": "369",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ill3akxxdjJzMzRqTmZHMWR0ZndqT2c9PSIsInZhbHVlIjoiQkUweFdYc05jYnBTWWlCSjFjT0VrWlpwc1orbTB0b0xRWmV2ZVRzZUZ0dz0iLCJtYWMiOiIxOGQ0ZGJlMDk1MGFkOTBmYzE1ZWU0MjllZTk0YjU5ZTgxMDE0YmE5ZmMwMmNiNTA3Mzg4YWMwM2RiZjJmNThiIiwidGFnIjoiIn0=": {
     "id": 654,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ill3akxxdjJzMzRqTmZHMWR0ZndqT2c9PSIsInZhbHVlIjoiQkUweFdYc05jYnBTWWlCSjFjT0VrWlpwc1orbTB0b0xRWmV2ZVRzZUZ0dz0iLCJtYWMiOiIxOGQ0ZGJlMDk1MGFkOTBmYzE1ZWU0MjllZTk0YjU5ZTgxMDE0YmE5ZmMwMmNiNTA3Mzg4YWMwM2RiZjJmNThiIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020070001",
-      "233020070002",
-      "233020070002",
-      "233020070003",
-      "233020070003",
-      "233020070004"
-    ],
-    "time": 7.53
+    "status": "PASS",
+    "time": 7.53,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233691380047",
+    "hit_college": "369",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkpmbUNINXFPTjFycFNsSVZNdzM0UXc9PSIsInZhbHVlIjoiVDU4UHNkbC9pVHVLQVVmTGxsbDJsaXpna1QxSS9pTGpxcjdsVkFQL2F2OD0iLCJtYWMiOiJhMDg4ZDM4NDlmNmZhOGE0ZGNlNjY4ZmFiMWY1NDU4MjJhYTA0YjlmOGIzZmY5OGM3ODQ5ZWZiYjU1MDVhZWJlIiwidGFnIjoiIn0=": {
     "id": 655,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkpmbUNINXFPTjFycFNsSVZNdzM0UXc9PSIsInZhbHVlIjoiVDU4UHNkbC9pVHVLQVVmTGxsbDJsaXpna1QxSS9pTGpxcjdsVkFQL2F2OD0iLCJtYWMiOiJhMDg4ZDM4NDlmNmZhOGE0ZGNlNjY4ZmFiMWY1NDU4MjJhYTA0YjlmOGIzZmY5OGM3ODQ5ZWZiYjU1MDVhZWJlIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020070001",
-      "233020070002",
-      "233020070002",
-      "233020070003",
-      "233020070003",
-      "233020070004"
-    ],
-    "time": 7.7
+    "status": "PASS",
+    "time": 7.7,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233691390021",
+    "hit_college": "369",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImpmOVQzZndXMmV2RERhcEhObnpBSHc9PSIsInZhbHVlIjoiQ0liQWdSUlNsWGVUMDQzalJrcmt0QkNTZENzQWdOZ2ZoWkt1QVdMbXpqST0iLCJtYWMiOiI2NTBiZjJiOWIxMTg4NWFkY2FjYzg5NmVlOTFmM2Q4N2QwYWZlOGQ4OWM2MzkyYzhiMmYwYjRiZDliMWY3ZmRmIiwidGFnIjoiIn0=": {
     "id": 656,
@@ -9161,17 +9006,12 @@
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - I (Part - I) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlpvemJvNFdDQWt5WnB2ZkJFRnd5L2c9PSIsInZhbHVlIjoiUldpSjFTV3N4OFZDeXg1dnUxYjdXUWlhRjR2UFJJYWhaZzZoeG1OSnpaZz0iLCJtYWMiOiI3NjY0YWVkNjNlNDY1Y2ViZmM5OGEyNDg0YzYzZjI3M2M5Yzc5NDk2ODdjODdhOWQ2OWY3Njc1N2YyNTIxYzJmIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020010001",
-      "233020010002",
-      "233020010002",
-      "233020010003",
-      "233020010003",
-      "233020010004"
-    ],
-    "time": 7.6
+    "status": "PASS",
+    "time": 7.6,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233691410027",
+    "hit_college": "369",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImY3bHQrcStSamhsVzlTcXlkT3lLdlE9PSIsInZhbHVlIjoiQldKUFFISERXQUVxVkFtUktMR3NrVldxenpadCszc0RtSDJTSy9hRzlGVT0iLCJtYWMiOiI5ZTVkZGYzODljMjNkZTQ0MzdlZGFmODUyMWVmZDFjMzA2YWUyMTYwYmVlYTM1Y2Q2OTdlMmM1OGViZGUyYzdmIiwidGFnIjoiIn0=": {
     "id": 663,
@@ -9214,17 +9054,12 @@
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - III (Part - III) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InoxdHNlM1BkRW12S3RiZ1dMZkVHRnc9PSIsInZhbHVlIjoic2lieC85NmZNek1rSTk3bDhtQkJ5SUhQUktKVDZmN3pZMHE2UXAzMnR2bz0iLCJtYWMiOiI0MDQxY2JkYmUxMmIyMjczOTA2ZWMzOWQwYzdjOWYyMTg4YWFkODY3Y2U0NTA1YWViOWY4MWYxMzJmZTUzNWY0IiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020010001",
-      "233020010002",
-      "233020010002",
-      "233020010003",
-      "233020010003",
-      "233020010004"
-    ],
-    "time": 7.38
+    "status": "PASS",
+    "time": 7.38,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233691430031",
+    "hit_college": "369",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkxsOHRQNGF6UmNPeW5Ybm5PN3VHcVE9PSIsInZhbHVlIjoiVWdGbzN6UTh4SndwOTNGa2JPWVFJZ0NPVWJveS9tUWdsWG9nbkNNWThsVT0iLCJtYWMiOiIyNmQwYTA2ZDAxNzk0MDVlYzI2MGZkY2EwNzA1NzFkYTFiM2M3NTIyMjVlZjUxOGJmZTg4OTY2MWY4ZDE2ZWVlIiwidGFnIjoiIn0=": {
     "id": 667,
@@ -9432,17 +9267,12 @@
     "description": "MASTER OF PHILOSOPHY IN PSYCHIATRIC SOCIAL WORK (M.PHIL PSYCHIATRIC SOCIAL WORK) (MPHIL) First Year (1st Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlhIcDZPR2hGZzlsUDhPM2hXSit0enc9PSIsInZhbHVlIjoiTDRydUVqdkxtM2s0ZEZYcFV5VXNzSTAyQ3FkT29LYTJ2ZXAyaVhEYnVDMD0iLCJtYWMiOiJhMDQ0NDc1ODQyODE3ZTQxMzkzZmU1ZmUxNTAyOTcxM2I0ZjAxNjBmZTFhZjE1YTliOWZhNjA5YjE2MTNlNTg3IiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020010001",
-      "233020010002",
-      "233020010002",
-      "233020010003",
-      "233020010003",
-      "233020010004"
-    ],
-    "time": 10.19
+    "status": "PASS",
+    "time": 10.19,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "235311770002",
+    "hit_college": "531",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkEvYnF5NmEreEdPeVlWRjZqZTUvYlE9PSIsInZhbHVlIjoiVzZCMTVSamNNeUd0NnBOQVljQ014WDZkbmluTlJYTTRoTUJSNllYZmlDTT0iLCJtYWMiOiJjMzE4OTQxMWJiNGFjNTRiNmNlNGNkZDkwMjU5N2FmYjlkOWI3YjI1ODFhZWJjOWQ5YTA4ODM3ODEyZDU4OGVlIiwidGFnIjoiIn0=": {
     "id": 681,
@@ -9466,17 +9296,12 @@
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - IV (Part - IV) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImtTK0RZbnY4cUFmK1d4cHhLSEVwTGc9PSIsInZhbHVlIjoiLzhKeGM4KzRFV0VSNFREQmRlcXBNTlZWWlBMMG8vZUZNQjBMeXhOaXlpND0iLCJtYWMiOiI3OTQ5NmI5MTE1ZWVhYzg3NGRmNmMwMDk4Mjc3NzZiODUzOWZjMzVkMTAzN2Q2YThkMDY5ZjViZTZiODE0ODRiIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233020010001",
-      "233020010002",
-      "233020010002",
-      "233020010003",
-      "233020010003",
-      "233020010004"
-    ],
-    "time": 10.28
+    "status": "PASS",
+    "time": 10.28,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233691440019",
+    "hit_college": "369",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InhtQnBPdWdFd0E4T003RWJFam1xQnc9PSIsInZhbHVlIjoiZzVrc3FsMFhhZlROQ1ZWM3paTVlJMWp1NTE0M29SWTJjSG9EcmJVb2hQOD0iLCJtYWMiOiIzZTUwNzEwODhhNTQ3YWU1NDZiNTkzZTg0MzdlNmY5NDFjY2ZkNWU0YWYxYWUzNWZmYzc4NzVjYmRhMDRjYTY4IiwidGFnIjoiIn0=": {
     "id": 683,
@@ -9684,17 +9509,12 @@
     "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjU5VEZOMmxIY1AwN3ZRMUl5UkQvUXc9PSIsInZhbHVlIjoiMWJ5T3lneWZocXVuM2N2SWpqR0xnVlg1dHFaL0xLUWYvdzNJazZoYVUvWT0iLCJtYWMiOiJkNjcwMDliNjg1NTA1NGE2NWYzYmZiMzAyN2EwMjFhODE3MDVlMDczNWJlNGFiZjMxZGZmNWQzNjkxYTE2NTMzIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "223021090001",
-      "223021090002",
-      "223021090002",
-      "223021090003",
-      "223021090003",
-      "223021090004"
-    ],
-    "time": 11.78
+    "status": "PASS",
+    "time": 11.78,
+    "pattern_scheme": "LEGACY_SEM_11D",
+    "hit_roll": "21333109016",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InVUN2ZnSk5FZy9yUk5YZFFHSGFrUWc9PSIsInZhbHVlIjoiVlRyLzhNK1dycXl0cHlWN2lCNWRpRC9hMTAyM041aUtJeXBRbGxJOXpmQT0iLCJtYWMiOiI1M2QyYzgyMGU0MWVhYjBlNzAxNDExM2VjOWQwNjMwZjAwMjdmZGQxMWQzN2VmNjhkOTAzY2E0NGE2OGQzNDdhIiwidGFnIjoiIn0=": {
     "id": 697,
@@ -10165,17 +9985,12 @@
     "description": "M.Sc. Home Science - Food Science and Nutrition (M.Sc.HS-FSN) (PG) First Semester (Sem - 1) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkMyRWxkbkJtSTlXSEN0VThGcSt2VVE9PSIsInZhbHVlIjoiM3hpU1FwQUxiWm45UGE0TlJuTnJLeW9BM1IvNDhJWkRsakZxRGs3c1VLVT0iLCJtYWMiOiI4NjY0YzViYzdjZGM2YjQwOGRjM2NhYjYyZjY3YWI1NzE1Y2EzODk5YTA3MGI1OTgwYTVlODZhZWJmNmFhNDZiIiwidGFnIjoiIn0=",
     "year": "2023",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "233021090001",
-      "233021090002",
-      "233021090002",
-      "233021090003",
-      "233021090003",
-      "233021090004"
-    ],
-    "time": 11.88
+    "status": "PASS",
+    "time": 11.88,
+    "pattern_scheme": "LEGACY_12D",
+    "hit_roll": "233021130018",
+    "hit_college": "302",
+    "roll_length": 12
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InFvczV0ejFtOWdBRE1SQmpGV0VoYUE9PSIsInZhbHVlIjoieWpSSFdVS3N2Tkk1VEVPZEhjaXA5dmhHZ2h5WnJMZDlIUlhnNGFOWWpCZz0iLCJtYWMiOiJlYTE2MWFiMWI4MjkxNjkyZjBjN2VkY2Y5MDY2MDU5YzM0ODZkN2Q4MzAwYTBkZjcwNjY1NTJkOWRlYWUzNWU5IiwidGFnIjoiIn0=": {
     "id": 730,
@@ -11201,17 +11016,12 @@
     "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImJ3ZkNlM1RkVVN1VFFveUJWU1UrSkE9PSIsInZhbHVlIjoicVRIZDU2RW5CNXROcUxZNjNQa2hlMHhNdHd5VUNMRmVqSDRJZHUySHF6OD0iLCJtYWMiOiI3NzgwYjRmMjVjMGRlZTJiMDYxMzNhNDA2ODlkMTEyNWU4ZDBjOTA3ZWYyZTNjNGFjN2YzNzU0ZTFkNDVhMGNkIiwidGFnIjoiIn0=",
     "year": "2022",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "21302109001",
-      "21302109002",
-      "21302109002",
-      "21302109003",
-      "21302109003",
-      "21302109004"
-    ],
-    "time": 20.65
+    "status": "PASS",
+    "time": 20.65,
+    "pattern_scheme": "LEGACY_SEM_11D",
+    "hit_roll": "21333109016",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImVLUkI3enBJRzhFV3Uwcm9sQTRIMnc9PSIsInZhbHVlIjoieGFjUGNGanZZRkZwVjYwWVhQWE5CZEh5TXNmaDcwTWJYc0lFZG41MWI3OD0iLCJtYWMiOiIwZDI2Njg1MTczMTllNTIxY2MyYmZlNzBmZmU1NDAwZjM1ZTJmYmEyMjRmMDIzNzg5M2Q4YmM0MTlmNWRlYzM0IiwidGFnIjoiIn0=": {
     "id": 808,
@@ -12623,17 +12433,12 @@
     "description": "M.Sc. Home Science - Human Development (M.Sc.HS-HD) (PG) First Semester (Sem - 1) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Ik0zRGFWMDJZaUNwWTc3S2lBUkJxU3c9PSIsInZhbHVlIjoiSWJyRjFhVG1QdldDUWZhT3VVS1FBTiswQTB2K29QSFlKbGIzWmxDRXBUVT0iLCJtYWMiOiIwMTIxMmE1ZjRiZTZmY2UwMTZhN2JkY2Q4Y2RkMjY3MDI2NjAwZTQ1ODg0N2ZhNWJhYWJlZTA3ZmVlYzVmNzEyIiwidGFnIjoiIn0=",
     "year": "2022",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "21302109001",
-      "21302109002",
-      "21302109002",
-      "21302109003",
-      "21302109003",
-      "21302109004"
-    ],
-    "time": 16.82
+    "status": "PASS",
+    "time": 16.82,
+    "pattern_scheme": "LEGACY_SEM_11D",
+    "hit_roll": "21333109016",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Im9YTEo4VVVZd05uYWJXcmpveUxDMUE9PSIsInZhbHVlIjoiYmwzbzVpL3QwamN0bm01dnJTQUlTR05BWlVKTFJXaXk2dW1OV3pDWm9GRT0iLCJtYWMiOiJkNDY1ZDMzOWUzMmY3YWY0ZWMxMDNjMjQ0MDE5MmJhOTNkN2I3ZTFmZjI5NjVhNmY0MDdiMDgwM2E3MDI1YzE3IiwidGFnIjoiIn0=": {
     "id": 914,
@@ -13917,17 +13722,12 @@
     "description": "Bachelor of Science (Home Science) (B.H.Sc.) (UG) Final Year (3rd Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkpVREg5SEg2V1V5ZVVxbGkrKzFwREE9PSIsInZhbHVlIjoiNnE1c1hZeFFyZEdHWklmcmxlTk41aFBTSU1wK25TbjN0TGtFeURKOUJobz0iLCJtYWMiOiI1YWU1NTYxMzJlZGQwZDY2ZDkyOGIzNmVhODkyODZkMTY0MGI2MWEyZjg0MjA4MzM3OTY3NzQ1MGVjYTU5NmY2IiwidGFnIjoiIn0=",
     "year": "2021",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "93010070001",
-      "93010070002",
-      "93010070002",
-      "93010070003",
-      "93010070003",
-      "93010070004"
-    ],
-    "time": 22.44
+    "status": "PASS",
+    "time": 22.44,
+    "pattern_scheme": "LEGACY_ANNUAL_11D",
+    "hit_roll": "93330110020",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkJxdjk0M3dMbm9adDJLMDRBbEVLWWc9PSIsInZhbHVlIjoiQm5LdURseVU0SFNTbDl5NEFEMlFmRFFmQVhUdVdTb3U4UHJIblkwMG83dz0iLCJtYWMiOiJmMjUwOTdjMGJhMjBmMTEyMTM2Njc5Zjk2Y2ZhNWJmNmM3NDQ2MDcyNGI0MzQyZDdkNjAxNDhmNWVjYWU5ZjM3IiwidGFnIjoiIn0=": {
     "id": 1011,
@@ -15225,51 +15025,36 @@
     "description": "B.A.Additional (B.A. Add) (UG) Final Year (3rd Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkNsOCt5V1dvYXNNNjd5NGpWWUxLNlE9PSIsInZhbHVlIjoiaGloWWVBRXpDT3dvZ2h5Y1VHQmNJaFF4K0FNZ0h2ZHlvZHNHOXAwZ3lWYz0iLCJtYWMiOiI4MTJjOTEzNDAyMzgyODg5Y2JjZDg4MDVkZGNlZGM2NWQwMzkzMWE0YmVmYTFmMGY0ZjU2MzA5YjYyOTAxOWY5IiwidGFnIjoiIn0=",
     "year": "2020",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "23010030001",
-      "23010030002",
-      "23010030002",
-      "23010030003",
-      "23010030003",
-      "23010030004"
-    ],
-    "time": 17.33
+    "status": "PASS",
+    "time": 17.33,
+    "pattern_scheme": "LEGACY_ANNUAL_11D",
+    "hit_roll": "93021610001",
+    "hit_college": "302",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImNocWdzYmp2K3ZGQ3hqdG5STFl2S3c9PSIsInZhbHVlIjoiU3oxUXRBVHpBTUV4bEZ2cXBEMmZqaE42S2k0MnE5eDNZdlVKSW02b3Z4UT0iLCJtYWMiOiJmZTNiZTcyMWNhZTA3MTg0YzY3YWEzOGFkZWFjYTdlYjVkOWZkODRjYThiZWE4ZjIxMWRlMmViOGE4YzdlMjYxIiwidGFnIjoiIn0=": {
     "id": 1110,
     "description": "B.A.-B.Ed. (B.A.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImNocWdzYmp2K3ZGQ3hqdG5STFl2S3c9PSIsInZhbHVlIjoiU3oxUXRBVHpBTUV4bEZ2cXBEMmZqaE42S2k0MnE5eDNZdlVKSW02b3Z4UT0iLCJtYWMiOiJmZTNiZTcyMWNhZTA3MTg0YzY3YWEzOGFkZWFjYTdlYjVkOWZkODRjYThiZWE4ZjIxMWRlMmViOGE4YzdlMjYxIiwidGFnIjoiIn0=",
     "year": "2020",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "23010010001",
-      "23010010002",
-      "23010010002",
-      "23010010003",
-      "23010010003",
-      "23010010004"
-    ],
-    "time": 10.4
+    "status": "PASS",
+    "time": 10.4,
+    "pattern_scheme": "LEGACY_ANNUAL_11D",
+    "hit_roll": "93691410029",
+    "hit_college": "369",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImpwQlgvaFpxcGd5NzlseXNMNjF3dVE9PSIsInZhbHVlIjoiY1pTaFBvSkh3VXpndUJtNWFKQlR0VlQ4cUw2TUkzdG1XaURTdkR5K1ZlST0iLCJtYWMiOiIyZTM0YmU1MjY3ZDU2OGYwZjNiYTM4YzU5YTcxODllYTUxZjNlNTY5NDc2MzZiN2YyMWZiY2UwZDJjODUzZDM0IiwidGFnIjoiIn0=": {
     "id": 1111,
     "description": "B.Sc.-B.Ed. (B.Sc.-B.Ed.) (UG) Part - II (Part - II) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImpwQlgvaFpxcGd5NzlseXNMNjF3dVE9PSIsInZhbHVlIjoiY1pTaFBvSkh3VXpndUJtNWFKQlR0VlQ4cUw2TUkzdG1XaURTdkR5K1ZlST0iLCJtYWMiOiIyZTM0YmU1MjY3ZDU2OGYwZjNiYTM4YzU5YTcxODllYTUxZjNlNTY5NDc2MzZiN2YyMWZiY2UwZDJjODUzZDM0IiwidGFnIjoiIn0=",
     "year": "2020",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "23010070001",
-      "23010070002",
-      "23010070002",
-      "23010070003",
-      "23010070003",
-      "23010070004"
-    ],
-    "time": 10.56
+    "status": "PASS",
+    "time": 10.56,
+    "pattern_scheme": "LEGACY_ANNUAL_11D",
+    "hit_roll": "93691370028",
+    "hit_college": "369",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlVqbjRSZFkrS3dvZmpyQzNmR24wRWc9PSIsInZhbHVlIjoiRE5lc0plM09obWU0eGNiaXUzTi9WUjlGN2VjQlZ4eHVJWU9KUnZyenh0az0iLCJtYWMiOiIxNWNjMjlmYzY5ODM4OGI1OWRkYjQzMzFjY2ZmMGQxNzBkM2FkOTE3MTExMmFlMjU5NzllOTlhNGFhNzkwNjM5IiwidGFnIjoiIn0=": {
     "id": 1112,
@@ -15560,17 +15345,12 @@
     "description": "Master of Arts in Sanskrit(PVT) (MAsanskrit(PVT)) (PG) Final (Final)",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IkdzWHdlMlBOK2xuM1BreFowM1N2THc9PSIsInZhbHVlIjoiK3ZRd3liSUhLdjdWSVBmbzltRko5TU5IS2tneGRrRUpyUTQvTW9IUnpnST0iLCJtYWMiOiJmYWIwMTY1Mjc5NWU5ODJlMjkyNzJmMjZkZmVjYTlmMzBhYWY1OGUxNGQ2ZGU1N2JkYWRmOTM2NTJmODUxMDkxIiwidGFnIjoiIn0=",
     "year": "2020",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "93010750001",
-      "93010750002",
-      "93010750002",
-      "93010750003",
-      "93010750003",
-      "93010750004"
-    ],
-    "time": 12.62
+    "status": "PASS",
+    "time": 12.62,
+    "pattern_scheme": "LEGACY_ANNUAL_11D",
+    "hit_roll": "93011510001",
+    "hit_college": "301",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IlZXT3JOZVBJMHJEaXVMbVc5QUxualE9PSIsInZhbHVlIjoidkdVOWpwTkdHMFJlN05Fd2xOUFZqREJURUpUcDNRUmIzc3hINEpPaTV1MD0iLCJtYWMiOiJhZTI1YzkzZDk5OWQ5MjMyYmYxYTA3YmUzZTJjZTk5ZTc5NWIxZjQ1M2ZlYzQxMmYxMmM2YmVjNzk1OWQxY2YxIiwidGFnIjoiIn0=": {
     "id": 1135,
@@ -16047,17 +15827,12 @@
     "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) Fourth Semester (Sem - 4) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6Im0ydGlMbnNsRURDU1NYNFMzM2NjM3c9PSIsInZhbHVlIjoiRmhkTGFLUTlBLzVneUx1aTVRUnZEOGE3eHBJSS95VXg0M1c5MXozZ281dz0iLCJtYWMiOiJjZGQ4NmMxZGZmN2U2OGRhYTljY2ZjZGIzNDQzODljODM1NTUwMWIxMjZkZWNlOGVkZjJlMzNlNWFjNzFjZTVhIiwidGFnIjoiIn0=",
     "year": "2020",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "18301109001",
-      "18301109002",
-      "18301109002",
-      "18301109003",
-      "18301109003",
-      "18301109004"
-    ],
-    "time": 22.85
+    "status": "PASS",
+    "time": 22.85,
+    "pattern_scheme": "LEGACY_SEM_11D_REV",
+    "hit_roll": "33318145001",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InpZY3VndHRvalZaczJwQnJlOGtDdVE9PSIsInZhbHVlIjoiYUF1cGF0RUhUTGFSR2JnUUEwLzNhd1hGcGdIYk5NRXE0Q2JidW5OQ1JPdz0iLCJtYWMiOiI5ZWU4NTk4ZTA4NTY0M2NhYjMzMGQ5NTU2ODY0MDlhMjU0ZTRhNjdhYjY5ZTM1ODgwZDAyYjA5NmVkMGFiYzA4IiwidGFnIjoiIn0=": {
     "id": 1171,
@@ -17236,17 +17011,12 @@
     "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) Third Semester (Sem - 3) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImFiK3UwNDg5SWZnQXQyeThCVGhnZHc9PSIsInZhbHVlIjoiVDZxREFobHVJRC9OUmFjMEsvVUJHYU5kNmpLVjBjN2RIQ2lmeWVTaFRYST0iLCJtYWMiOiI3M2VmYmQzNGZjNzAxNWI4OWVlYmZmYWY3YWJiZTk3ZDEyYTllY2FlMGY2NzY1NTZkNDM4M2ZjMDE4MjU1YjFiIiwidGFnIjoiIn0=",
     "year": "2020",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "18301109001",
-      "18301109002",
-      "18301109002",
-      "18301109003",
-      "18301109003",
-      "18301109004"
-    ],
-    "time": 15.93
+    "status": "PASS",
+    "time": 15.93,
+    "pattern_scheme": "LEGACY_SEM_11D_REV",
+    "hit_roll": "33318145001",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InJ4elJoYkJ2MDRxSVl3aGhMRk0rdUE9PSIsInZhbHVlIjoiS1hEYW5pd3c3TXpaeEdtaGRsaXdXV0dhMzY1WVRsQkwveStWMjVHWDY4QT0iLCJtYWMiOiI2M2NlNDc5ZDI3ODRlOWEwYTAyNzhlMzQwYmNiNjRjZmRkMjBmMGZhMDQyNTI2ODRiYTM5ZTQxNzE4Mzc0MTE0IiwidGFnIjoiIn0=": {
     "id": 1263,
@@ -18165,17 +17935,12 @@
     "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) Second Semester (Sem - 2) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IklKRjBLRDFyNW1WV0UwSElaZCtVQmc9PSIsInZhbHVlIjoiWHJINFZNVTd0RnQ2QXREL25CZ2U0blRVaXJXZVVGbUJhYkxsWE9JM1NQQT0iLCJtYWMiOiIwMTAwMDQ2YjMyZTIzODdhMmE5MGMzYzhmZjEwZWZkZGY4YzEzYzQ4ZWI3Nzc4YzJlMmYzZGQyYjljOWQyYWM2IiwidGFnIjoiIn0=",
     "year": "2019",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "30118109001",
-      "30118109002",
-      "30118109002",
-      "30118109003",
-      "30118109003",
-      "30118109004"
-    ],
-    "time": 28.85
+    "status": "PASS",
+    "time": 28.85,
+    "pattern_scheme": "LEGACY_SEM_11D_REV",
+    "hit_roll": "33318145001",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IklzUm1kdG9MUjY3YkpUQndrV1FFaWc9PSIsInZhbHVlIjoiZmROUjVnc3ZFVjZOK2pwQXpDdXp6NnlmQ01NUkY4UmxWd3l3YlVxdFQrZz0iLCJtYWMiOiI3OTdiZTgxY2FkNGEyMjNhOWI2MTIwYmRmNzk1ZGJlOWNiNDE4M2I4Y2MwMjY2OWQwZDJhZmYwMGVmNWI1ZjI5IiwidGFnIjoiIn0=": {
     "id": 1330,
@@ -18211,17 +17976,12 @@
     "description": "B.A.Additional (B.A. Add) (UG) Second Year (2nd Year) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6ImxpNmJLc0QyRSt6TmQrbXA3Mnkxb0E9PSIsInZhbHVlIjoiY21idVdINlRNUFlCd3dCeGZDRlMwYzRwdVVJWjZEV3VBZUhMb3dCMHJ5ND0iLCJtYWMiOiI1ZTNkMTQyNjVlZTM0NWE1YmM4OWY1YjZkOTA0MzgyNjljMmU3OGZjMDRjZWUzN2VhNzA0NWQ2ZDhlYjZiMzE5IiwidGFnIjoiIn0=",
     "year": "2019",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "93010020001",
-      "93010020002",
-      "93010020002",
-      "93010020003",
-      "93010020003",
-      "93010020004"
-    ],
-    "time": 10.31
+    "status": "PASS",
+    "time": 10.31,
+    "pattern_scheme": "LEGACY_ANNUAL_11D",
+    "hit_roll": "93021610001",
+    "hit_college": "302",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IitrM3dRaTI3QkNVVUJoVEZCSHdYN2c9PSIsInZhbHVlIjoiQkxZeUtldnlLUkdVSk5OcXRyZUQvTWJ1aDFxK0hpM2hnc29rd3YzZTZidz0iLCJtYWMiOiIwZDIyYjA0ODk5OWE1Yjk0YjI2MWQzMjM1NTQ1ZTFjZDRmMDY0ODMzNDAwNTAxZTY3NWFhMjUwODkxNGRlMTQwIiwidGFnIjoiIn0=": {
     "id": 1333,
@@ -19505,17 +19265,12 @@
     "description": "M.Sc. Home Science - Textile and Clothing (M.Sc.HS-TC) (PG) First Semester (Sem - 1) REGULAR / PRIVATE",
     "link": "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6InNzKzNGa0NrWjNxbGdzS0RxNUR2K1E9PSIsInZhbHVlIjoiYzVYSG1DZHN2TEhtemNJb3dydlBUY1V5d2tqcDVrbFVlSG5uRTY2cGM1bz0iLCJtYWMiOiJmOWI1MGNlNmNmZTQxZDBjYzI3NDAyYTJlZjEzYTY1NDc2ZTRjMjQ4ZjFlNjAxNjE2YjBkZGZiNjY5ZDM4YjQ3IiwidGFnIjoiIn0=",
     "year": "2019",
-    "status": "FAIL",
-    "reason": "No marksheet hit across 20 colleges",
-    "attempted_sample_rolls": [
-      "30118109001",
-      "30118109002",
-      "30118109002",
-      "30118109003",
-      "30118109003",
-      "30118109004"
-    ],
-    "time": 44.15
+    "status": "PASS",
+    "time": 44.15,
+    "pattern_scheme": "LEGACY_SEM_11D_REV",
+    "hit_roll": "33318145001",
+    "hit_college": "333",
+    "roll_length": 11
   },
   "https://durg.ucanapply.com/result-details?tcc=eyJpdiI6IjFDVHlRZlJ2b0lYTzN0R2E1ZHFtZnc9PSIsInZhbHVlIjoiV1h5TWR0bVVZek1OTkx5VXhPSWExby9HKzZ6dFo1RUZpak9uSjF5ZUZsND0iLCJtYWMiOiI2MmJlYTZiOGJiZWQ0ZjhhM2MxMjlhNmUzMjliNTk5ZDE4MzY5NjFkNTVkZDlmZGUzMGVjNWZjYzI4Zjc0MjBlIiwidGFnIjoiIn0=": {
     "id": 1430,
