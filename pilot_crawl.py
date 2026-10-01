@@ -279,11 +279,67 @@ async def run_pilot_crawl(exam_id: int, num_colleges: int = 5, concurrency: int 
             print(f"  ... and {len(all_scraped_samples) - 10} more records.")
     print("")
 
+async def crawl_all_exams(concurrency: int = 12):
+    """Iterates through all uncrawled relevant regular/private exams and crawls all colleges for each."""
+    from src.services.html_parser import is_strictly_regular_or_private, is_relevant_exam
+    
+    conn = get_local_db()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT id, description, link, publication_date, year, source
+        FROM exam_catalog
+        WHERE (is_crawled IS NOT 1 OR is_crawled IS NULL)
+        ORDER BY 
+            CASE 
+                WHEN description LIKE '%REGULAR%' THEN 0 
+                WHEN description LIKE '%SUPPLY%' OR description LIKE '%ATKT%' THEN 1 
+                ELSE 2 
+            END ASC,
+            CASE WHEN year IS NULL THEN 1 ELSE 0 END, 
+            year DESC, 
+            id DESC
+    """)
+    rows = cur.fetchall()
+    conn.close()
+    
+    batches = [r for r in rows if is_strictly_regular_or_private(r[1], r[5]) and is_relevant_exam(r[1], r[5])]
+    print("\n" + "="*70)
+    print("  HYU CONTINUOUS AUTO-CRAWLER (ALL EXAMS)")
+    print("="*70)
+    print(f"  Pending Relevant Batches : {len(batches):,}")
+    print(f"  Target Database          : {LOCAL_DB_PATH}")
+    print(f"  Concurrency              : {concurrency} workers")
+    print("="*70 + "\n")
+    
+    if not batches:
+        print("[+] All relevant exams are already fully crawled!")
+        return
+        
+    for idx, b in enumerate(batches, 1):
+        print(f"\n>>> [{idx}/{len(batches)}] Next Batch: ID {b[0]} - {b[1]} ({b[4]}, {b[5].upper()})")
+        try:
+            await run_pilot_crawl(b[0], num_colleges=-1, concurrency=concurrency)
+        except Exception as e:
+            print(f"[-] Error crawling exam {b[0]}: {e}. Continuing to next exam...")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="HYU Pilot Crawler (Local SQLite)")
+    parser.add_argument("--all", action="store_true", help="Crawl ALL pending uncrawled exams across all colleges continuously")
     parser.add_argument("--exam_id", type=int, default=1168, help="Exam ID from catalog (default: 1168 - B.A. 1st Year Annual 2024)")
-    parser.add_argument("--colleges", type=int, default=5, help="Number of colleges to crawl (default: 5, use -1 or 84 for all)")
+    parser.add_argument("--colleges", type=str, default="5", help="Number of colleges to crawl (e.g. 5, 10, or 'all' / '-1' for all 84 colleges)")
     parser.add_argument("--concurrency", type=int, default=12, help="Concurrency level (default: 12)")
     args = parser.parse_args()
     
-    asyncio.run(run_pilot_crawl(args.exam_id, args.colleges, args.concurrency))
+    # Parse colleges argument
+    if str(args.colleges).lower() in ["all", "-1"]:
+        colleges_count = -1
+    else:
+        try:
+            colleges_count = int(args.colleges)
+        except ValueError:
+            colleges_count = 5
+            
+    if args.all:
+        asyncio.run(crawl_all_exams(args.concurrency))
+    else:
+        asyncio.run(run_pilot_crawl(args.exam_id, colleges_count, args.concurrency))
